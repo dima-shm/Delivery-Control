@@ -17,8 +17,6 @@ import com.shm.dim.delcontrol.fragment.FragmentOrders;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
-
     private ViewPager mViewPager;
 
     private TabLayout mTabLayout;
@@ -32,14 +30,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
-        initToolbar();
         initViewPager();
         initTabLayout();
-    }
-
-    private void initToolbar() {
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
     }
 
     private void initViewPager() {
@@ -56,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initTabLayout() {
-        TabLayout mTabLayout = findViewById(R.id.tabs);
+        mTabLayout = findViewById(R.id.tabs);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
