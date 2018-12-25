@@ -3,11 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -23,14 +22,12 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:paddingTop="@dimen/viewpager_padding_top">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/container"
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
@@ -41,22 +38,22 @@
         android:layout_gravity="end|bottom">
 
         <android.support.design.widget.TabItem
-            android:id="@+id/tabItem"
+            android:id="@+id/tab_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_text_1" />
+            android:text="@string/map" />
 
         <android.support.design.widget.TabItem
-            android:id="@+id/tabItem2"
+            android:id="@+id/tab_orders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_text_2" />
+            android:text="@string/orders" />
 
         <android.support.design.widget.TabItem
-            android:id="@+id/tabItem3"
+            android:id="@+id/tab_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_text_3" />
+            android:text="@string/chat" />
 
     </android.support.design.widget.TabLayout>
 
