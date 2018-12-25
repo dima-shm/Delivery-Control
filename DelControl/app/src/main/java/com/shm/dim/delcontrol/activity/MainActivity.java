@@ -1,21 +1,12 @@
 package com.shm.dim.delcontrol.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
@@ -26,28 +17,48 @@ import com.shm.dim.delcontrol.fragment.FragmentOrders;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Toolbar mToolbar;
+
+    private ViewPager mViewPager;
+
+    private TabLayout mTabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initComponents();
+    }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    private void initComponents() {
+        initToolbar();
+        initViewPager();
+        initTabLayout();
+    }
 
+    private void initToolbar() {
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+    }
 
-        ViewPager mViewPager = findViewById(R.id.pager);
+    private void initViewPager() {
+        mViewPager = findViewById(R.id.pager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        // Add Fragments to adapter one by one
+        initViewPagerAdapter(adapter);
+        mViewPager.setAdapter(adapter);
+    }
+
+    private void initViewPagerAdapter(ViewPagerAdapter adapter ) {
         adapter.addFragment(new FragmentMap());
         adapter.addFragment(new FragmentOrders());
         adapter.addFragment(new FragmentChat());
-        mViewPager.setAdapter(adapter);
+    }
 
-
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+    private void initTabLayout() {
+        TabLayout mTabLayout = findViewById(R.id.tabs);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 
     @Override
