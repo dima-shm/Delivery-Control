@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout = findViewById(R.id.tabs);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        mTabLayout.getTabAt(1).select();
     }
 
     @Override
