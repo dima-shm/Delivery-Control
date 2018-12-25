@@ -3,12 +3,9 @@ package com.shm.dim.delcontrol.activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
@@ -32,12 +29,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
-        setLogoInActionBar();
+        editActionBar();
         initViewPager();
         initTabLayout();
     }
 
-    private void setLogoInActionBar() {
+    private void editActionBar() {
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
