@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DelControl</string>
+    <string name="tab_text_1">Карта</string>
+    <string name="tab_text_2">Список заказов</string>
+    <string name="tab_text_3">Чат</string>
+    <string name="action_change_account">Сменить аккаунт</string>
+    <string name="section_format">Окно %1$d</string>
+</resources>
