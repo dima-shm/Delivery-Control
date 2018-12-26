@@ -6,9 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.adapter.ViewPagerAdapter;
@@ -96,23 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setOnTabIconColor(TabLayout.Tab tab, int color) {
         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_change_account) {
-            Toast.makeText(this, "Выход из акаунтта и переход к окну входа/регистрации",
-                    Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }
