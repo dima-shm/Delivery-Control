@@ -4,4 +4,5 @@
     <string name="orders">Заказы</string>
     <string name="chat">Чат</string>
     <string name="change_account">Сменить аккаунт</string>
+    <string name="google_maps_key">AIzaSyBlHNvzhC5Qhu0FqWbD03QDVBGUkgF7_UE</string>
 </resources>
