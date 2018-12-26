@@ -69,14 +69,15 @@ public class MainActivity extends AppCompatActivity {
     private void initMainTab(int index, int color) {
         TabLayout.Tab tab = mTabLayout.getTabAt(index);
         tab.select();
-        setOnTabIconColor(tab, color);
+        setColorOnTabIcon(tab, color);
     }
 
     private void setOnTabSelectedListener() {
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                setOnTabIconColor(tab, SELECTED_TAB_ICON_COLOR);
+                setColorOnTabIcon(tab, SELECTED_TAB_ICON_COLOR);
             }
 
             @Override
@@ -86,12 +87,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
+            public void onTabReselected(TabLayout.Tab tab) { }
+
         });
     }
 
-    private void setOnTabIconColor(TabLayout.Tab tab, int color) {
+    private void setColorOnTabIcon(TabLayout.Tab tab, int color) {
         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 

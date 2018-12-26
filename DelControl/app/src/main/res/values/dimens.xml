@@ -1,3 +1,8 @@
 <resources>
     <dimen name="tab_layout_height">48dp</dimen>
+    <dimen name="message_input_field_max_height">96dp</dimen>
+    <dimen name="message_input_field_min_height">48dp</dimen>
+    <dimen name="button_send_height">48dp</dimen>
+    <dimen name="button_send_width">48dp</dimen>
+    <dimen name="button_send_padding">8dp</dimen>
 </resources>

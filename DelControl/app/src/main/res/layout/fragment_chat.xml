@@ -2,16 +2,51 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-    android:layout_height="match_parent">
+    android:paddingBottom="@dimen/tab_layout_height">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:scrollbars="none"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/chat"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:layout_centerInParent="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary" >
+
+        <EditText
+            android:id="@+id/message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/message_input_field_min_height"
+            android:maxHeight="@dimen/message_input_field_max_height"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:ems="10"
+            android:backgroundTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"/>
+
+        <ImageButton
+            android:id="@+id/send_button"
+            android:layout_width="@dimen/button_send_width"
+            android:layout_height="@dimen/button_send_height"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/button_send_padding"
+            android:background="@color/colorPrimary"
+            android:tint="@color/colorPrimaryDark"
+            android:src="@drawable/send"
+            android:contentDescription="@null"
+            android:clickable="false"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
