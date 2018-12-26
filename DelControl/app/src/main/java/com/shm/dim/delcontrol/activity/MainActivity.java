@@ -14,6 +14,7 @@ import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.adapter.ViewPagerAdapter;
 import com.shm.dim.delcontrol.fragment.FragmentChat;
 import com.shm.dim.delcontrol.fragment.FragmentMap;
+import com.shm.dim.delcontrol.fragment.FragmentMenu;
 import com.shm.dim.delcontrol.fragment.FragmentOrders;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,13 +25,13 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
 
-    private int SELECTED_TAB_COLOR;
+    private int SELECTED_TAB_ICON_COLOR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SELECTED_TAB_COLOR = MainActivity.this.getColor(R.color.colorPrimaryDark);
+        SELECTED_TAB_ICON_COLOR = MainActivity.this.getColor(R.color.colorPrimaryDark);
         initComponents();
     }
 
@@ -57,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new FragmentMap());
         adapter.addFragment(new FragmentOrders());
         adapter.addFragment(new FragmentChat());
+        adapter.addFragment(new FragmentMenu());
     }
 
     private void initTabLayout() {
         mTabLayout = findViewById(R.id.tabs);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-        initMainTab(1, SELECTED_TAB_COLOR);
+        initMainTab(1, SELECTED_TAB_ICON_COLOR);
         setOnTabSelectedListener();
     }
 
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                setOnTabIconColor(tab, SELECTED_TAB_COLOR);
+                setOnTabIconColor(tab, SELECTED_TAB_ICON_COLOR);
             }
 
             @Override
