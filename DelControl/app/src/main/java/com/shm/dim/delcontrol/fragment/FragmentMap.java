@@ -39,11 +39,23 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+        initComponents(view, savedInstanceState);
+        return view;
+    }
+
+    private void initComponents(View view, Bundle savedInstanceState) {
+        initMapView(view, savedInstanceState);
+        initGeocoder(view);
+    }
+
+    private void initMapView(View view, Bundle savedInstanceState) {
         mMapView = view.findViewById(R.id.map_view);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
+    }
+
+    private void initGeocoder(View view) {
         mGeocoder = new Geocoder(view.getContext());
-        return view;
     }
 
     @Override
