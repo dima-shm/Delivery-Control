@@ -17,6 +17,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         if(!hasConnection(context)) {
             AlertDialog alertDialog
                     = createAlertDialog(context,
+                    R.drawable.no_internet_connection,
                     context.getResources().getString(R.string.check_internet_connection),
                     context.getResources().getString(R.string.an_internet_connection_is_required));
             alertDialog.setCancelable(false);
@@ -30,16 +31,16 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         return (netInfo != null && netInfo.isConnectedOrConnecting());
     }
 
-    private AlertDialog createAlertDialog(final Context context,final String title,
-                                          final String message) {
+    private AlertDialog createAlertDialog(final Context context, final int icon,
+                                          final String title, final String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title).setMessage(message).setPositiveButton("Ok",
+        builder.setIcon(icon).setTitle(title).setMessage(message).setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which){
                         if(!hasConnection(context)) {
                             AlertDialog alertDialog
-                                    = createAlertDialog(context, title, message);
+                                    = createAlertDialog(context, icon, title, message);
                             alertDialog.setCancelable(false);
                             alertDialog.show();
                         }
