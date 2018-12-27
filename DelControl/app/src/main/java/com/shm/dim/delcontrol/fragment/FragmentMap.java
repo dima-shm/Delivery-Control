@@ -15,6 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shm.dim.delcontrol.R;
+import com.shm.dim.delcontrol.receiver.NetworkChangeReceiver;
 
 import java.io.IOException;
 import java.util.List;
@@ -60,11 +61,13 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        String address = "Минск";
-        LatLng latLng = getLatLngByAddress(address);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.addMarker(new MarkerOptions().position(latLng).title(address));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, CAMERA_ZOOM));
+        if(NetworkChangeReceiver.hasConnection(getContext())) {
+            String address = "Минск";
+            LatLng latLng = getLatLngByAddress(address);
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
+            googleMap.addMarker(new MarkerOptions().position(latLng).title(address));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, CAMERA_ZOOM));
+        }
     }
 
     @Override
@@ -77,12 +80,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     public void onPause() {
         super.onPause();
         mMapView.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mMapView.onDestroy();
     }
 
     public LatLng getLatLngByAddress(String locationName) {

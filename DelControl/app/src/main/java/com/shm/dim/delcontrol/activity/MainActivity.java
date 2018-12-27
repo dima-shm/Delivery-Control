@@ -1,6 +1,8 @@
 package com.shm.dim.delcontrol.activity;
 
+import android.content.IntentFilter;
 import android.graphics.PorterDuff;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -13,6 +15,7 @@ import com.shm.dim.delcontrol.fragment.FragmentChat;
 import com.shm.dim.delcontrol.fragment.FragmentMap;
 import com.shm.dim.delcontrol.fragment.FragmentMenu;
 import com.shm.dim.delcontrol.fragment.FragmentOrders;
+import com.shm.dim.delcontrol.receiver.NetworkChangeReceiver;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,12 +27,27 @@ public class MainActivity extends AppCompatActivity {
 
     private int SELECTED_TAB_ICON_COLOR;
 
+    private NetworkChangeReceiver mNetworkReceiver = new NetworkChangeReceiver();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SELECTED_TAB_ICON_COLOR = MainActivity.this.getColor(R.color.colorAccent);
         initComponents();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mNetworkReceiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mNetworkReceiver);
     }
 
     private void initComponents() {
