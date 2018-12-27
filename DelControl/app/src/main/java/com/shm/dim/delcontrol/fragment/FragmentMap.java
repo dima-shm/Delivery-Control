@@ -1,5 +1,7 @@
 package com.shm.dim.delcontrol.fragment;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,9 +16,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shm.dim.delcontrol.R;
 
+import java.io.IOException;
+import java.util.List;
+
 public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     private MapView mMapView;
+
+    private Geocoder mGeocoder;
 
     private final float CAMERA_ZOOM = 11.5f;
 
@@ -35,14 +42,16 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         mMapView = view.findViewById(R.id.map_view);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
+        mGeocoder = new Geocoder(view.getContext());
         return view;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng latLng = new LatLng(53.901547, 27.553763);
+        String address = "Минск";
+        LatLng latLng = getLatLngByAddress(address);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.addMarker(new MarkerOptions().position(latLng));
+        googleMap.addMarker(new MarkerOptions().position(latLng).title(address));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, CAMERA_ZOOM));
     }
 
@@ -62,6 +71,21 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     public void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
+    }
+
+    public LatLng getLatLngByAddress(String locationName) {
+        Address address = getAddress(locationName);
+        return new LatLng(address.getLatitude(), address.getLongitude());
+    }
+
+    private Address getAddress(String locationName) {
+        List<Address> addressList = null;
+        try {
+            addressList  = mGeocoder.getFromLocationName(locationName, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return addressList.get(0);
     }
 
 }
