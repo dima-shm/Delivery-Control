@@ -47,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
     private void initViewPager() {
         mViewPager = findViewById(R.id.pager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        initViewPagerAdapter(adapter);
+        addFragmentsToAdapter(adapter);
         mViewPager.setAdapter(adapter);
     }
 
-    private void initViewPagerAdapter(ViewPagerAdapter adapter ) {
+    private void addFragmentsToAdapter(ViewPagerAdapter adapter ) {
         adapter.addFragment(new FragmentMap());
         adapter.addFragment(new FragmentOrders());
         adapter.addFragment(new FragmentChat());
