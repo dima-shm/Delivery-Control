@@ -21,9 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_layout_height"
         android:layout_gravity="end|bottom"
-        android:background="@color/colorPrimaryDark"
-        app:tabIconTint="@color/colorAccent"
-        app:tabIndicatorHeight="@dimen/tab_layout_height">
+        android:background="@color/colorWhite"
+        app:tabIconTint="@color/colorPrimaryDark">
 
         <android.support.design.widget.TabItem
             android:id="@+id/tab_map"

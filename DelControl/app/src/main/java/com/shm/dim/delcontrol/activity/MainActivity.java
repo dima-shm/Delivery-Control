@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SELECTED_TAB_ICON_COLOR = MainActivity.this.getColor(R.color.colorPrimaryDark);
+        SELECTED_TAB_ICON_COLOR = MainActivity.this.getColor(R.color.colorAccent);
         initComponents();
     }
 
