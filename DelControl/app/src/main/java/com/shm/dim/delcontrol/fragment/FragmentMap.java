@@ -28,14 +28,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     private final float CAMERA_ZOOM = 11.5f;
 
-    public FragmentMap() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

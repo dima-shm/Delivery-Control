@@ -3,6 +3,16 @@
     <string name="check_internet_connection">Проверьте подключение к интернету</string>
     <string name="an_internet_connection_is_required">Для нормальной работы приложения требуется интернет соединение.</string>
     <string name="orders">Заказы</string>
-    <string name="menu">Меню</string>
     <string name="google_maps_key">AIzaSyBlHNvzhC5Qhu0FqWbD03QDVBGUkgF7_UE</string>
+    <string name="status">Статус:</string>
+    <string-array name="courier_status">
+        <item>Свободен: ожидаю заказ</item>
+        <item>Занят: еду к клиенту</item>
+        <item>Занят: на обеде</item>
+    </string-array>
+    <string-array name="menu_names">
+        <item>Изменить цвет маркера</item>
+        <item>Редактировать аккаунт</item>
+        <item>Выход из аккаунта</item>
+    </string-array>
 </resources>

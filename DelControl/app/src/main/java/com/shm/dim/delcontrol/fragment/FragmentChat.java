@@ -23,14 +23,6 @@ public class FragmentChat extends Fragment {
 
     private boolean mIsButtonClickable;
 
-    public FragmentChat() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

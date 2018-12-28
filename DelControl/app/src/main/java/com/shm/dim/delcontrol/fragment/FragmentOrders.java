@@ -10,14 +10,6 @@ import com.shm.dim.delcontrol.R;
 
 public class FragmentOrders extends Fragment {
 
-    public FragmentOrders() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

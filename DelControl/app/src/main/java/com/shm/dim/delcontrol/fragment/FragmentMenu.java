@@ -5,23 +5,62 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
+import com.shm.dim.delcontrol.adapter.MenuListAdapter;
 
 public class FragmentMenu extends Fragment {
 
-    public FragmentMenu() {
-    }
+    private ListView mMenuItemsList;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private String[] menuItemNames;
+
+    private Integer[] mMenuItemImageIds;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu, container, false);
+        initComponents(view);
+        return view;
+    }
+
+    private void initComponents(View view) {
+        initMenuItemArrays();
+        initMenuItemsList(view);
+        setMenuListAdapter(view);
+        setMenuItemsListClickListener();
+    }
+
+    private void initMenuItemArrays() {
+        menuItemNames = getResources().getStringArray(R.array.menu_names);
+        mMenuItemImageIds = new Integer[] {
+                R.drawable.change_marker_color,
+                R.drawable.edit_account,
+                R.drawable.log_out_of_account
+        };
+    }
+
+    private void initMenuItemsList(View view) {
+        mMenuItemsList = view.findViewById(R.id.menu_items_list);
+    }
+
+    private void setMenuListAdapter(View view) {
+        MenuListAdapter adapter = new MenuListAdapter(view.getContext(), menuItemNames, mMenuItemImageIds);
+        mMenuItemsList.setAdapter(adapter);
+    }
+
+    private void setMenuItemsListClickListener() {
+        mMenuItemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemName = menuItemNames[position];
+                Toast.makeText(view.getContext(), selectedItemName, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

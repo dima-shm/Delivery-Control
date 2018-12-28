@@ -5,4 +5,6 @@
     <dimen name="button_send_height">48dp</dimen>
     <dimen name="button_send_width">48dp</dimen>
     <dimen name="button_send_padding">8dp</dimen>
+    <dimen name="menu_height">48dp</dimen>
+    <dimen name="courier_status_text_size">16dp</dimen>
 </resources>
