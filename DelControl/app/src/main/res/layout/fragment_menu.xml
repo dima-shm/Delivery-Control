@@ -18,7 +18,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:src="@mipmap/ic_launcher_foreground"/>
+            android:padding="45dp"
+            android:src="@drawable/logo"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,31 +32,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/courier_status_border"
                 android:padding="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="@dimen/courier_status_field_min_height"
                     android:textStyle="bold"
                     android:textSize="@dimen/courier_status_text_size"
                     android:textColor="@color/colorAccent"
-                    android:gravity="start"
+                    android:gravity="start|center_vertical"
                     android:text="@string/status"/>
 
                 <android.support.design.widget.CoordinatorLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
-                    <Spinner
-                        android:id="@+id/courier_status"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|end"
-                        android:theme="@style/Spinner"
-                        android:spinnerMode="dialog"
-                        android:entries="@array/courier_status" >
-                    </Spinner>
+                        android:background="@drawable/courier_status_border">
+
+                        <Spinner
+                            android:id="@+id/courier_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/courier_status_field_min_height"
+                            android:theme="@style/Spinner"
+                            android:spinnerMode="dialog"
+                            android:entries="@array/courier_status" >
+                        </Spinner>
+
+                    </RelativeLayout>
 
                 </android.support.design.widget.CoordinatorLayout>
 

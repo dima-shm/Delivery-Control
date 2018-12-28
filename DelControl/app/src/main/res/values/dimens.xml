@@ -7,4 +7,5 @@
     <dimen name="button_send_padding">8dp</dimen>
     <dimen name="menu_height">48dp</dimen>
     <dimen name="courier_status_text_size">16dp</dimen>
+    <dimen name="courier_status_field_min_height">32dp</dimen>
 </resources>
