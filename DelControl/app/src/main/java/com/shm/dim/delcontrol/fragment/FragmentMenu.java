@@ -78,7 +78,6 @@ public class FragmentMenu extends Fragment {
             public void onItemSelected(AdapterView<?> arg0, View view, int position, long id) {
                 String[] courierStatus = getResources().getStringArray(R.array.courier_status);
                 String statusName = courierStatus[position];
-                Toast.makeText(view.getContext(), statusName, Toast.LENGTH_SHORT).show();
             }
 
             @Override
