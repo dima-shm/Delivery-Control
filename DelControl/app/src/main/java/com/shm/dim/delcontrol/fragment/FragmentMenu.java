@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
@@ -15,6 +16,8 @@ import com.shm.dim.delcontrol.adapter.MenuListAdapter;
 public class FragmentMenu extends Fragment {
 
     private ListView mMenuItemsList;
+
+    private Spinner mCourierStatus;
 
     private String[] menuItemNames;
 
@@ -33,6 +36,8 @@ public class FragmentMenu extends Fragment {
         initMenuItemsList(view);
         setMenuListAdapter(view);
         setMenuItemsListClickListener();
+        initCourierStatus(view);
+        setCourierStatusSelectedListener();
     }
 
     private void initMenuItemArrays() {
@@ -60,6 +65,24 @@ public class FragmentMenu extends Fragment {
                 String selectedItemName = menuItemNames[position];
                 Toast.makeText(view.getContext(), selectedItemName, Toast.LENGTH_SHORT).show();
             }
+        });
+    }
+
+    private void initCourierStatus(View view) {
+        mCourierStatus = view.findViewById(R.id.courier_status);
+    }
+
+    private void setCourierStatusSelectedListener() {
+        mCourierStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View view, int position, long id) {
+                String[] courierStatus = getResources().getStringArray(R.array.courier_status);
+                String statusName = courierStatus[position];
+                Toast.makeText(view.getContext(), statusName, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
     }
 
