@@ -34,39 +34,75 @@
                 android:orientation="horizontal"
                 android:padding="5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/courier_status_field_min_height"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/courier_status_text_size"
-                    android:textColor="@color/colorAccent"
-                    android:gravity="start|center_vertical"
-                    android:text="@string/status"/>
+                <ImageView
+                    android:layout_width="@dimen/menu_height"
+                    android:layout_height="@dimen/menu_height"
+                    android:padding="8dp"
+                    android:src="@drawable/courier_status"/>
 
-                <android.support.design.widget.CoordinatorLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical">
 
-                    <RelativeLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|end"
-                        android:background="@drawable/courier_status_border">
+                        android:minHeight="@dimen/courier_status_field_min_height"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/status"/>
 
-                        <Spinner
-                            android:id="@+id/courier_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:minHeight="@dimen/courier_status_field_min_height"
-                            android:theme="@style/Spinner"
-                            android:spinnerMode="dialog"
-                            android:entries="@array/courier_status" >
-                        </Spinner>
+                    <Spinner
+                        android:id="@+id/courier_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/courier_status_field_min_height"
+                        android:theme="@style/Spinner"
+                        android:gravity="end"
+                        android:textAlignment="center"
+                        android:spinnerMode="dialog"
+                        android:entries="@array/courier_status" >
+                    </Spinner>
 
-                    </RelativeLayout>
+                </LinearLayout>
 
-                </android.support.design.widget.CoordinatorLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="@dimen/menu_height"
+                    android:layout_height="@dimen/menu_height"
+                    android:padding="8dp"
+                    android:src="@drawable/location_tracking"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/courier_status_field_min_height"
+                        android:textColor="@color/colorPrimary"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/location_tracking"/>
+
+                    <Switch
+                        android:id="@+id/switch_location_tracking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

@@ -12,7 +12,6 @@
     </style>
 
     <style name="Spinner" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
-        <item name="android:textSize">@dimen/courier_status_text_size</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:backgroundTint">@color/colorWhite</item>
     </style>
