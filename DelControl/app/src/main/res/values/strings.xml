@@ -5,16 +5,16 @@
     <string name="orders">Заказы</string>
     <string name="google_maps_key">AIzaSyBlHNvzhC5Qhu0FqWbD03QDVBGUkgF7_UE</string>
     <string name="status">Статус:</string>
-    <string name="location_tracking">Отслеживание местоположения</string>
     <string-array name="courier_status">
         <item>Свободен: ожидаю заказ</item>
         <item>Занят: еду к клиенту</item>
         <item>Занят: на обеде</item>
         <item>Завершил работу</item>
     </string-array>
+    <string name="location_tracking">Отслеживание местоположения</string>
     <string-array name="menu_names">
-        <item>Изменить цвет маркера</item>
         <item>Редактировать аккаунт</item>
         <item>Выход из аккаунта</item>
+        <item>О приложении</item>
     </string-array>
 </resources>

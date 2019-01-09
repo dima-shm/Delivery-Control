@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_color"
+    android:background="@drawable/application_background"
     android:paddingBottom="@dimen/tab_layout_height">
 
     <LinearLayout
@@ -16,7 +16,7 @@
             android:id="@+id/menu_header_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:gravity="center"
             android:padding="45dp"
             android:src="@drawable/logo"/>
@@ -28,6 +28,12 @@
             android:orientation="vertical"
             android:padding="15dp">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimaryLight"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,8 +41,8 @@
                 android:padding="5dp">
 
                 <ImageView
-                    android:layout_width="@dimen/menu_height"
-                    android:layout_height="@dimen/menu_height"
+                    android:layout_width="@dimen/menu_item_height"
+                    android:layout_height="@dimen/menu_item_height"
                     android:padding="8dp"
                     android:src="@drawable/courier_status"/>
 
@@ -50,21 +56,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/courier_status_field_min_height"
                         android:textColor="@color/colorPrimary"
                         android:text="@string/status"/>
 
                     <Spinner
                         android:id="@+id/courier_status"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/courier_status_field_min_height"
                         android:theme="@style/Spinner"
-                        android:gravity="end"
-                        android:textAlignment="center"
-                        android:spinnerMode="dialog"
-                        android:entries="@array/courier_status" >
-                    </Spinner>
+                        android:background="#0000"
+                        android:textAlignment="viewEnd"
+                        android:entries="@array/courier_status" />
 
                 </LinearLayout>
 
@@ -77,8 +79,8 @@
                 android:padding="5dp">
 
                 <ImageView
-                    android:layout_width="@dimen/menu_height"
-                    android:layout_height="@dimen/menu_height"
+                    android:layout_width="@dimen/menu_item_height"
+                    android:layout_height="@dimen/menu_item_height"
                     android:padding="8dp"
                     android:src="@drawable/location_tracking"/>
 
@@ -92,7 +94,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minHeight="@dimen/courier_status_field_min_height"
                         android:textColor="@color/colorPrimary"
                         android:gravity="start|center_vertical"
                         android:text="@string/location_tracking"/>
@@ -106,19 +107,19 @@
 
             </LinearLayout>
 
-            <android.support.design.widget.CoordinatorLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimaryLight"/>
 
-                <ListView
-                    android:id="@+id/menu_items_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:dividerHeight="10.0sp"
-                    android:divider="@null"/>
-
-            </android.support.design.widget.CoordinatorLayout>
+            <ListView
+                android:id="@+id/menu_items_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:dividerHeight="10.0sp"
+                android:divider="@null"/>
 
     </LinearLayout>
 

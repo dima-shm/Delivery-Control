@@ -43,9 +43,9 @@ public class FragmentMenu extends Fragment {
     private void initMenuItemArrays() {
         menuItemNames = getResources().getStringArray(R.array.menu_names);
         mMenuItemImageIds = new Integer[] {
-                R.drawable.change_marker_color,
                 R.drawable.edit_account,
-                R.drawable.log_out_of_account
+                R.drawable.log_out_of_account,
+                R.drawable.about_application
         };
     }
 
