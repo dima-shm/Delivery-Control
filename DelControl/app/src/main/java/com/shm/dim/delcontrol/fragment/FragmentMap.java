@@ -29,11 +29,24 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     private final float CAMERA_ZOOM = 11.5f;
 
     @Override
+    public void setUserVisibleHint(boolean visible) {
+        super.setUserVisibleHint(visible);
+        if (visible) {
+            onResume();
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
-        initComponents(view, savedInstanceState);
-        return view;
+        return inflater.inflate(R.layout.fragment_map, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initComponents(getView(), getArguments());
+        mMapView.onResume();
     }
 
     private void initComponents(View view, Bundle savedInstanceState) {
@@ -53,7 +66,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        if(NetworkChangeReceiver.isInternetAvailable(getContext())) {
+        if(isInternetAvailable()) {
             String address = "Минск";
             LatLng latLng = getLatLngByAddress(address);
             googleMap.getUiSettings().setZoomControlsEnabled(true);
@@ -62,10 +75,8 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mMapView.onResume();
+    private boolean isInternetAvailable() {
+        return NetworkChangeReceiver.isInternetAvailable(getContext());
     }
 
     @Override
