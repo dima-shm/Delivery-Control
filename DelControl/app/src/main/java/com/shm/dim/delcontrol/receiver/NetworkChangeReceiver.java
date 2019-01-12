@@ -20,15 +20,14 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                     R.drawable.no_internet_connection,
                     context.getResources().getString(R.string.check_internet_connection),
                     context.getResources().getString(R.string.an_internet_connection_is_required));
-            alertDialog.setCancelable(false);
             alertDialog.show();
         }
     }
 
     public static boolean isInternetAvailable(final Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return (cm.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED ||
-                cm.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTING);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return (netInfo != null && netInfo.isConnectedOrConnecting());
     }
 
     private AlertDialog createAlertDialog(final Context context, final int icon,
