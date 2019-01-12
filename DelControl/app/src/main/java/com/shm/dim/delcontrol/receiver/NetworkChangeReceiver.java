@@ -14,7 +14,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        if(!hasConnection(context)) {
+        if(!isInternetAvailable(context)) {
             AlertDialog alertDialog
                     = createAlertDialog(context,
                     R.drawable.no_internet_connection,
@@ -25,29 +25,33 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         }
     }
 
-    public static boolean hasConnection(final Context context) {
+    public static boolean isInternetAvailable(final Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return (netInfo != null && netInfo.isConnectedOrConnecting());
+        return (cm.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED ||
+                cm.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTING);
     }
 
     private AlertDialog createAlertDialog(final Context context, final int icon,
                                           final String title, final String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setIcon(icon).setTitle(title).setMessage(message).setPositiveButton("Ok",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which){
-                        if(!hasConnection(context)) {
-                            AlertDialog alertDialog
-                                    = createAlertDialog(context, icon, title, message);
-                            alertDialog.setCancelable(false);
-                            alertDialog.show();
-                        }
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        return alertDialog;
+        builder.setIcon(icon)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Ok", getDialogButtonClickListener(context, builder));
+        return builder.create();
+    }
+
+    private DialogInterface.OnClickListener getDialogButtonClickListener(final Context context,
+                                                                         final AlertDialog.Builder builder) {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (!isInternetAvailable(context)) {
+                    builder.show();
+                }
+            }
+        };
     }
 
 }

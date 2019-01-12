@@ -53,7 +53,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        if(NetworkChangeReceiver.hasConnection(getContext())) {
+        if(NetworkChangeReceiver.isInternetAvailable(getContext())) {
             String address = "Минск";
             LatLng latLng = getLatLngByAddress(address);
             googleMap.getUiSettings().setZoomControlsEnabled(true);
