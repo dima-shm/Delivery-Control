@@ -30,26 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     private int SELECTED_TAB_ICON_COLOR;
 
+    private final int REQUEST_PERMISSION_CODE = 100;
+
     private NetworkChangeReceiver mNetworkReceiver = new NetworkChangeReceiver();
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == 100){
-            if(grantResults[0] != PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] != PackageManager.PERMISSION_GRANTED){
-                enablePermissions();
-            }
-        }
-    }
-
-    public void enablePermissions() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +40,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SELECTED_TAB_ICON_COLOR = MainActivity.this.getColor(R.color.colorAccent);
         initComponents();
-        enablePermissions();
+        checkPermissions();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == REQUEST_PERMISSION_CODE) {
+            if(grantResults[0] != PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] != PackageManager.PERMISSION_GRANTED) {
+                checkPermissions();
+            }
+        }
+    }
+
+    public void checkPermissions() {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_CODE);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        registerNetworkReceiver();
+    }
+
+    private void registerNetworkReceiver() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(mNetworkReceiver, filter);
     }

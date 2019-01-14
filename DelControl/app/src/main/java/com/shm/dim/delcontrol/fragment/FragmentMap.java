@@ -1,9 +1,11 @@
 package com.shm.dim.delcontrol.fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -23,7 +25,9 @@ import com.shm.dim.delcontrol.receiver.NetworkChangeReceiver;
 
 import java.io.IOException;
 
-public class FragmentMap extends Fragment implements OnMapReadyCallback {
+public class FragmentMap
+        extends Fragment
+        implements OnMapReadyCallback {
 
     private Geocoder mGeocoder;
 
@@ -31,7 +35,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    private final float CAMERA_ZOOM = 11.5f;
+    private final float DEFAULT_CAMERA_ZOOM = 11.5f;
+
+    private final float USER_CAMERA_ZOOM = 14f;
 
     private FloatingActionButton mFindUserLocation;
 
@@ -75,9 +81,12 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     private void setButtonOnClickListeners() {
         mFindUserLocation.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View v) {
-
+                Location userLocation = mMap.getMyLocation();
+                LatLng userPosition = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPosition, USER_CAMERA_ZOOM));
             }
         });
         mUpdateMarkers.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +124,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     private void setDefaultCameraPosition() {
         LatLng defaultPosition = new LatLng(53.904539799999995,27.5615244);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, CAMERA_ZOOM));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultPosition, DEFAULT_CAMERA_ZOOM));
     }
 
     private boolean isInternetAvailable() {
