@@ -1,14 +1,11 @@
 package com.shm.dim.delcontrol.fragment;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +34,7 @@ public class FragmentMap
 
     private final float DEFAULT_CAMERA_ZOOM = 11.5f;
 
-    private final float USER_CAMERA_ZOOM = 14f;
+    private final float USER_CAMERA_ZOOM = 15f;
 
     private FloatingActionButton mFindUserLocation;
 
@@ -105,12 +102,10 @@ public class FragmentMap
         setDefaultCameraPosition();
     }
 
+    @SuppressLint("MissingPermission")
     private void configureMap() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        }
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
     }
 
     private void setMarkersOnMap() {

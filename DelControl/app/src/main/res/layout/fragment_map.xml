@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
                 android:elevation="2dp"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 android:layout_above="@id/update_markers"
                 android:src="@drawable/find_location"/>
 
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
                 android:elevation="2dp"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 android:layout_alignParentBottom="true"
                 android:src="@drawable/update_markers"/>
 
