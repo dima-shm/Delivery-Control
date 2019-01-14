@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
@@ -18,6 +19,8 @@ public class FragmentMenu extends Fragment {
     private ListView mMenuItemsList;
 
     private Spinner mCourierStatus;
+
+    private Switch mLocationTracking;
 
     private String[] menuItemNames;
 
@@ -32,12 +35,17 @@ public class FragmentMenu extends Fragment {
     }
 
     private void initComponents(View view) {
+        initLocationTrackingSwitch(view);
         initMenuItemArrays();
         initMenuItemsList(view);
         setMenuListAdapter(view);
         setMenuItemsListClickListener();
         initCourierStatus(view);
         setCourierStatusSelectedListener();
+    }
+
+    private void initLocationTrackingSwitch(View view) {
+        mLocationTracking = view.findViewById(R.id.switch_location_tracking);
     }
 
     private void initMenuItemArrays() {

@@ -1,6 +1,7 @@
 package com.shm.dim.delcontrol.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
@@ -19,6 +20,7 @@ import com.shm.dim.delcontrol.fragment.FragmentMap;
 import com.shm.dim.delcontrol.fragment.FragmentMenu;
 import com.shm.dim.delcontrol.fragment.FragmentOrders;
 import com.shm.dim.delcontrol.receiver.NetworkChangeReceiver;
+import com.shm.dim.delcontrol.service.LocationService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         SELECTED_TAB_ICON_COLOR = MainActivity.this.getColor(R.color.colorAccent);
         initComponents();
         checkPermissions();
+        startLocationService();
     }
 
     @Override
@@ -60,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_CODE);
         }
+    }
+
+    private void startLocationService() {
+        Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        startService(intent);
     }
 
     @Override
@@ -141,6 +149,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void setColorOnTabIcon(TabLayout.Tab tab, int color) {
         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopLocationService();
+    }
+
+    private void stopLocationService() {
+        Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        stopService(intent);
     }
 
 }
