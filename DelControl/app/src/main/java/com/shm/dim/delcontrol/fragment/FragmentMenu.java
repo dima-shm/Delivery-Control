@@ -86,11 +86,16 @@ public class FragmentMenu extends Fragment {
             public void onItemSelected(AdapterView<?> arg0, View view, int position, long id) {
                 String[] courierStatus = getResources().getStringArray(R.array.courier_status);
                 String statusName = courierStatus[position];
+                mLocationTracking.setChecked((statusName != getLastItem(courierStatus)));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
+    }
+
+    private String getLastItem(String[] array) {
+        return array[array.length - 1];
     }
 
 }
