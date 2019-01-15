@@ -46,7 +46,11 @@ public class FragmentChat extends Fragment {
     }
 
     private void setTextChangedListener() {
-        mMessage.addTextChangedListener(new TextWatcher() {
+        mMessage.addTextChangedListener(getTextChangedListener());
+    }
+
+    private TextWatcher getTextChangedListener() {
+        return new TextWatcher() {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -56,7 +60,7 @@ public class FragmentChat extends Fragment {
 
             public void afterTextChanged(Editable s) {}
 
-        });
+        };
     }
 
     private void changeSendButtonStyle() {
@@ -64,9 +68,8 @@ public class FragmentChat extends Fragment {
         boolean newButtonState = getNewButtonState();
         if(previousButtonState == newButtonState) {
             return;
-        } else {
-            changeButtonState();
         }
+        changeButtonState();
         applyChanges();
     }
 

@@ -35,18 +35,18 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         mAlertDialog.show();
     }
 
+    private void dismissAlertDialog() {
+        if(mAlertDialog != null) {
+            mAlertDialog.dismiss();
+        }
+    }
+
     private void createAlertDialog(final Context context) {
         mAlertDialog
                 = getAlertDialog(context,
                 R.drawable.no_internet_connection,
                 context.getResources().getString(R.string.check_internet_connection),
                 context.getResources().getString(R.string.an_internet_connection_is_required));
-    }
-
-    private void dismissAlertDialog() {
-        if(mAlertDialog != null) {
-            mAlertDialog.dismiss();
-        }
     }
 
     private AlertDialog getAlertDialog(final Context context, final int icon,

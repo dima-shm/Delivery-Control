@@ -51,70 +51,6 @@ public class MainActivity extends AppCompatActivity {
         startLocationService();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == REQUEST_PERMISSION_CODE) {
-            if(grantResults[0] != PackageManager.PERMISSION_GRANTED &&
-                    grantResults[1] != PackageManager.PERMISSION_GRANTED) {
-                checkPermissions();
-            }
-        }
-    }
-
-    public void checkPermissions() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_CODE);
-        }
-    }
-
-    private void startLocationService() {
-        Intent intent = new Intent(getApplicationContext(), LocationService.class);
-        startService(intent);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerNetworkReceiver();
-        registerLocationReceiver();
-    }
-
-    private void registerNetworkReceiver() {
-        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(mNetworkReceiver, filter);
-    }
-
-    private void registerLocationReceiver() {
-        mLocationReceiver = getLocationReceiver();
-        registerReceiver(mLocationReceiver, new IntentFilter("LOCATION_UPDATE"));
-    }
-
-    private BroadcastReceiver getLocationReceiver() {
-        return new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String latitude = intent.getExtras().get("LATITUDE").toString();
-                String longitude = intent.getExtras().get("LONGITUDE").toString();
-                String speed = intent.getExtras().get("SPEED").toString();
-                Toast.makeText(MainActivity.this,
-                        "LATITUDE: " + latitude + "\n" +
-                                "LONGITUDE: " + longitude + "\n" +
-                                "SPEED: " + speed
-                        , Toast.LENGTH_LONG).show();
-            }
-        };
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(mNetworkReceiver);
-        unregisterReceiver(mLocationReceiver);
-    }
-
     private void initComponents() {
         initToolbar();
         initViewPager();
@@ -177,6 +113,70 @@ public class MainActivity extends AppCompatActivity {
 
     private void setColorOnTabIcon(TabLayout.Tab tab, int color) {
         tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
+
+    private void startLocationService() {
+        Intent intent = new Intent(getApplicationContext(), LocationService.class);
+        startService(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == REQUEST_PERMISSION_CODE) {
+            if(grantResults[0] != PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] != PackageManager.PERMISSION_GRANTED) {
+                checkPermissions();
+            }
+        }
+    }
+
+    public void checkPermissions() {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerNetworkReceiver();
+        registerLocationReceiver();
+    }
+
+    private void registerNetworkReceiver() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mNetworkReceiver, filter);
+    }
+
+    private void registerLocationReceiver() {
+        mLocationReceiver = getLocationReceiver();
+        registerReceiver(mLocationReceiver, new IntentFilter("LOCATION_UPDATE"));
+    }
+
+    private BroadcastReceiver getLocationReceiver() {
+        return new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String latitude = intent.getExtras().get("LATITUDE").toString();
+                String longitude = intent.getExtras().get("LONGITUDE").toString();
+                String speed = intent.getExtras().get("SPEED").toString();
+                Toast.makeText(MainActivity.this,
+                        "LATITUDE: " + latitude + "\n" +
+                                "LONGITUDE: " + longitude + "\n" +
+                                "SPEED: " + speed
+                        , Toast.LENGTH_LONG).show();
+            }
+        };
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mNetworkReceiver);
+        unregisterReceiver(mLocationReceiver);
     }
 
     @Override

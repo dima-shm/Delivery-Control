@@ -16,11 +16,11 @@ import com.shm.dim.delcontrol.adapter.MenuListAdapter;
 
 public class FragmentMenu extends Fragment {
 
-    private ListView mMenuItemsList;
-
     private Spinner mCourierStatus;
 
     private Switch mLocationTracking;
+
+    private ListView mMenuItemsList;
 
     private String[] menuItemNames;
 
@@ -81,7 +81,11 @@ public class FragmentMenu extends Fragment {
     }
 
     private void setCourierStatusSelectedListener() {
-        mCourierStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mCourierStatus.setOnItemSelectedListener(getCourierStatusSelectedListener());
+    }
+
+    private AdapterView.OnItemSelectedListener getCourierStatusSelectedListener() {
+        return new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View view, int position, long id) {
                 String[] courierStatus = getResources().getStringArray(R.array.courier_status);
@@ -91,7 +95,7 @@ public class FragmentMenu extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
-        });
+        };
     }
 
     private String getLastItem(String[] array) {

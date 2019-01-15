@@ -48,13 +48,6 @@ public class FragmentMap
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mMapView.getMapAsync(this);
-        mMapView.onResume();
-    }
-
     private void initComponents(View view, Bundle savedInstanceState) {
         initGeocoder(view);
         initMapView(view, savedInstanceState);
@@ -95,6 +88,13 @@ public class FragmentMap
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.getMapAsync(this);
+        mMapView.onResume();
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         configureMap();
@@ -126,12 +126,6 @@ public class FragmentMap
         return NetworkChangeReceiver.isInternetAvailable(getContext());
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mMapView.onPause();
-    }
-
     public LatLng getLatLngByAddress(String locationName) {
         Address address = getAddress(locationName);
         if(address != null)
@@ -147,6 +141,12 @@ public class FragmentMap
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
     }
 
 }
