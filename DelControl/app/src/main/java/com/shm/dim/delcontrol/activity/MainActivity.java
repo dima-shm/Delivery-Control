@@ -1,6 +1,8 @@
 package com.shm.dim.delcontrol.activity;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -12,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.adapter.ViewPagerAdapter;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private final int REQUEST_PERMISSION_CODE = 100;
 
     private NetworkChangeReceiver mNetworkReceiver = new NetworkChangeReceiver();
+
+    private BroadcastReceiver mLocationReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         registerNetworkReceiver();
+        registerLocationReceiver();
     }
 
     private void registerNetworkReceiver() {
@@ -81,10 +87,32 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mNetworkReceiver, filter);
     }
 
+    private void registerLocationReceiver() {
+        mLocationReceiver = getLocationReceiver();
+        registerReceiver(mLocationReceiver, new IntentFilter("LOCATION_UPDATE"));
+    }
+
+    private BroadcastReceiver getLocationReceiver() {
+        return new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String latitude = intent.getExtras().get("LATITUDE").toString();
+                String longitude = intent.getExtras().get("LONGITUDE").toString();
+                String speed = intent.getExtras().get("SPEED").toString();
+                Toast.makeText(MainActivity.this,
+                        "LATITUDE: " + latitude + "\n" +
+                                "LONGITUDE: " + longitude + "\n" +
+                                "SPEED: " + speed
+                        , Toast.LENGTH_LONG).show();
+            }
+        };
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(mNetworkReceiver);
+        unregisterReceiver(mLocationReceiver);
     }
 
     private void initComponents() {
