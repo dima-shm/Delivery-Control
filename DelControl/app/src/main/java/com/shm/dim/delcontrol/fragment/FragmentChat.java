@@ -99,13 +99,13 @@ public class FragmentChat extends Fragment {
 
     private void animateSendButton(boolean isButtonClickable) {
         if(isButtonClickable) {
-            rotationSendButton(0f, -45f);
+            rotateSendButton(0f, -45f);
         } else {
-            rotationSendButton(-45f, 0f);
+            rotateSendButton(-45f, 0f);
         }
     }
 
-    private void rotationSendButton(float from, float to) {
+    private void rotateSendButton(float from, float to) {
         ObjectAnimator
                 .ofFloat(mButtonSend, "rotation", from, to)
                 .setDuration(SEND_BUTTON_ANIMATION_DURATION)
