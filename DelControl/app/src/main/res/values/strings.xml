@@ -12,9 +12,7 @@
         <item>Завершил работу</item>
     </string-array>
     <string name="location_tracking">Отслеживание местоположения</string>
-    <string-array name="menu_names">
-        <item>Редактировать аккаунт</item>
-        <item>Выход из аккаунта</item>
-        <item>О приложении</item>
-    </string-array>
+    <string name="edit_account">Редактировать аккаунт</string>
+    <string name="log_out_of_account">Выход из аккаунта</string>
+    <string name="about_application">О приложении</string>
 </resources>

@@ -5,14 +5,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
-import com.shm.dim.delcontrol.adapter.MenuListAdapter;
 
 public class FragmentMenu extends Fragment {
 
@@ -20,11 +21,11 @@ public class FragmentMenu extends Fragment {
 
     private Switch mLocationTracking;
 
-    private ListView mMenuItemsList;
+    private LinearLayout mEditAccountMenuItem;
 
-    private String[] menuItemNames;
+    private LinearLayout mLogoutOfAccountMenuItem;
 
-    private Integer[] mMenuItemImageIds;
+    private LinearLayout mAboutApplicationMenuItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,49 +36,56 @@ public class FragmentMenu extends Fragment {
     }
 
     private void initComponents(View view) {
-        initLocationTrackingSwitch(view);
-        initMenuItemArrays();
-        initMenuItemsList(view);
-        setMenuListAdapter(view);
-        setMenuItemsListClickListener();
+        initMenuItems(view);
         initCourierStatus(view);
+        initLocationTrackingSwitch(view);
+    }
+
+    private void initMenuItems(View view) {
+        mEditAccountMenuItem = view.findViewById(R.id.edit_account_menu_item);
+        mLogoutOfAccountMenuItem = view.findViewById(R.id.log_out_of_account_menu_item);
+        mAboutApplicationMenuItem = view.findViewById(R.id.about_application_menu_item);
+        setMenuItemsClickListener();
+    }
+
+    private void setMenuItemsClickListener() {
+        mEditAccountMenuItem.setOnClickListener(getMenuItemClickListener());
+        mLogoutOfAccountMenuItem.setOnClickListener(getMenuItemClickListener());
+        mAboutApplicationMenuItem.setOnClickListener(getMenuItemClickListener());
+    }
+
+    private View.OnClickListener getMenuItemClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startClickAnimation(view);
+                onMenuItemClick(view);
+            }
+        };
+    }
+
+    private void startClickAnimation(View view) {
+        Animation bottomUp = AnimationUtils.loadAnimation(getContext(), R.anim.menu_item_click);
+        view.startAnimation(bottomUp);
+    }
+
+    private void onMenuItemClick(View view) {
+        switch (view.getId()) {
+            case R.id.edit_account_menu_item :
+            case R.id.log_out_of_account_menu_item :
+            case R.id.about_application_menu_item : {
+                Toast.makeText(getContext(), "y: " + view.getY(), Toast.LENGTH_LONG).show();
+            } break;
+        }
+    }
+
+    private void initCourierStatus(View view) {
+        mCourierStatus = view.findViewById(R.id.courier_status);
         setCourierStatusSelectedListener();
     }
 
     private void initLocationTrackingSwitch(View view) {
         mLocationTracking = view.findViewById(R.id.switch_location_tracking);
-    }
-
-    private void initMenuItemArrays() {
-        menuItemNames = getResources().getStringArray(R.array.menu_names);
-        mMenuItemImageIds = new Integer[] {
-                R.drawable.edit_account,
-                R.drawable.log_out_of_account,
-                R.drawable.about_application
-        };
-    }
-
-    private void initMenuItemsList(View view) {
-        mMenuItemsList = view.findViewById(R.id.menu_items_list);
-    }
-
-    private void setMenuListAdapter(View view) {
-        MenuListAdapter adapter = new MenuListAdapter(view.getContext(), menuItemNames, mMenuItemImageIds);
-        mMenuItemsList.setAdapter(adapter);
-    }
-
-    private void setMenuItemsListClickListener() {
-        mMenuItemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemName = menuItemNames[position];
-                Toast.makeText(view.getContext(), selectedItemName, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void initCourierStatus(View view) {
-        mCourierStatus = view.findViewById(R.id.courier_status);
     }
 
     private void setCourierStatusSelectedListener() {

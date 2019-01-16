@@ -18,23 +18,18 @@
             android:layout_height="0dp"
             android:layout_weight="0.7"
             android:gravity="center"
-            android:padding="45dp"
+            android:padding="15dp"
             android:src="@drawable/logo"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="15dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="10dp"
-                android:background="@color/colorPrimaryLight"/>
+            android:padding="15dp"
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/courier_status_menu_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -73,6 +68,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/location_tracking_menu_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -108,21 +104,90 @@
 
             </LinearLayout>
 
-            <View
+            <android.support.design.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="10dp"
-                android:background="@color/colorPrimaryLight"/>
+                android:layout_height="match_parent">
 
-            <ListView
-                android:id="@+id/menu_items_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:dividerHeight="10.0sp"
-                android:divider="@null"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
 
-    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/edit_account_menu_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/menu_item_height"
+                            android:layout_height="@dimen/menu_item_height"
+                            android:padding="8dp"
+                            android:src="@drawable/edit_account"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginStart="10dp"
+                            android:layout_gravity="start|center_vertical"
+                            android:text="@string/edit_account"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/log_out_of_account_menu_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/menu_item_height"
+                            android:layout_height="@dimen/menu_item_height"
+                            android:padding="8dp"
+                            android:src="@drawable/log_out_of_account"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginStart="10dp"
+                            android:layout_gravity="start|center_vertical"
+                            android:text="@string/log_out_of_account"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/about_application_menu_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/menu_item_height"
+                            android:layout_height="@dimen/menu_item_height"
+                            android:padding="8dp"
+                            android:src="@drawable/about_application"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginStart="10dp"
+                            android:layout_gravity="start|center_vertical"
+                            android:text="@string/about_application"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.design.widget.CoordinatorLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
