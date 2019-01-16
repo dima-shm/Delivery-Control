@@ -112,9 +112,15 @@ public class FragmentMap
         if(isInternetAvailable()) {
             LatLng location = getLatLngByAddress("Минск");
             if (location != null) {
-                mMap.addMarker(new MarkerOptions().position(location).title("Минск"));
+                addMarker(location);
             }
         }
+    }
+
+    private void addMarker(LatLng location) {
+        mMap.addMarker(new MarkerOptions()
+                .position(location)
+                .title("Title"));
     }
 
     private void setDefaultCameraPosition() {
