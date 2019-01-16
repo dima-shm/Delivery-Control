@@ -21,98 +21,98 @@
             android:padding="15dp"
             android:src="@drawable/logo"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:orientation="vertical">
+            android:layout_weight="1">
 
-            <LinearLayout
-                android:id="@+id/courier_status_menu_item"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <ImageView
-                    android:layout_width="@dimen/menu_item_height"
-                    android:layout_height="@dimen/menu_item_height"
-                    android:padding="8dp"
-                    android:src="@drawable/courier_status"/>
+                android:layout_alignParentBottom="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="10dp"
-                    android:layout_gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
-                        android:text="@string/status"/>
-
-                    <Spinner
-                        android:id="@+id/courier_status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:theme="@style/Spinner"
-                        android:background="#0000"
-                        android:textAlignment="viewEnd"
-                        android:entries="@array/courier_status" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/location_tracking_menu_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <ImageView
-                    android:layout_width="@dimen/menu_item_height"
-                    android:layout_height="@dimen/menu_item_height"
-                    android:padding="8dp"
-                    android:src="@drawable/location_tracking"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="10dp"
-                    android:layout_gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
-                        android:gravity="start|center_vertical"
-                        android:text="@string/location_tracking"/>
-
-                    <Switch
-                        android:id="@+id/switch_location_tracking"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="false" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <android.support.design.widget.CoordinatorLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:padding="15dp"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/courier_status_menu_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/menu_item_height"
+                            android:layout_height="@dimen/menu_item_height"
+                            android:padding="8dp"
+                            android:src="@drawable/courier_status"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="10dp"
+                            android:layout_gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorPrimary"
+                                android:text="@string/status"/>
+
+                            <Spinner
+                                android:id="@+id/courier_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/Spinner"
+                                android:background="#0000"
+                                android:textAlignment="viewEnd"
+                                android:entries="@array/courier_status" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/location_tracking_menu_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:layout_marginBottom="25dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/menu_item_height"
+                            android:layout_height="@dimen/menu_item_height"
+                            android:padding="8dp"
+                            android:src="@drawable/location_tracking"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="10dp"
+                            android:layout_gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorPrimary"
+                                android:gravity="start|center_vertical"
+                                android:text="@string/location_tracking"/>
+
+                            <Switch
+                                android:id="@+id/switch_location_tracking"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="false" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/edit_account_menu_item"
@@ -185,9 +185,9 @@
 
                 </LinearLayout>
 
-            </android.support.design.widget.CoordinatorLayout>
+            </ScrollView>
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
