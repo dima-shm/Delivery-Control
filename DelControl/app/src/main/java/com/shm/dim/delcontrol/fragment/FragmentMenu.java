@@ -1,5 +1,6 @@
 package com.shm.dim.delcontrol.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,9 +12,9 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
+import com.shm.dim.delcontrol.activity.AboutApplicationActivity;
 
 public class FragmentMenu extends Fragment {
 
@@ -70,13 +71,19 @@ public class FragmentMenu extends Fragment {
     }
 
     private void onMenuItemClick(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
-            case R.id.edit_account_menu_item :
-            case R.id.log_out_of_account_menu_item :
+            case R.id.edit_account_menu_item : {
+                //intent = new Intent(getActivity(), NewActivity.class);
+            } break;
+            case R.id.log_out_of_account_menu_item :{
+                //intent = new Intent(getActivity(), NewActivity.class);
+            } break;
             case R.id.about_application_menu_item : {
-                Toast.makeText(getContext(), "y: " + view.getY(), Toast.LENGTH_LONG).show();
+                intent = new Intent(getActivity(), AboutApplicationActivity.class);
             } break;
         }
+        startActivity(intent);
     }
 
     private void initCourierStatus(View view) {

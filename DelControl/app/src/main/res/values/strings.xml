@@ -15,4 +15,7 @@
     <string name="edit_account">Редактировать аккаунт</string>
     <string name="log_out_of_account">Выход из аккаунта</string>
     <string name="about_application">О приложении</string>
+    <string name="copyright">Copyright &#169; 2018 – 2019 Shumanski Dima \n
+        All rights reserved.</string>
+    <string name="version">Версия</string>
 </resources>
