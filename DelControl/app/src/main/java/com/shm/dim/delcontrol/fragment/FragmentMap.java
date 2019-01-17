@@ -22,6 +22,7 @@ import com.shm.dim.delcontrol.receiver.NetworkChangeReceiver;
 
 import java.io.IOException;
 
+@SuppressLint("MissingPermission")
 public class FragmentMap
         extends Fragment
         implements OnMapReadyCallback {
@@ -71,12 +72,13 @@ public class FragmentMap
 
     private void setButtonOnClickListeners() {
         mFindUserLocation.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View v) {
-                Location userLocation = mMap.getMyLocation();
-                LatLng userPosition = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPosition, USER_CAMERA_ZOOM));
+                Location userLocation = getUserLocation();
+                if(userLocation != null) {
+                    LatLng userPosition = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPosition, USER_CAMERA_ZOOM));
+                }
             }
         });
         mUpdateMarkers.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +87,10 @@ public class FragmentMap
                 mMapView.getMapAsync(FragmentMap.this);
             }
         });
+    }
+
+    private Location getUserLocation() {
+        return mMap.getMyLocation();
     }
 
     @Override
@@ -102,7 +108,6 @@ public class FragmentMap
         setDefaultCameraPosition();
     }
 
-    @SuppressLint("MissingPermission")
     private void configureMap() {
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
