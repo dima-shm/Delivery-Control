@@ -69,7 +69,7 @@ public class FragmentChat extends Fragment {
     }
 
     private boolean isFieldHasText() {
-        return (mMessage.getText().toString().length() > 0);
+        return (mMessage.getText().toString().trim().length() > 0);
     }
 
     private void changeButtonState() {
