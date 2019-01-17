@@ -1,6 +1,7 @@
 package com.shm.dim.delcontrol.fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -15,6 +16,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shm.dim.delcontrol.R;
@@ -117,15 +120,22 @@ public class FragmentMap
         if(isInternetAvailable()) {
             LatLng location = getLatLngByAddress("Минск");
             if (location != null) {
-                addMarker(location);
+                addMarker(location, R.color.colorAccentDark);
             }
         }
     }
 
-    private void addMarker(LatLng location) {
+    private void addMarker(LatLng location, int colorId) {
         mMap.addMarker(new MarkerOptions()
                 .position(location)
+                .icon(getMarkerIconWithCustomColor(colorId))
                 .title("Title"));
+    }
+
+    public BitmapDescriptor getMarkerIconWithCustomColor(int colorId) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(getResources().getColor(colorId), hsv);
+        return BitmapDescriptorFactory.defaultMarker(hsv[0]);
     }
 
     private void setDefaultCameraPosition() {
