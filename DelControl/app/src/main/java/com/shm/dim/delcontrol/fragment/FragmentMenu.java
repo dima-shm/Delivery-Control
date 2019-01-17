@@ -66,8 +66,8 @@ public class FragmentMenu extends Fragment {
     }
 
     private void startClickAnimation(View view) {
-        Animation bottomUp = AnimationUtils.loadAnimation(getContext(), R.anim.menu_item_click);
-        view.startAnimation(bottomUp);
+        Animation itemClick = AnimationUtils.loadAnimation(getContext(), R.anim.menu_item_click);
+        view.startAnimation(itemClick);
     }
 
     private void onMenuItemClick(View view) {

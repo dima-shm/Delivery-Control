@@ -1,6 +1,5 @@
 package com.shm.dim.delcontrol.fragment;
 
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -15,13 +14,11 @@ import com.shm.dim.delcontrol.R;
 
 public class FragmentChat extends Fragment {
 
-    private ImageButton mButtonSend;
-
     private EditText mMessage;
 
-    private final int SEND_BUTTON_ANIMATION_DURATION = 800;
+    private ImageButton mButtonSend;
 
-    private boolean mIsButtonClickable;
+    private boolean mIsSendButtonEnabled;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,52 +61,47 @@ public class FragmentChat extends Fragment {
     }
 
     private void changeSendButtonStyle() {
-        boolean previousButtonState = mIsButtonClickable;
-        boolean newButtonState = getNewButtonState();
-        if(previousButtonState == newButtonState) {
+        if(mIsSendButtonEnabled == isFieldHasText()) {
             return;
         }
         changeButtonState();
         applyChanges();
     }
 
-    private boolean getNewButtonState() {
+    private boolean isFieldHasText() {
         return (mMessage.getText().toString().length() > 0);
     }
 
     private void changeButtonState() {
-        mIsButtonClickable = !mIsButtonClickable;
+        mIsSendButtonEnabled = !mIsSendButtonEnabled;
     }
 
     private void applyChanges() {
-        setColorOnSendButton(mIsButtonClickable);
-        animateSendButton(mIsButtonClickable);
-        mButtonSend.setClickable(mIsButtonClickable);
+        setColorOnSendButton(mIsSendButtonEnabled);
+        animateSendButton(mIsSendButtonEnabled);
+        mButtonSend.setClickable(mIsSendButtonEnabled);
     }
 
-    private void setColorOnSendButton(boolean isButtonClickable) {
-        int colorPrimary = getResources().getColor(R.color.colorPrimary);
-        int colorPrimaryDark = getResources().getColor(R.color.colorPrimaryDark);
-        if(isButtonClickable) {
-            mButtonSend.setColorFilter(colorPrimary);
+    private void setColorOnSendButton(boolean isSendButtonEnabled) {
+        int colorEnabled = getResources().getColor(R.color.colorPrimary);
+        int colorDisabled = getResources().getColor(R.color.colorPrimaryDark);
+        if(isSendButtonEnabled) {
+            mButtonSend.setColorFilter(colorEnabled);
         } else {
-            mButtonSend.setColorFilter(colorPrimaryDark);
+            mButtonSend.setColorFilter(colorDisabled);
         }
     }
 
-    private void animateSendButton(boolean isButtonClickable) {
-        if(isButtonClickable) {
-            rotateSendButton(0f, -45f);
+    private void animateSendButton(boolean isSendButtonEnabled) {
+        if(isSendButtonEnabled) {
+            startRotateAnimation(mButtonSend, -45);
         } else {
-            rotateSendButton(-45f, 0f);
+            startRotateAnimation(mButtonSend, 0);
         }
     }
 
-    private void rotateSendButton(float from, float to) {
-        ObjectAnimator
-                .ofFloat(mButtonSend, "rotation", from, to)
-                .setDuration(SEND_BUTTON_ANIMATION_DURATION)
-                .start();
+    private void startRotateAnimation(View view, int value) {
+        view.animate().rotation(value).start();
     }
 
 }
