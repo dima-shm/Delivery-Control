@@ -71,7 +71,7 @@ public class FragmentMenu extends Fragment {
     }
 
     private void onMenuItemClick(View view) {
-        Intent intent = new Intent();
+        Intent intent = null;
         switch (view.getId()) {
             case R.id.edit_account_menu_item : {
                 //intent = new Intent(getActivity(), NewActivity.class);
@@ -83,7 +83,9 @@ public class FragmentMenu extends Fragment {
                 intent = new Intent(getActivity(), AboutApplicationActivity.class);
             } break;
         }
-        startActivity(intent);
+        if(intent != null) {
+            startActivity(intent);
+        }
     }
 
     private void initCourierStatus(View view) {
