@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shm.dim.delcontrol.R;
+import com.shm.dim.delcontrol.adapter.CustomInfoWindowAdapter;
 import com.shm.dim.delcontrol.receiver.NetworkChangeReceiver;
 
 import java.io.IOException;
@@ -114,22 +115,30 @@ public class FragmentMap
     private void configureMap() {
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMap.setInfoWindowAdapter(getCustomInfoWindowAdapter());
+    }
+
+    private GoogleMap.InfoWindowAdapter getCustomInfoWindowAdapter() {
+        return new CustomInfoWindowAdapter(getContext());
     }
 
     private void setMarkersOnMap() {
         if(isInternetAvailable()) {
             LatLng location = getLatLngByAddress("Минск");
             if (location != null) {
-                addMarker(location, R.color.colorAccentDark);
+                addMarker(location, R.color.colorAccentDark,
+                        "Order ID", "City, street, house number, apartment");
             }
         }
     }
 
-    private void addMarker(LatLng location, int colorId) {
+    private void addMarker(LatLng location, int colorId,
+                           String orderId, String orderAddress) {
         mMap.addMarker(new MarkerOptions()
                 .position(location)
                 .icon(getMarkerIconWithCustomColor(colorId))
-                .title("Title"));
+                .title(orderId)
+                .snippet(orderAddress));
     }
 
     public BitmapDescriptor getMarkerIconWithCustomColor(int colorId) {
