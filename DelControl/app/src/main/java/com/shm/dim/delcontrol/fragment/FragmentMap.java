@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.adapter.CustomInfoWindowAdapter;
@@ -116,10 +118,20 @@ public class FragmentMap
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setInfoWindowAdapter(getCustomInfoWindowAdapter());
+        mMap.setOnInfoWindowClickListener(getOnInfoWindowClickListener());
     }
 
     private GoogleMap.InfoWindowAdapter getCustomInfoWindowAdapter() {
         return new CustomInfoWindowAdapter(getContext());
+    }
+
+    private GoogleMap.OnInfoWindowClickListener getOnInfoWindowClickListener() {
+        return new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Toast.makeText(getContext(), marker.getTitle(), Toast.LENGTH_LONG).show();
+            }
+        };
     }
 
     private void setMarkersOnMap() {

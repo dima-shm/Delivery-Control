@@ -9,7 +9,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.shm.dim.delcontrol.R;
 
-public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+public class CustomInfoWindowAdapter
+        implements GoogleMap.InfoWindowAdapter {
 
     private View mView;
 
