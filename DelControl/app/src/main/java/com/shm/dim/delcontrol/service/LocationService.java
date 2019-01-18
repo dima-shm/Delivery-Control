@@ -80,6 +80,7 @@ public class LocationService extends Service {
 
     @Override
     public void onDestroy() {
+        mLocationManager.removeUpdates(mLocationListener);
         isServiceActive = false;
     }
 
@@ -87,4 +88,5 @@ public class LocationService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
 }

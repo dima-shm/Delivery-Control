@@ -15,6 +15,7 @@ import android.widget.Switch;
 
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.activity.AboutApplicationActivity;
+import com.shm.dim.delcontrol.service.LocationService;
 
 public class FragmentMenu extends Fragment {
 
@@ -103,20 +104,41 @@ public class FragmentMenu extends Fragment {
 
     private AdapterView.OnItemSelectedListener getCourierStatusSelectedListener() {
         return new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> arg0, View view, int position, long id) {
                 String[] courierStatus = getResources().getStringArray(R.array.courier_status);
                 String statusName = courierStatus[position];
-                mLocationTracking.setChecked((statusName != getLastItem(courierStatus)));
+                boolean isLastItem = (statusName != getLastItem(courierStatus));
+                setLocationTrackingStatus(isLastItem);
+                mLocationTracking.setChecked(isLastItem);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
+
         };
     }
 
     private String getLastItem(String[] array) {
         return array[array.length - 1];
+    }
+
+    private void setLocationTrackingStatus(boolean value) {
+        Intent intent = new Intent(getContext(), LocationService.class);
+        if(value) {
+            startLocationTracking(intent);
+        } else {
+            stopLocationTracking(intent);
+        }
+    }
+
+    private void startLocationTracking(Intent intent) {
+        getContext().startService(intent);
+    }
+
+    private void stopLocationTracking(Intent intent) {
+        getContext().stopService(intent);
     }
 
 }
