@@ -36,6 +36,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.RegistrationActivity"></activity>
         <activity android:name=".activity.AboutApplicationActivity" />
 
         <receiver

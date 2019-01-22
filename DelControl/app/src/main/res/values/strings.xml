@@ -15,6 +15,17 @@
     <string name="edit_account">Редактировать аккаунт</string>
     <string name="log_out_of_account">Выход из аккаунта</string>
     <string name="about_application">О приложении</string>
+    <string name="registration">Регистрация</string>
+    <string name="company_id">ID компании</string>
+    <string name="surname">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="patronymic">Отчество</string>
+    <string name="email_address">E-mail адрес</string>
+    <string name="phone_number">Номер телефона (+************)</string>
+    <string name="password">Пароль</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="complete_registration">Завершить регистрацию</string>
+    <string name="already_have_an_account_login">У Вас уже есть аккаунт? Выполните вход</string>
     <string name="copyright">Copyright &#169; 2018 – 2019 Shumanski Dima \n
         All rights reserved.</string>
     <string name="version">Версия</string>
