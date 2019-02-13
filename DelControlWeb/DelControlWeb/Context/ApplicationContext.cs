@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using DelControlWeb.Models;
+﻿using DelControlWeb.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DelControlWeb.Context
