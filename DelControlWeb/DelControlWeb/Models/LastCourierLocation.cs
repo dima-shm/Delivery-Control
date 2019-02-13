@@ -13,12 +13,12 @@ namespace DelControlWeb.Models
         [ForeignKey("CourierId")]
         private User User { get; set; }
 
-        private float Latitude { get; set; }
+        public float Latitude { get; set; }
 
-        private float Longitude { get; set; }
+        public float Longitude { get; set; }
 
-        private float Speed { get; set; }
+        public float Speed { get; set; }
 
-        private DateTime Time { get; set; }
+        public DateTime Time { get; set; }
     }
 }

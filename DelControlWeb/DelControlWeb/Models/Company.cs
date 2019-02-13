@@ -10,10 +10,12 @@ namespace DelControlWeb.Models
 
         public string Name { get; set; }
 
-        public string Address { get; set; }
-
         public string RegisterNumber { get; set; }
 
         public DateTime RegisterDate { get; set; }
+
+        public string TaxpayerNumber { get; set; }
+
+        public string Address { get; set; }
     }
 }
