@@ -166,6 +166,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Managers\ApplicationUserManager.cs" />
+    <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Delivery.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderProducts.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
