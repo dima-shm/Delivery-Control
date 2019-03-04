@@ -9,7 +9,7 @@ namespace DelControlWeb.Models
         [Key]
         public int Id { get; set; }
 
-        public int? CourierId { get; set; }
+        public int CourierId { get; set; }
         [ForeignKey("CourierId")]
         private User User { get; set; }
 
