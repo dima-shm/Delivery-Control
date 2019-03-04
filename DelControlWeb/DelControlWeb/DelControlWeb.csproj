@@ -166,6 +166,10 @@
     </Compile>
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
+    <Compile Include="Migrations\201903040810264_DataMigration.cs" />
+    <Compile Include="Migrations\201903040810264_DataMigration.Designer.cs">
+      <DependentUpon>201903040810264_DataMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CompanyCourierStatuses.cs" />
@@ -234,6 +238,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903040810264_DataMigration.resx">
+      <DependentUpon>201903040810264_DataMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

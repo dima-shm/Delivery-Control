@@ -106,3 +106,5 @@ D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.d
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.pdb
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.DataMigration.resources
+D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csproj.GenerateResource.cache
