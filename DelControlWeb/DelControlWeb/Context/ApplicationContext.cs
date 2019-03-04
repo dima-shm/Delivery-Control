@@ -20,6 +20,14 @@ namespace DelControlWeb.Context
 
         public DbSet<OrderProducts> OrderProducts { get; set; }
 
+        public DbSet<CourierStatus> CourierStatuses { get; set; }
+
+        public DbSet<CompanyCourierStatuses> CompanyCourierStatuses { get; set; }
+
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
+
+        public DbSet<CompanyOrderStatuses> CompanyOrderStatuses { get; set; }
+
         public ApplicationContext() : base("DelControlDB") { }
 
         public static ApplicationContext Create()
