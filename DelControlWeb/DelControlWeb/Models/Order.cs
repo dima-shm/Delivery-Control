@@ -20,7 +20,7 @@ namespace DelControlWeb.Models
         [ForeignKey("DeliveryId")]
         private Delivery Delivery { get; set; }
 
-        public int CourierId { get; set; }
+        public string CourierId { get; set; }
         [ForeignKey("CourierId")]
         private User Courier { get; set; }
 
