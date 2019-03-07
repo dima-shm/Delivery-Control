@@ -161,6 +161,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Context\ApplicationContext.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\CompanyCourierStatusesController.cs" />
+    <Compile Include="Controllers\CompanyOrderStatusesController.cs" />
+    <Compile Include="Controllers\CourierStatusController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DeliveriesController.cs" />
+    <Compile Include="Controllers\OrderProductsController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\OrderStatusController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,10 +231,59 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Deliveries\Create.cshtml" />
+    <Content Include="Views\Deliveries\Delete.cshtml" />
+    <Content Include="Views\Deliveries\Details.cshtml" />
+    <Content Include="Views\Deliveries\Edit.cshtml" />
+    <Content Include="Views\Deliveries\Index.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\OrderProducts\Create.cshtml" />
+    <Content Include="Views\OrderProducts\Delete.cshtml" />
+    <Content Include="Views\OrderProducts\Details.cshtml" />
+    <Content Include="Views\OrderProducts\Edit.cshtml" />
+    <Content Include="Views\OrderProducts\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Delete.cshtml" />
+    <Content Include="Views\Companies\Details.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\CourierStatus\Create.cshtml" />
+    <Content Include="Views\CourierStatus\Delete.cshtml" />
+    <Content Include="Views\CourierStatus\Details.cshtml" />
+    <Content Include="Views\CourierStatus\Edit.cshtml" />
+    <Content Include="Views\CourierStatus\Index.cshtml" />
+    <Content Include="Views\OrderStatus\Create.cshtml" />
+    <Content Include="Views\OrderStatus\Delete.cshtml" />
+    <Content Include="Views\OrderStatus\Details.cshtml" />
+    <Content Include="Views\OrderStatus\Edit.cshtml" />
+    <Content Include="Views\OrderStatus\Index.cshtml" />
+    <Content Include="Views\CompanyCourierStatuses\Create.cshtml" />
+    <Content Include="Views\CompanyCourierStatuses\Delete.cshtml" />
+    <Content Include="Views\CompanyCourierStatuses\Details.cshtml" />
+    <Content Include="Views\CompanyCourierStatuses\Edit.cshtml" />
+    <Content Include="Views\CompanyCourierStatuses\Index.cshtml" />
+    <Content Include="Views\CompanyOrderStatuses\Create.cshtml" />
+    <Content Include="Views\CompanyOrderStatuses\Delete.cshtml" />
+    <Content Include="Views\CompanyOrderStatuses\Details.cshtml" />
+    <Content Include="Views\CompanyOrderStatuses\Edit.cshtml" />
+    <Content Include="Views\CompanyOrderStatuses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
