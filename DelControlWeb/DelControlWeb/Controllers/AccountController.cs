@@ -1,7 +1,7 @@
 ﻿using DelControlWeb.Context;
 using DelControlWeb.Managers;
 using DelControlWeb.Models;
-using DelControlWeb.ViewModels;
+using DelControlWeb.ViewModels.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DelControlWeb.ViewModels
+namespace DelControlWeb.ViewModels.Account
 {
     public class LoginViewModel
     {
