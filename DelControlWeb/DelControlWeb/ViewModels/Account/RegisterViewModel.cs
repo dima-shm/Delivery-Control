@@ -12,18 +12,22 @@ namespace DelControlWeb.ViewModels.Account
         public string RegisterNumber { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime RegisterDate { get; set; }
 
         [Required]
         public string TaxpayerNumber { get; set; }
 
         [Required]
+        [MinLength(10)]
         public string CompanyAddress { get; set; }
 
         [Required]
+        [MinLength(6)]
         public string UserName { get; set; }
 
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]

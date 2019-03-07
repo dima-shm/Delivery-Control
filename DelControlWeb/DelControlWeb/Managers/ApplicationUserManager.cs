@@ -18,8 +18,7 @@ namespace DelControlWeb.Managers
             ApplicationUserManager manager = new ApplicationUserManager(new UserStore<User>(db));
             manager.UserValidator = new UserValidator<User>(manager)
             {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                AllowOnlyAlphanumericUserNames = false
             };
             return manager;
         }
