@@ -171,6 +171,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\ApplicationContext.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CompanyCourierStatusesController.cs" />
     <Compile Include="Controllers\CompanyOrderStatusesController.cs" />
@@ -191,6 +192,14 @@
     <Compile Include="Migrations\201903040810264_DataMigration.Designer.cs">
       <DependentUpon>201903040810264_DataMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903071502116_UpdateUserMigration.cs" />
+    <Compile Include="Migrations\201903071502116_UpdateUserMigration.Designer.cs">
+      <DependentUpon>201903071502116_UpdateUserMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903071516046_SecondUserUpdateMigration.cs" />
+    <Compile Include="Migrations\201903071516046_SecondUserUpdateMigration.Designer.cs">
+      <DependentUpon>201903071516046_SecondUserUpdateMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CompanyCourierStatuses.cs" />
@@ -206,6 +215,7 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -292,6 +302,7 @@
     <Content Include="Views\CompanyOrderStatuses\Details.cshtml" />
     <Content Include="Views\CompanyOrderStatuses\Edit.cshtml" />
     <Content Include="Views\CompanyOrderStatuses\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -312,6 +323,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903040810264_DataMigration.resx">
       <DependentUpon>201903040810264_DataMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903071502116_UpdateUserMigration.resx">
+      <DependentUpon>201903071502116_UpdateUserMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903071516046_SecondUserUpdateMigration.resx">
+      <DependentUpon>201903071516046_SecondUserUpdateMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
