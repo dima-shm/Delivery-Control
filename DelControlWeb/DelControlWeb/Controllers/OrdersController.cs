@@ -32,6 +32,10 @@ namespace DelControlWeb.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.Companies = db.Companies;
+            ViewBag.Customers = db.Customers;
+            ViewBag.Delivery = db.Delivery;
+            ViewBag.Couriers = db.Users;
             return View();
         }
 
