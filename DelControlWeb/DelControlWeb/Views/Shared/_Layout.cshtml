@@ -23,9 +23,7 @@
                 @Html.ActionLink("Главная", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style = "color:white" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("О приложении", "About", "Home", htmlAttributes: new { style = "color:white" })</li>
-                </ul>
+                @Html.Partial("_MenuPartial")
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
