@@ -16,9 +16,9 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Descriotion)</td>
-            <td>@Html.DisplayFor(modelItem => item.Price)</td>
+            <td>@item.Name</td>
+            <td>@item.Descriotion</td>
+            <td>@item.Price</td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Детали", "Details", new { id = item.Id }) |

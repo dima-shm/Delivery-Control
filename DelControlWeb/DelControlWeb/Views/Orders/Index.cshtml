@@ -18,11 +18,11 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td> @item.Id </td>
-            <td> <a href="/Customers/Details/@item.CustomerId">@item.CustomerId</a> </td>
-            <td> <a href="/Delivery/Details/@item.DeliveryId">@item.DeliveryId</a> </td>
-            <td> @item.CourierId </td>
-            <td> @item.Status </td>
+            <td>@item.Id</td>
+            <td><a href="/Customers/Details/@item.CustomerId">@item.CustomerId</a></td>
+            <td><a href="/Delivery/Details/@item.DeliveryId">@item.DeliveryId</a></td>
+            <td>@item.CourierId</td>
+            <td>@item.Status</td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Детали", "Details", new { id = item.Id }) |
