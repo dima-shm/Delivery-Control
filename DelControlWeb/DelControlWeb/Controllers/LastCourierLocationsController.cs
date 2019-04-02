@@ -31,6 +31,87 @@ namespace DelControlWeb.Controllers
             });
             couriers.Add(new LastCourierLocation()
             {
+                Id = 1,
+                CourierId = "94e88b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.90F,
+                Longitude = 27.56F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 1,
+                CourierId = "94e88b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.90F,
+                Longitude = 27.56F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 1,
+                CourierId = "94448b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.90F,
+                Longitude = 27.44F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 1,
+                CourierId = "94788b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.90F,
+                Longitude = 27.57F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 1,
+                CourierId = "94388b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.90F,
+                Longitude = 27.26F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 1,
+                CourierId = "54e88b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.50F,
+                Longitude = 27.56F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 1,
+                CourierId = "34e88b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.93F,
+                Longitude = 27.56F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 1,
+                CourierId = "24e88b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.92F,
+                Longitude = 27.56F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 1,
+                CourierId = "14e88b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.91F,
+                Longitude = 27.56F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
                 Id = 2,
                 CourierId = "a88b3399-c26c-4dab-af47-dae55a4a9390",
                 Latitude = 53.8F,
