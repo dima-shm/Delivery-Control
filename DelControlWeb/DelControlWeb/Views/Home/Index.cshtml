@@ -41,7 +41,10 @@ else
     </style>
     <div class="row">
         <div class="col-md-8">
-            <div id="googleMap" style="height:600px; width:100%; margin-bottom:20px;"></div>
+            <div id="google_map" style="height:600px; width:100%; margin-bottom:20px;"></div>
+        </div>
+        <div class="col-md-4">
+            <div id="couriers_list"></div>
         </div>
     </div>
 }
@@ -55,27 +58,39 @@ else
             var mapOptions = {
                 zoom: 11,
                 center: new google.maps.LatLng(53.904539799999995, 27.5615244),
-                mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP,
             };
-            var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+            var map = new google.maps.Map(document.getElementById("google_map"), mapOptions);
+            var mapMarkers = {};
+            var activeInfoWindow;
             $.getJSON('@Url.Action("", "api/LastCourierLocations")', function (data) {
                 $.each(data, function (i, item) {
+                    $("#couriers_list").append("<a href='#' data-id='" + item.CourierId + "'>" + item.CourierId + "</a><hr />");
                     var marker = new google.maps.Marker({
                         'position': new google.maps.LatLng(item.Latitude, item.Longitude),
                         'map': map,
-                        'title': item.PlaceName
+                        'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
                     });
-                    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
                     var infowindow = new google.maps.InfoWindow({
                         content: "<div class='infoWindow'>" +
-                                    "<h6>CourierId: " + item.CourierId + "</h6><br />" +
-                                    "<h8>Speed: " + item.Speed + "</h8><br />" +
-                                    "<h8>Time: " + item.Time + "</h8>"
+                            "<h6>CourierId: " + item.CourierId + "</h6><br />" +
+                            "<h8>Speed: " + item.Speed + "</h8><br />" +
+                            "<h8>Time: " + item.Time + "</h8>"
                     });
                     google.maps.event.addListener(marker, 'click', function () {
+                        activeInfoWindow && activeInfoWindow.close();
                         infowindow.open(map, marker);
+                        activeInfoWindow = infowindow;
                     });
-                })
+                    mapMarkers[item.CourierId] = marker;
+                });
+                $('#couriers_list a').click(function () {
+                    var link = $(this).data('id');
+                    var marker = mapMarkers[link];
+                    if (marker) {
+                        google.maps.event.trigger(marker, "click");
+                    }
+                });
             });
         }
     </script>
