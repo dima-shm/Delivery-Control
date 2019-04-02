@@ -1,9 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Mvc;
 using DelControlWeb.Context;
 using DelControlWeb.Models;
 
@@ -14,9 +17,29 @@ namespace DelControlWeb.Controllers
         private ApplicationContext db = new ApplicationContext();
 
         // GET: api/LastCourierLocations
-        public IQueryable<LastCourierLocation> GetLastCourierLocations()
+        public IHttpActionResult GetLastCourierLocations()
         {
-            return db.LastCourierLocations;
+            List<LastCourierLocation> couriers = new List<LastCourierLocation>();
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 1,
+                CourierId = "94e88b63-50c9-4669-ac3b-aba696a69dd3",
+                Latitude = 53.90F,
+                Longitude = 27.56F,
+                Speed = 12.5F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            couriers.Add(new LastCourierLocation()
+            {
+                Id = 2,
+                CourierId = "a88b3399-c26c-4dab-af47-dae55a4a9390",
+                Latitude = 53.8F,
+                Longitude = 27.7F,
+                Speed = 15F,
+                Time = DateTime.Now.ToLocalTime()
+            });
+            return Ok(couriers);
+            //return db.LastCourierLocations;
         }
 
         // GET: api/LastCourierLocations/5
