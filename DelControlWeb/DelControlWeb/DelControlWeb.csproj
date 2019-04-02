@@ -302,6 +302,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Home\_IndexCompanyPartial.cshtml" />
+    <Content Include="Views\Home\_IndexManagerPartial.cshtml" />
+    <Content Include="Views\Home\_IndexAdminPartial.cshtml" />
+    <Content Include="Views\Home\_IndexNotAuthorizedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
