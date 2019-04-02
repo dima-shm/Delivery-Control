@@ -34,5 +34,7 @@ namespace DelControlWeb.Context
         {
             return new ApplicationContext();
         }
+
+        public System.Data.Entity.DbSet<DelControlWeb.Models.Role> IdentityRoles { get; set; }
     }
 }

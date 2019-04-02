@@ -24,6 +24,14 @@ namespace DelControlWeb.Controllers
             }
         }
 
+        private ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+        }
+
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -38,7 +46,7 @@ namespace DelControlWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -59,17 +67,54 @@ namespace DelControlWeb.Controllers
                     UserName = model.Email,
                     Email = model.Email
                 };
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                IdentityResult result = CreateAcount(user, model.Password, "company");
                 if (result.Succeeded)
-                {      
+                {
                     return RedirectToAction("Login", "Account");
                 }
                 else
                 {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
+                    AddErrors(result);
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Company company = new Company
+                {
+                    Name = model.CompanyName,
+                    RegisterNumber = model.RegisterNumber,
+                    RegisterDate = model.RegisterDate,
+                    TaxpayerNumber = model.TaxpayerNumber,
+                    Address = model.CompanyAddress
+                };
+                db.Companies.Add(company);
+                db.SaveChanges();
+                User user = new User
+                {
+                    CompanyId = company.Id,
+                    Name = model.UserName,
+                    UserName = model.Email,
+                    Email = model.Email
+                };
+                IdentityResult result = CreateAcount(user, model.Password, "manager");
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    AddErrors(result);
                 }
             }
             return View(model);
@@ -89,7 +134,7 @@ namespace DelControlWeb.Controllers
                 User user = await UserManager.FindAsync(model.Email, model.Password);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Invalid login or password.");
+                    AddErrors(new IdentityResult("Invalid login or password."));
                 }
                 else
                 {
@@ -107,6 +152,24 @@ namespace DelControlWeb.Controllers
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Login");
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (string error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error);
+            }
+        }
+
+        private IdentityResult CreateAcount(User user, string userPassword, string roleName)
+        {
+            IdentityResult result = UserManager.Create(user, userPassword);
+            if (result.Succeeded)
+            {
+                UserManager.AddToRole(user.Id, roleName);
+            }
+            return result;
         }
     }
 }

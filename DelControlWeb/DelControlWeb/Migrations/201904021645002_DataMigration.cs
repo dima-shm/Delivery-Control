@@ -89,6 +89,31 @@ namespace DelControlWeb.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                        Description = c.String(),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
                 "dbo.LastCourierLocations",
                 c => new
                     {
@@ -109,13 +134,11 @@ namespace DelControlWeb.Migrations
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         CompanyId = c.Int(),
-                        Surname = c.String(),
                         Name = c.String(),
-                        Patronymic = c.String(),
-                        Email = c.String(maxLength: 256),
                         Phone = c.String(),
                         Address = c.String(),
                         Status = c.String(),
+                        Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
                         SecurityStamp = c.String(),
@@ -156,19 +179,6 @@ namespace DelControlWeb.Migrations
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
             
             CreateTable(
                 "dbo.OrderProducts",
@@ -216,18 +226,6 @@ namespace DelControlWeb.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
-            CreateTable(
-                "dbo.AspNetRoles",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
-                        Description = c.String(),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
         }
         
         public override void Down()
@@ -248,33 +246,33 @@ namespace DelControlWeb.Migrations
             DropForeignKey("dbo.CompanyOrderStatuses", "CompanyId", "dbo.Companies");
             DropForeignKey("dbo.CompanyCourierStatuses", "CourierStatusId", "dbo.CourierStatus");
             DropForeignKey("dbo.CompanyCourierStatuses", "CompanyId", "dbo.Companies");
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Orders", new[] { "CourierId" });
             DropIndex("dbo.Orders", new[] { "DeliveryId" });
             DropIndex("dbo.Orders", new[] { "CustomerId" });
             DropIndex("dbo.Orders", new[] { "CompanyId" });
             DropIndex("dbo.OrderProducts", new[] { "ProductId" });
             DropIndex("dbo.OrderProducts", new[] { "OrderId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUsers", new[] { "CompanyId" });
             DropIndex("dbo.LastCourierLocations", new[] { "CourierId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.CompanyOrderStatuses", new[] { "OrderStatusId" });
             DropIndex("dbo.CompanyOrderStatuses", new[] { "CompanyId" });
             DropIndex("dbo.CompanyCourierStatuses", new[] { "CourierStatusId" });
             DropIndex("dbo.CompanyCourierStatuses", new[] { "CompanyId" });
-            DropTable("dbo.AspNetRoles");
             DropTable("dbo.Products");
             DropTable("dbo.Orders");
             DropTable("dbo.OrderProducts");
-            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.LastCourierLocations");
+            DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.AspNetRoles");
             DropTable("dbo.Deliveries");
             DropTable("dbo.Customers");
             DropTable("dbo.OrderStatus");

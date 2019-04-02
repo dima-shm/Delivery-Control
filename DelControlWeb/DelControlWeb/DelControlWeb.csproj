@@ -187,19 +187,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Context\ApplicationDbInitializer.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
-    <Compile Include="Migrations\201903040810264_DataMigration.cs" />
-    <Compile Include="Migrations\201903040810264_DataMigration.Designer.cs">
-      <DependentUpon>201903040810264_DataMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903071502116_UpdateUserMigration.cs" />
-    <Compile Include="Migrations\201903071502116_UpdateUserMigration.Designer.cs">
-      <DependentUpon>201903071502116_UpdateUserMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903071516046_SecondUserUpdateMigration.cs" />
-    <Compile Include="Migrations\201903071516046_SecondUserUpdateMigration.Designer.cs">
-      <DependentUpon>201903071516046_SecondUserUpdateMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201904021645002_DataMigration.cs" />
+    <Compile Include="Migrations\201904021645002_DataMigration.Designer.cs">
+      <DependentUpon>201904021645002_DataMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
@@ -327,14 +320,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903040810264_DataMigration.resx">
-      <DependentUpon>201903040810264_DataMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903071502116_UpdateUserMigration.resx">
-      <DependentUpon>201903071502116_UpdateUserMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903071516046_SecondUserUpdateMigration.resx">
-      <DependentUpon>201903071516046_SecondUserUpdateMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904021645002_DataMigration.resx">
+      <DependentUpon>201904021645002_DataMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

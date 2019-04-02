@@ -7,13 +7,13 @@ namespace DelControlWeb.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class UpdateUserMigration : IMigrationMetadata
+    public sealed partial class DataMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateUserMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DataMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903071502116_UpdateUserMigration"; }
+            get { return "201904021645002_DataMigration"; }
         }
         
         string IMigrationMetadata.Source

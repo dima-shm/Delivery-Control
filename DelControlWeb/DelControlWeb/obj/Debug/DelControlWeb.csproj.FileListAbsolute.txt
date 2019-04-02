@@ -106,13 +106,11 @@ D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.d
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.pdb
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\Microsoft.AspNet.Identity.EntityFramework.xml
-D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.DataMigration.resources
-D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csproj.GenerateResource.cache
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\System.Net.Http.Formatting.dll
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\System.Web.Http.dll
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\System.Web.Http.WebHost.dll
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\System.Net.Http.Formatting.xml
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\System.Web.Http.xml
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\System.Web.Http.WebHost.xml
-D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.UpdateUserMigration.resources
-D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.SecondUserUpdateMigration.resources
+D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.DataMigration.resources
+D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csproj.GenerateResource.cache
