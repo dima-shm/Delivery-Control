@@ -4,6 +4,8 @@ namespace DelControlWeb.ViewModels.Users
 {
     public class EditViewModel
     {
+        public string Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 

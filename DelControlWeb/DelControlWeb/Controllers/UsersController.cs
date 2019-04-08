@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -26,7 +25,8 @@ namespace DelControlWeb.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            User currentUser = db.Users.Find(User.Identity.GetUserId());
+            return View(db.Users.Where(u => u.CompanyId == currentUser.CompanyId).ToList());
         }
 
         public ActionResult Details(string id)
@@ -88,20 +88,43 @@ namespace DelControlWeb.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            EditViewModel model = new EditViewModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Phone = user.Phone,
+                Address = user.Address,
+                Email = user.Email
+            };
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CompanyId,Name,Phone,Address,Status,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] User user)
+        public ActionResult Edit([Bind(Include = "Id,Name,Phone,Address,Email")] EditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                User user = UserManager.FindById(model.Id);
+                if (user != null)
+                {
+                    user.Name = model.Name;
+                    user.UserName = model.Email;
+                    user.Phone = model.Phone;
+                    user.Address = model.Address;
+                    user.Email = model.Email;
+                    IdentityResult result = UserManager.Update(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        AddErrors(result);
+                    }
+                }
             }
-            return View(user);
+            return View(model);
         }
 
         public ActionResult Delete(string id)
