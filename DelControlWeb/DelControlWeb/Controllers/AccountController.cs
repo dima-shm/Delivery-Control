@@ -80,46 +80,6 @@ namespace DelControlWeb.Controllers
             return View(model);
         }
 
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Create(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                Company company = new Company
-                {
-                    Name = model.CompanyName,
-                    RegisterNumber = model.RegisterNumber,
-                    RegisterDate = model.RegisterDate,
-                    TaxpayerNumber = model.TaxpayerNumber,
-                    Address = model.CompanyAddress
-                };
-                db.Companies.Add(company);
-                db.SaveChanges();
-                User user = new User
-                {
-                    CompanyId = company.Id,
-                    Name = model.UserName,
-                    UserName = model.Email,
-                    Email = model.Email
-                };
-                IdentityResult result = CreateAcount(user, model.Password, "manager");
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Login", "Account");
-                }
-                else
-                {
-                    AddErrors(result);
-                }
-            }
-            return View(model);
-        }
-
         public ActionResult Login()
         {
             return View();
