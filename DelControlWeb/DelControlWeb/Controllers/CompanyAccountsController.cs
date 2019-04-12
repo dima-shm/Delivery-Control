@@ -93,19 +93,19 @@ namespace DelControlWeb.Controllers
             if (ModelState.IsValid)
             {
                 User user = await UserManager.FindByEmailAsync(model.Email);
-                user = await UserManager.FindAsync(user.UserName, model.Password);
                 if (user != null)
-                {    
-                    ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
-                        DefaultAuthenticationTypes.ApplicationCookie);
-                    AuthenticationManager.SignOut();
-                    AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
                 {
-                    AddErrors(new IdentityResult("Invalid login or password."));
+                    user = await UserManager.FindAsync(user.UserName, model.Password);
+                    if (user != null)
+                    {
+                        ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
+                        DefaultAuthenticationTypes.ApplicationCookie);
+                        AuthenticationManager.SignOut();
+                        AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
+                AddErrors(new IdentityResult("Invalid login or password."));
             }
             return View(model);
         }
