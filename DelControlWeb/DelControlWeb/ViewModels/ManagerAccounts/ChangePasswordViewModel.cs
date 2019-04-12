@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DelControlWeb.ViewModels.Users
+namespace DelControlWeb.ViewModels.ManagerAccounts
 {
     public class ChangePasswordViewModel
     {

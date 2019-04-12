@@ -171,7 +171,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\ApplicationContext.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CompanyAccountsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CompanyCourierStatusesController.cs" />
     <Compile Include="Controllers\CompanyOrderStatusesController.cs" />
@@ -184,7 +184,7 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\OrderStatusController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\ManagerAccountsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,6 +194,10 @@
     <Compile Include="Migrations\201904021645002_DataMigration.cs" />
     <Compile Include="Migrations\201904021645002_DataMigration.Designer.cs">
       <DependentUpon>201904021645002_DataMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904120953521_UpdateUserModelMigration.cs" />
+    <Compile Include="Migrations\201904120953521_UpdateUserModelMigration.Designer.cs">
+      <DependentUpon>201904120953521_UpdateUserModelMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
@@ -210,11 +214,11 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
-    <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
-    <Compile Include="ViewModels\Users\ChangePasswordViewModel.cs" />
-    <Compile Include="ViewModels\Users\CreateViewModel.cs" />
-    <Compile Include="ViewModels\Users\EditViewModel.cs" />
+    <Compile Include="ViewModels\CompanyAccounts\LoginViewModel.cs" />
+    <Compile Include="ViewModels\CompanyAccounts\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\ManagerAccounts\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\ManagerAccounts\CreateViewModel.cs" />
+    <Compile Include="ViewModels\ManagerAccounts\EditViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -301,8 +305,8 @@
     <Content Include="Views\CompanyOrderStatuses\Details.cshtml" />
     <Content Include="Views\CompanyOrderStatuses\Edit.cshtml" />
     <Content Include="Views\CompanyOrderStatuses\Index.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\CompanyAccounts\Register.cshtml" />
+    <Content Include="Views\CompanyAccounts\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
@@ -310,11 +314,11 @@
     <Content Include="Views\Home\_IndexManagerPartial.cshtml" />
     <Content Include="Views\Home\_IndexAdminPartial.cshtml" />
     <Content Include="Views\Home\_IndexNotAuthorizedPartial.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\ManagerAccounts\Create.cshtml" />
+    <Content Include="Views\ManagerAccounts\Delete.cshtml" />
+    <Content Include="Views\ManagerAccounts\Details.cshtml" />
+    <Content Include="Views\ManagerAccounts\Edit.cshtml" />
+    <Content Include="Views\ManagerAccounts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -335,6 +339,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904021645002_DataMigration.resx">
       <DependentUpon>201904021645002_DataMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904120953521_UpdateUserModelMigration.resx">
+      <DependentUpon>201904120953521_UpdateUserModelMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -114,3 +114,4 @@ D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\System.Web.Http.xml
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\System.Web.Http.WebHost.xml
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.DataMigration.resources
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csproj.GenerateResource.cache
+D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.UpdateUserModelMigration.resources

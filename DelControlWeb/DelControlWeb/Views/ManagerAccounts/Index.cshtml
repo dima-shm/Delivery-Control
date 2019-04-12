@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<DelControlWeb.Models.User>
-
 @{
     ViewBag.Title = "Index";
 }
@@ -20,7 +19,7 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.UserName)</td>
             <td>@Html.DisplayFor(modelItem => item.Phone)</td>
             <td>@Html.DisplayFor(modelItem => item.Address)</td>
             <td>@Html.DisplayFor(modelItem => item.Email)</td>

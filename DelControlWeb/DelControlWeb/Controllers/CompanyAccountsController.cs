@@ -1,7 +1,7 @@
 ﻿using DelControlWeb.Context;
 using DelControlWeb.Managers;
 using DelControlWeb.Models;
-using DelControlWeb.ViewModels.Account;
+using DelControlWeb.ViewModels.CompanyAccounts;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace DelControlWeb.Controllers
 {
-    public class AccountController : Controller
+    public class CompanyAccountsController : Controller
     {
         private ApplicationContext db = new ApplicationContext();
 
@@ -40,13 +40,14 @@ namespace DelControlWeb.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -63,11 +64,10 @@ namespace DelControlWeb.Controllers
                 User user = new User
                 {
                     CompanyId = company.Id,
-                    Name = model.UserName,
-                    UserName = model.Email,
+                    UserName = model.UserName,
                     Email = model.Email
                 };
-                IdentityResult result = CreateAcount(user, model.Password, "company");
+                IdentityResult result = await CreateAcountAsync(user, model.Password, "company");
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Login", "Account");
@@ -80,6 +80,7 @@ namespace DelControlWeb.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
@@ -91,23 +92,25 @@ namespace DelControlWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await UserManager.FindAsync(model.Email, model.Password);
-                if (user == null)
-                {
-                    AddErrors(new IdentityResult("Invalid login or password."));
-                }
-                else
-                {
+                User user = await UserManager.FindByEmailAsync(model.Email);
+                user = await UserManager.FindAsync(user.UserName, model.Password);
+                if (user != null)
+                {    
                     ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
-                                            DefaultAuthenticationTypes.ApplicationCookie);
+                        DefaultAuthenticationTypes.ApplicationCookie);
                     AuthenticationManager.SignOut();
                     AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
                     return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    AddErrors(new IdentityResult("Invalid login or password."));
                 }
             }
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
@@ -122,9 +125,9 @@ namespace DelControlWeb.Controllers
             }
         }
 
-        private IdentityResult CreateAcount(User user, string userPassword, string roleName)
+        private async Task<IdentityResult> CreateAcountAsync(User user, string userPassword, string roleName)
         {
-            IdentityResult result = UserManager.Create(user, userPassword);
+            IdentityResult result = await UserManager.CreateAsync(user, userPassword);
             if (result.Succeeded)
             {
                 UserManager.AddToRole(user.Id, roleName);

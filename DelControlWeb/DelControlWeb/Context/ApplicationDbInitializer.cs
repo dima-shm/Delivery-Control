@@ -9,6 +9,7 @@ namespace DelControlWeb.Context
     public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationContext>
     {
         private ApplicationUserManager _userManager;
+
         private RoleManager<IdentityRole> _roleManager;
 
         protected override void Seed(ApplicationContext context)
@@ -16,7 +17,7 @@ namespace DelControlWeb.Context
             _userManager = new ApplicationUserManager(new UserStore<User>(context));
             _roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             CreateRoles(new[] { "admin", "company", "manager", "courier" });
-            User admin = new User { Email = "admin@yandex.ru", UserName = "admin@yandex.ru" };
+            User admin = new User { Email = "admin@admin.com", UserName = "admin" };
             string password = "admin123";
             CreateAdmin(admin, password, "admin");
             base.Seed(context);

@@ -1,17 +1,18 @@
 ﻿using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DelControlWeb.Context;
 using DelControlWeb.Managers;
 using DelControlWeb.Models;
-using DelControlWeb.ViewModels.Users;
+using DelControlWeb.ViewModels.ManagerAccounts;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace DelControlWeb.Controllers
 {
-    public class UsersController : Controller
+    public class ManagerAccountsController : Controller
     {
         private ApplicationContext db = new ApplicationContext();
 
@@ -23,12 +24,16 @@ namespace DelControlWeb.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             User currentUser = db.Users.Find(User.Identity.GetUserId());
-            return View(db.Users.Where(u => u.CompanyId == currentUser.CompanyId).ToList());
+            return View(db.Users.Where(u =>
+                u.CompanyId == currentUser.CompanyId
+                && u.Id != currentUser.Id).ToList());
         }
 
+        [HttpGet]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -43,6 +48,7 @@ namespace DelControlWeb.Controllers
             return View(user);
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -50,7 +56,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Phone,Address,Email,Password,PasswordConfirm")] CreateViewModel model)
+        public async Task<ActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -58,13 +64,12 @@ namespace DelControlWeb.Controllers
                 User user = new User
                 {
                     CompanyId = currentUser.CompanyId,
-                    Name = model.Name,
-                    UserName = model.Name,
+                    UserName = model.UserName,
                     Phone = model.Phone,
                     Address = model.Address,
                     Email = model.Email,
                 };
-                IdentityResult result = CreateAcount(user, model.Password, "manager");
+                IdentityResult result = await CreateAcountAsync(user, model.Password, "manager");
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -77,6 +82,7 @@ namespace DelControlWeb.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -91,7 +97,7 @@ namespace DelControlWeb.Controllers
             EditViewModel model = new EditViewModel
             {
                 Id = user.Id,
-                Name = user.Name,
+                UserName = user.UserName,
                 Phone = user.Phone,
                 Address = user.Address,
                 Email = user.Email
@@ -101,19 +107,18 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Phone,Address,Email")] EditViewModel model)
+        public async Task<ActionResult> Edit(EditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                User user = UserManager.FindById(model.Id);
+                User user = await UserManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
-                    user.Name = model.Name;
-                    user.UserName = model.Email;
+                    user.UserName = model.UserName;
                     user.Phone = model.Phone;
                     user.Address = model.Address;
                     user.Email = model.Email;
-                    IdentityResult result = UserManager.Update(user);
+                    IdentityResult result = await UserManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index");
@@ -127,6 +132,7 @@ namespace DelControlWeb.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -151,15 +157,6 @@ namespace DelControlWeb.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private void AddErrors(IdentityResult result)
         {
             foreach (string error in result.Errors)
@@ -168,9 +165,9 @@ namespace DelControlWeb.Controllers
             }
         }
 
-        private IdentityResult CreateAcount(User user, string userPassword, string roleName)
+        private async Task<IdentityResult> CreateAcountAsync(User user, string userPassword, string roleName)
         {
-            IdentityResult result = UserManager.Create(user, userPassword);
+            IdentityResult result = await UserManager.CreateAsync(user, userPassword);
             if (result.Succeeded)
             {
                 UserManager.AddToRole(user.Id, roleName);

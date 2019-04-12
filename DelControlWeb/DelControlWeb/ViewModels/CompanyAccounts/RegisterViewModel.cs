@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DelControlWeb.ViewModels.Account
+namespace DelControlWeb.ViewModels.CompanyAccounts
 {
     public class RegisterViewModel
     {
@@ -9,6 +9,7 @@ namespace DelControlWeb.ViewModels.Account
         public string CompanyName { get; set; }
 
         [Required]
+        [RegularExpression(@"^[0-9 ]+$")]
         public string RegisterNumber { get; set; }
 
         [Required]
@@ -16,6 +17,7 @@ namespace DelControlWeb.ViewModels.Account
         public DateTime RegisterDate { get; set; }
 
         [Required]
+        [RegularExpression(@"^[0-9 ]+$")]
         public string TaxpayerNumber { get; set; }
 
         [Required]

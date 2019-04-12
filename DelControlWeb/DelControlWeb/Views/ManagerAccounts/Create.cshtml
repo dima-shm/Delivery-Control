@@ -1,5 +1,4 @@
-﻿@model DelControlWeb.ViewModels.Users.CreateViewModel
-
+﻿@model DelControlWeb.ViewModels.ManagerAccounts.CreateViewModel
 @{
     ViewBag.Title = "Create";
 }
@@ -17,8 +16,8 @@
         <div class="form-group">
             @Html.Label("Фамилия и инициалы", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
 
