@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<DelControlWeb.Models.User>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Управление менеджерами";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить менеджера", "Create")
 </p>
-<table class="table">
+<table class="table table-hover">
     <tr>
         <th>Имя</th>
         <th>Номер телефона</th>
