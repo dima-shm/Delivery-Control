@@ -320,7 +320,6 @@
     <Content Include="Views\ManagerAccounts\Details.cshtml" />
     <Content Include="Views\ManagerAccounts\Edit.cshtml" />
     <Content Include="Views\ManagerAccounts\Index.cshtml" />
-    <Content Include="Views\UserAccounts\Create.cshtml" />
     <Content Include="Views\UserAccounts\Delete.cshtml" />
     <Content Include="Views\UserAccounts\Details.cshtml" />
     <Content Include="Views\UserAccounts\Edit.cshtml" />

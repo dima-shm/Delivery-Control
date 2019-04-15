@@ -3,9 +3,6 @@
     ViewBag.Title = "Управление пользователями";
 }
 
-<p>
-    @Html.ActionLink("Добавить пользователя", "Create")
-</p>
 <table class="table table-striped table-hover">
     <tr>
         <th>ID компании</th>
@@ -18,15 +15,17 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.CompanyId</td>
+            <td>
+                <a href="/Companies/Details/@item.CompanyId">@item.CompanyId</a>
+            </td>
             <td>@item.UserName</td>
             <td>@item.Phone</td>
             <td>@item.Address</td>
             <td>@item.Email</td>
             <td>
-                <a href="/UserAccounts/Edit/@item.Id" class="glyphicon glyphicon-pencil" aria-hidden="true"/>
-                <a href="/UserAccounts/Details/@item.Id" class="glyphicon glyphicon-eye-open" aria-hidden="true"/>
-                <a href="/UserAccounts/Delete/@item.Id" class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                <a href="/UserAccounts/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="text-decoration: none"/>
+                <a href="/UserAccounts/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="text-decoration: none"/>
+                <a href="/UserAccounts/Delete/@item.Id" class="glyphicon glyphicon-trash" style="text-decoration: none"/>
             </td>
         </tr>
     }
