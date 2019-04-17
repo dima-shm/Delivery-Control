@@ -11,11 +11,13 @@ namespace DelControlWeb.Controllers
     {
         private ApplicationContext db = new ApplicationContext();
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View(db.Customers.ToList());
         }
 
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -30,6 +32,7 @@ namespace DelControlWeb.Controllers
             return View(customer);
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -48,6 +51,7 @@ namespace DelControlWeb.Controllers
             return View(customer);
         }
 
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,6 +79,7 @@ namespace DelControlWeb.Controllers
             return View(customer);
         }
 
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)

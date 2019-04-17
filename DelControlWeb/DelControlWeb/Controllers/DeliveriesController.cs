@@ -11,11 +11,13 @@ namespace DelControlWeb.Controllers
     {
         private ApplicationContext db = new ApplicationContext();
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View(db.Delivery.ToList());
         }
 
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -30,6 +32,7 @@ namespace DelControlWeb.Controllers
             return View(delivery);
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -37,7 +40,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Address,Date,Time")] Delivery delivery)
+        public ActionResult Create(Delivery delivery)
         {
             if (ModelState.IsValid)
             {
@@ -48,6 +51,7 @@ namespace DelControlWeb.Controllers
             return View(delivery);
         }
 
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -64,7 +68,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Address,Date,Time")] Delivery delivery)
+        public ActionResult Edit(Delivery delivery)
         {
             if (ModelState.IsValid)
             {
@@ -75,6 +79,7 @@ namespace DelControlWeb.Controllers
             return View(delivery);
         }
 
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -97,15 +102,6 @@ namespace DelControlWeb.Controllers
             db.Delivery.Remove(delivery);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
