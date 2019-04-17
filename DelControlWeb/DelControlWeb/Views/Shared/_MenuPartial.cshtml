@@ -8,7 +8,7 @@
     {
         if (User.IsInRole("admin"))
         {
-            
+            <li>@Html.ActionLink("Управление пользователями", "Index", "UserAccounts", null, new { style = "color:white" })</li>
         }
         else if (User.IsInRole("company"))
         {
