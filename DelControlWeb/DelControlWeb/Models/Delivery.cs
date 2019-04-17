@@ -10,8 +10,11 @@ namespace DelControlWeb.Models
 
         public string Address { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
+        [DataType(DataType.Time)]
         public DateTime Time { get; set; }
     }
 }
