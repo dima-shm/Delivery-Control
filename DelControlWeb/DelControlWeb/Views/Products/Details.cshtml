@@ -1,42 +1,36 @@
 ﻿@model DelControlWeb.Models.Product
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Информация о товаре";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descriotion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descriotion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Назад к списку", "Index")
 </p>
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.Label("Название", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Name</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Описание", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Descriotion</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Цена", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Price</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-5 col-md-3">
+            <a href="/Products/Edit/@Model.Id" class="btn btn-block btn-default">Редактировать</a>
+        </div>
+    </div>
+</div>
