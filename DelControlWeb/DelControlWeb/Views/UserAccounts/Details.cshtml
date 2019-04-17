@@ -6,7 +6,6 @@
 <p>
     @Html.ActionLink("Назад к списку", "Index")
 </p>
-
 <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
