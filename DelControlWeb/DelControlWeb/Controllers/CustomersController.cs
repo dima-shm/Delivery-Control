@@ -37,7 +37,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Phone,Address")] Customer customer)
+        public ActionResult Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Phone,Address")] Customer customer)
+        public ActionResult Edit(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -97,15 +97,6 @@ namespace DelControlWeb.Controllers
             db.Customers.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
