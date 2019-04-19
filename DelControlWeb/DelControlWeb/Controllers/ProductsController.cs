@@ -59,6 +59,8 @@ namespace DelControlWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                User currentUser = UserManager.FindById(User.Identity.GetUserId());
+                product.CompanyId = currentUser.CompanyId;
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
