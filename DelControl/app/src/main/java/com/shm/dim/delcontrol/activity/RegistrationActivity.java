@@ -91,7 +91,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 createDialogMsg(getResources().getString(R.string.check_email_address));
             } else {
                 mProgressBar.setVisibility(View.VISIBLE);
-                RestServiceRequest("http://localhost:64239/api/Register/",
+                RestServiceRequest("http://localhost:64239/api/CourierAccounts/",
                         "POST",
                         "");
             }

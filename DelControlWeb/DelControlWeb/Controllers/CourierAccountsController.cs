@@ -80,7 +80,7 @@ namespace DelControlWeb.Controllers
                 Address = courier.Address,
                 Email = courier.Email,
             };
-            IdentityResult result = CreateAcount(user, courier.Password, "manager");
+            IdentityResult result = CreateAcount(user, courier.Password, "courier");
             try
             {
                 db.SaveChanges();
