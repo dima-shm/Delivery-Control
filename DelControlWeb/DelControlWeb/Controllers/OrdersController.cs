@@ -112,24 +112,56 @@ namespace DelControlWeb.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Order order = db.Orders.Find(id);
+            List<OrderProducts> orderProducts = db.OrderProducts.Where(p => p.OrderId == id).ToList();
+            List<Product> products = new List<Product>();
+            foreach (OrderProducts orderProduct in orderProducts)
+            {
+                products.Add(db.Products.First(p => p.Id == orderProduct.ProductId));
+            }
+            EditViewModel model = new EditViewModel
+            {
+                OrderId = order.Id,
+                CustomerId = order.CustomerId,
+                DeliveryId = order.DeliveryId,
+                Products = products
+            };
+            ViewBag.Customers = db.Customers;
+            ViewBag.Delivery = db.Delivery;
+            ViewBag.Products = db.Products;
             if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Order order)
+        public async Task<ActionResult> Edit(EditViewModel model)
         {
-            if (ModelState.IsValid)
+            User currentUser = UserManager.FindById(User.Identity.GetUserId());
+            Order order = new Order
             {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Id = model.OrderId,
+                CompanyId = currentUser.CompanyId,
+                CustomerId = model.CustomerId,
+                DeliveryId = model.DeliveryId
+            };
+            db.Entry(order).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            db.OrderProducts.RemoveRange(db.OrderProducts.Where(o => o.OrderId == order.Id));
+            await db.SaveChangesAsync();
+            foreach (int productId in model.ProductIds)
+            {
+                OrderProducts orderProducts = new OrderProducts
+                {
+                    OrderId = order.Id,
+                    ProductId = productId
+                };
+                db.OrderProducts.Add(orderProducts);
+                await db.SaveChangesAsync();
             }
-            return View(order);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -140,17 +172,39 @@ namespace DelControlWeb.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Order order = db.Orders.Find(id);
+            List<OrderProducts> orderProducts = db.OrderProducts.Where(p => p.OrderId == id).ToList();
+            List<Product> products = new List<Product>();
+            foreach (OrderProducts orderProduct in orderProducts)
+            {
+                products.Add(db.Products.First(p => p.Id == orderProduct.ProductId));
+            }
+            DetailsViewModel model = new DetailsViewModel
+            {
+                CustomerId = order.CustomerId,
+                CustomerName = db.Customers.Find(order.CustomerId).Name,
+                DeliveryId = order.DeliveryId,
+                Delivery = db.Delivery.Find(order.DeliveryId).Address,
+                CourierId = order.CourierId,
+                Products = products,
+                Status = order.Status
+            };
             if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(model);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            List<OrderProducts> orderProducts = db.OrderProducts.Where(p => p.OrderId == id).ToList();
+            foreach (OrderProducts orderProduct in orderProducts)
+            {
+                db.OrderProducts.Remove(orderProduct);
+                db.SaveChanges();
+            }
             Order order = db.Orders.Find(id);
             db.Orders.Remove(order);
             db.SaveChanges();
