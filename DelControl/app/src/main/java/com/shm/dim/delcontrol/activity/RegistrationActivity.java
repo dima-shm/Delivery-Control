@@ -93,11 +93,23 @@ public class RegistrationActivity extends AppCompatActivity {
                 mProgressBar.setVisibility(View.VISIBLE);
                 RestServiceRequest("http://localhost:64239/api/CourierAccounts/",
                         "POST",
-                        "");
+                        GetJsonUser(companyId, name, address, email, phoneNumber, password));
             }
         } else {
             createDialogMsg(getResources().getString(R.string.fill_in_all_fields));
         }
+    }
+
+    protected String GetJsonUser(String companyId, String name, String address, String email,
+                                 String phoneNumber, String password) {
+        return "{" +
+                "'CompanyId':" + companyId + "," +
+                "'Name':'" + name + "'," +
+                "'Address':'" + address + "'," +
+                "'Email':'" + email + "'," +
+                "'Password':'" + password + "'," +
+                "'Phone': '" + phoneNumber +
+                "}";
     }
 
     protected void RestServiceRequest(String url, String method, String body){
@@ -134,7 +146,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 // Headlines
                 connection.setDoOutput(true);
                 connection.setRequestMethod(params[1]);
-                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                connection.setRequestProperty("Content-Type", "application/json");
                 // Body
                 try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"))) {
                     bw.write(params[2]);
