@@ -38,22 +38,10 @@
                 android:hint="@string/company_id"/>
 
             <EditText
-                android:id="@+id/surname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/surname"/>
-
-            <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name"/>
-
-            <EditText
-                android:id="@+id/patronymic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/patronymic"/>
 
             <EditText
                 android:id="@+id/email_address"
