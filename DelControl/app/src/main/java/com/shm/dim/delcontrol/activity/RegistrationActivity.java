@@ -42,7 +42,6 @@ public class RegistrationActivity extends AppCompatActivity {
         mPhoneNumber = findViewById(R.id.phone_number);
         mPassword = findViewById(R.id.password);
         mPasswordConfirm = findViewById(R.id.confirm_password);
-        mCompanyId = findViewById(R.id.company_id);
     }
 
     private boolean isEmptyValuesOnEditViews() {
@@ -83,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity {
             phoneNumber = mPhoneNumber.getText().toString();
             password = mPassword.getText().toString();
             passwordConfirm = mPasswordConfirm.getText().toString();
-            if (password != passwordConfirm) {
+            if (!password.equals(passwordConfirm)) {
                 createDialogMsg(getResources().getString(R.string.passwords_must_match));
             } else if (formatPhoneNumberIsCorrect(phoneNumber)) {
                 createDialogMsg(getResources().getString(R.string.check_phone_number));

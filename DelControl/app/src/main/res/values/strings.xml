@@ -18,7 +18,7 @@
     <string name="registration">Регистрация</string>
     <string name="company_id">ID компании</string>
     <string name="name">ФИО</string>
-    <string name="address">адрес</string>
+    <string name="address">Адрес</string>
     <string name="email_address">E-mail адрес</string>
     <string name="phone_number">Номер телефона (+************)</string>
     <string name="password">Пароль</string>
