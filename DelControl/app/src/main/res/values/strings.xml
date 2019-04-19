@@ -18,6 +18,7 @@
     <string name="registration">Регистрация</string>
     <string name="company_id">ID компании</string>
     <string name="name">ФИО</string>
+    <string name="address">адрес</string>
     <string name="email_address">E-mail адрес</string>
     <string name="phone_number">Номер телефона (+************)</string>
     <string name="password">Пароль</string>
@@ -27,4 +28,10 @@
     <string name="copyright">Copyright &#169; 2018 – 2019 Shumanski Dima \n
         All rights reserved.</string>
     <string name="version">Версия</string>
+    <string name="passwords_must_match">Пароли должны совпадать</string>
+    <string name="check_phone_number">Проверьте правильность ввода телефона</string>
+    <string name="check_email_address">Проверьте правильность ввода email</string>
+    <string name="fill_in_all_fields">Заполните все поля</string>
+    <string name="problem_with_network">Проблема с сетью</string>
+    <string name="complete">Операция выполнена успешно</string>
 </resources>
