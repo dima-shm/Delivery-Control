@@ -29,7 +29,9 @@ namespace DelControlWeb.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(db.Orders.ToList());
+            User currentUser = UserManager.FindById(User.Identity.GetUserId());
+            List<Order> orders = db.Orders.Where(o => o.CompanyId == currentUser.CompanyId).ToList();
+            return View(orders);
         }
 
         [HttpGet]

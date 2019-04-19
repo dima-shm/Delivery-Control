@@ -1,9 +1,14 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using DelControlWeb.Context;
+using DelControlWeb.Managers;
 using DelControlWeb.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DelControlWeb.Controllers
 {
@@ -11,10 +16,20 @@ namespace DelControlWeb.Controllers
     {
         private ApplicationContext db = new ApplicationContext();
 
+        private ApplicationUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
-            return View(db.Delivery.ToList());
+            User currentUser = UserManager.FindById(User.Identity.GetUserId());
+            List<Delivery> deliveries = db.Delivery.Where(d => d.CompanyId == currentUser.CompanyId).ToList();
+            return View(deliveries);
         }
 
         [HttpGet]

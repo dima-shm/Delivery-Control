@@ -200,6 +200,10 @@
     <Compile Include="Migrations\201904120953521_UpdateUserModelMigration.Designer.cs">
       <DependentUpon>201904120953521_UpdateUserModelMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904190431096_UpdateModelsMigration.cs" />
+    <Compile Include="Migrations\201904190431096_UpdateModelsMigration.Designer.cs">
+      <DependentUpon>201904190431096_UpdateModelsMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CompanyCourierStatuses.cs" />
@@ -350,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904120953521_UpdateUserModelMigration.resx">
       <DependentUpon>201904120953521_UpdateUserModelMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904190431096_UpdateModelsMigration.resx">
+      <DependentUpon>201904190431096_UpdateModelsMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
