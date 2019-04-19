@@ -175,6 +175,7 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CompanyCourierStatusesController.cs" />
     <Compile Include="Controllers\CompanyOrderStatusesController.cs" />
+    <Compile Include="Controllers\CourierAccountsController.cs" />
     <Compile Include="Controllers\CourierStatusController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DeliveriesController.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CompanyCourierStatuses.cs" />
     <Compile Include="Models\CompanyOrderStatuses.cs" />
+    <Compile Include="Models\Courier.cs" />
     <Compile Include="Models\CourierStatus.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Delivery.cs" />
