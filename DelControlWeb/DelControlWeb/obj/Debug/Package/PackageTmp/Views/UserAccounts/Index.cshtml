@@ -1,0 +1,32 @@
+﻿@model IEnumerable<DelControlWeb.Models.User>
+@{
+    ViewBag.Title = "Управление пользователями";
+}
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>ID компании</th>
+        <th>Имя пользователя</th>
+        <th>Номер телефона</th>
+        <th>Адрес</th>
+        <th>Email</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="/Companies/Details/@item.CompanyId">@item.CompanyId</a>
+            </td>
+            <td>@item.UserName</td>
+            <td>@item.Phone</td>
+            <td>@item.Address</td>
+            <td>@item.Email</td>
+            <td>
+                <a href="/UserAccounts/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="text-decoration: none"/>
+                <a href="/UserAccounts/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="text-decoration: none"/>
+                <a href="/UserAccounts/Delete/@item.Id" class="glyphicon glyphicon-trash" style="text-decoration: none"/>
+            </td>
+        </tr>
+    }
+</table>

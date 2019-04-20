@@ -1,0 +1,39 @@
+﻿@model DelControlWeb.Models.Delivery
+@{
+    ViewBag.Title = "Удаление информации о доставке";
+}
+
+<p>
+    @Html.ActionLink("Назад к списку", "Index")
+</p>
+<h3>Вы уверены, что хотите удалить выбранные данные о доставке?</h3>
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.Label("Адрес", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Address</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Дата", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Date.ToString("d")</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Время", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Time.ToString("t")</p>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-danger" />
+        </div>
+    }
+</div>

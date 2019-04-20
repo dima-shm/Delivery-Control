@@ -15,7 +15,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        startActivityAfterTimer(MainActivity.class, SPLASH_TIME);
+        //startActivityAfterTimer(MainActivity.class, SPLASH_TIME);
+        startActivityAfterTimer(RegistrationActivity.class, SPLASH_TIME);
     }
 
     private void startActivityAfterTimer(final Class<?> cls, int time) {

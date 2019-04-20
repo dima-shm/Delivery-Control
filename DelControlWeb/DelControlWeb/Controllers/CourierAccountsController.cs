@@ -22,7 +22,15 @@ namespace DelControlWeb.Controllers
         {
             get
             {
-                return new ApplicationUserManager(new Microsoft.AspNet.Identity.EntityFramework.UserStore<User>(db));
+                var manager = new ApplicationUserManager(
+                    new Microsoft.AspNet.Identity.EntityFramework.UserStore<User>(db));
+                manager.UserValidator = new UserValidator<User>(manager)
+                {
+                    AllowOnlyAlphanumericUserNames = false,
+                    RequireUniqueEmail = false
+                };
+                return manager;
+                    
             }
         }
 

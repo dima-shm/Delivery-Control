@@ -1,0 +1,29 @@
+﻿@model IEnumerable<DelControlWeb.Models.Delivery>
+@{
+    ViewBag.Title = "Управление адресами доставки";
+}
+
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Адрес</th>
+        <th>Дата</th>
+        <th>Время</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Address</td>
+            <td>@item.Date.ToString("d")</td>
+            <td>@item.Time.ToString("t")</td>
+            <td>
+                <a href="/Deliveries/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="text-decoration: none" />
+                <a href="/Deliveries/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="text-decoration: none" />
+                <a href="/Deliveries/Delete/@item.Id" class="glyphicon glyphicon-trash" style="text-decoration: none" />
+            </td>
+        </tr>
+    }
+</table>

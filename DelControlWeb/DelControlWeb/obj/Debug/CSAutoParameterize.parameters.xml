@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DelControlDB-Web.config Connection String" description="DelControlDB Строка подключения в web.config, используемая приложением для доступа к базе данных." defaultValue="Data Source=DIMA;Database=DelControlDB;Persist Security Info=True;User ID=user;Password=user123" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\GitHub\\Delivery-Control\\DelControlWeb\\DelControlWeb\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DelControlDB']/@connectionString" />
+  </parameter>
+</parameters>

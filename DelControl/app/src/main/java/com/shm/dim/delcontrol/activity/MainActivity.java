@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         initComponents();
         checkPermissions();
         startLocationService();
-        startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
     }
 
     private void initComponents() {

@@ -45,7 +45,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         mAlertDialog
                 = getAlertDialog(context,
                 R.drawable.no_internet_connection,
-                context.getResources().getString(R.string.check_internet_connection),
+                context.getResources().getString(R.string.check_network_state),
                 context.getResources().getString(R.string.an_internet_connection_is_required));
     }
 

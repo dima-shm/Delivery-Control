@@ -1,0 +1,40 @@
+﻿@model DelControlWeb.Models.Delivery
+@{
+    ViewBag.Title = "Детали доставик";
+}
+
+<p>
+    @Html.ActionLink("Назад к списку", "Index")
+</p>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.CompanyId)
+
+    <div class="form-group">
+        @Html.Label("Адрес", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Address</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Дата", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Date.ToString("d")</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Время", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Time.ToString("t")</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-5 col-md-3">
+            <a href="/Deliveries/Edit/@Model.Id" class="btn btn-block btn-default">Редактировать</a>
+        </div>
+    </div>
+</div>

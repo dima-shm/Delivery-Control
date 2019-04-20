@@ -57,7 +57,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private boolean formatEmailIsCorrect(String str) {
-        String reg = "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
+        String reg = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$";
         return str.matches(reg);
     }
 
@@ -84,13 +84,13 @@ public class RegistrationActivity extends AppCompatActivity {
             passwordConfirm = mPasswordConfirm.getText().toString();
             if (!password.equals(passwordConfirm)) {
                 createDialogMsg(getResources().getString(R.string.passwords_must_match));
-            } else if (formatPhoneNumberIsCorrect(phoneNumber)) {
+            } else if (!formatPhoneNumberIsCorrect(phoneNumber)) {
                 createDialogMsg(getResources().getString(R.string.check_phone_number));
-            } else if (formatEmailIsCorrect(email)) {
+            } else if (!formatEmailIsCorrect(email)) {
                 createDialogMsg(getResources().getString(R.string.check_email_address));
             } else {
                 mProgressBar.setVisibility(View.VISIBLE);
-                RestServiceRequest("http://localhost:64239/api/CourierAccounts/",
+                RestServiceRequest("http://192.168.43.234:46002/api/CourierAccounts/",
                         "POST",
                         GetJsonUser(companyId, name, address, email, phoneNumber, password));
             }
@@ -107,7 +107,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 "'Address':'" + address + "'," +
                 "'Email':'" + email + "'," +
                 "'Password':'" + password + "'," +
-                "'Phone': '" + phoneNumber +
+                "'Phone': '" + phoneNumber + "'" +
                 "}";
     }
 
@@ -147,7 +147,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 connection.setRequestMethod(params[1]);
                 connection.setRequestProperty("Content-Type", "application/json");
                 // Body
-                try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"))) {
+                try (BufferedWriter bw = new BufferedWriter(
+                        new OutputStreamWriter(connection.getOutputStream()))) {
                     bw.write(params[2]);
                 }
                 // Execute
@@ -162,14 +163,16 @@ public class RegistrationActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             if (connection != null) {
-                if (responseCode == HttpURLConnection.HTTP_OK || responseCode == 204) {
+                if (responseCode == HttpURLConnection.HTTP_OK ||
+                        responseCode == HttpURLConnection.HTTP_CREATED ||
+                        responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
                     Toast.makeText(context,
                             getResources().getString(R.string.complete),
                             Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(context,
-                            getResources().getString(R.string.check_internet_connection) +
-                                    "(" + String.valueOf(responseCode) + ")",
+                            getResources().getString(R.string.check_network_state) +
+                                    " (code: " + String.valueOf(responseCode) + ")",
                             Toast.LENGTH_LONG).show();
                 }
             }

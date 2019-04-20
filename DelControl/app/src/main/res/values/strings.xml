@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">DelControl</string>
-    <string name="check_internet_connection">Проверьте подключение к интернету</string>
+    <string name="check_network_state">Проверьте состояние сети</string>
     <string name="an_internet_connection_is_required">Для нормальной работы приложения требуется интернет соединение.</string>
     <string name="orders">Заказы</string>
     <string name="google_maps_key">AIzaSyBlHNvzhC5Qhu0FqWbD03QDVBGUkgF7_UE</string>
