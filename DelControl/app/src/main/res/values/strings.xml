@@ -20,7 +20,9 @@
     <string name="name">ФИО</string>
     <string name="address">Адрес</string>
     <string name="email_address">E-mail адрес</string>
-    <string name="phone_number">Номер телефона (+************)</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="phone_prefix">+375</string>
+    <string name="code">Код</string>
     <string name="password">Пароль</string>
     <string name="confirm_password">Подтвердите пароль</string>
     <string name="complete_registration">Завершить регистрацию</string>

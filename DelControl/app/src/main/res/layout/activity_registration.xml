@@ -35,6 +35,7 @@
                 android:id="@+id/company_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="@string/company_id"/>
 
             <EditText
@@ -53,25 +54,52 @@
                 android:id="@+id/email_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:hint="@string/email_address"/>
 
-            <EditText
-                android:id="@+id/phone_number"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:hint="@string/phone_number"/>
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/phone_prefix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:text="@string/phone_prefix"/>
+
+                <EditText
+                    android:id="@+id/phone_operator_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:textAlignment="center"
+                    android:hint="@string/code"/>
+
+                <EditText
+                    android:id="@+id/phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:hint="@string/phone_number"/>
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:hint="@string/password"/>
 
             <EditText
                 android:id="@+id/confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:hint="@string/confirm_password"/>
 
             <RelativeLayout
@@ -84,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:layout_centerHorizontal="true"
-                    android:textSize="25dp"
+                    android:textSize="25sp"
                     android:textColor="@color/colorAccent"
                     android:onClick="onClickCompleteRegistration"
                     android:text="@string/complete_registration"/>
@@ -100,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="@color/colorAccentDark"
                     android:text="@string/already_have_an_account_login" />
 

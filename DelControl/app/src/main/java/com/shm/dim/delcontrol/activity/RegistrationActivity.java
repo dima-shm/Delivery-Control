@@ -1,8 +1,7 @@
 package com.shm.dim.delcontrol.activity;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,19 +11,21 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
+import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
+import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
 
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     private ProgressBar mProgressBar;
 
-    private EditText mCompanyId, mName, mAddress, mEmail, mPhoneNumber, mPassword, mPasswordConfirm;
+    private EditText mCompanyId, mName, mAddress, mEmail,
+            mPhonePrefix, mPhoneOperatorCode, mPhoneNumber,
+            mPassword, mPasswordConfirm;
 
-    private String companyId, name, address, email, phoneNumber, password, passwordConfirm;
+    private String companyId, name, address, email,
+            phoneNumber, password, passwordConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,25 +40,32 @@ public class RegistrationActivity extends AppCompatActivity {
         mName = findViewById(R.id.name);
         mAddress = findViewById(R.id.address);
         mEmail = findViewById(R.id.email_address);
+        mPhonePrefix = findViewById(R.id.phone_prefix);
+        mPhoneOperatorCode = findViewById(R.id.phone_operator_code);
         mPhoneNumber = findViewById(R.id.phone_number);
         mPassword = findViewById(R.id.password);
         mPasswordConfirm = findViewById(R.id.confirm_password);
     }
 
     private boolean isEmptyValuesOnEditViews() {
-        return (mCompanyId.getText().toString().isEmpty() || mName.getText().toString().isEmpty() ||
-                mAddress.getText().toString().isEmpty() || mEmail.getText().toString().isEmpty() ||
-                mPhoneNumber.getText().toString().isEmpty() || mPassword.getText().toString().isEmpty() ||
+        return (mCompanyId.getText().toString().isEmpty() ||
+                mName.getText().toString().isEmpty() ||
+                mAddress.getText().toString().isEmpty() ||
+                mEmail.getText().toString().isEmpty() ||
+                mPhonePrefix.getText().toString().isEmpty() ||
+                mPhoneOperatorCode.getText().toString().isEmpty() ||
+                mPhoneNumber.getText().toString().isEmpty() ||
+                mPassword.getText().toString().isEmpty() ||
                 mPasswordConfirm.getText().toString().isEmpty());
     }
 
-    private boolean formatPhoneNumberIsCorrect(String str) {
-        String reg = "^[+][0-9]{10,13}$";
+    private boolean isEmailFormatCorrect(String str) {
+        String reg = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$";
         return str.matches(reg);
     }
 
-    private boolean formatEmailIsCorrect(String str) {
-        String reg = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$";
+    private boolean isPhoneNumberFormatCorrect(String str) {
+        String reg = "^[+][0-9]{10,13}$";
         return str.matches(reg);
     }
 
@@ -73,33 +81,38 @@ public class RegistrationActivity extends AppCompatActivity {
         ad.show();
     }
 
+    private void initValues() {
+        companyId = mCompanyId.getText().toString();
+        name = mName.getText().toString();
+        address = mAddress.getText().toString();
+        email = mEmail.getText().toString();
+        phoneNumber = mPhonePrefix.getText().toString() +
+                mPhoneOperatorCode.getText().toString() +
+                mPhoneNumber.getText().toString();
+        password = mPassword.getText().toString();
+        passwordConfirm = mPasswordConfirm.getText().toString();
+    }
+
     public void onClickCompleteRegistration(View view) {
         if(!isEmptyValuesOnEditViews()) {
-            companyId = mCompanyId.getText().toString();
-            name = mName.getText().toString();
-            address = mAddress.getText().toString();
-            email = mEmail.getText().toString();
-            phoneNumber = mPhoneNumber.getText().toString();
-            password = mPassword.getText().toString();
-            passwordConfirm = mPasswordConfirm.getText().toString();
+            initValues();
             if (!password.equals(passwordConfirm)) {
                 createDialogMsg(getResources().getString(R.string.passwords_must_match));
-            } else if (!formatPhoneNumberIsCorrect(phoneNumber)) {
+            } else if (!isPhoneNumberFormatCorrect(phoneNumber)) {
                 createDialogMsg(getResources().getString(R.string.check_phone_number));
-            } else if (!formatEmailIsCorrect(email)) {
+            } else if (!isEmailFormatCorrect(email)) {
                 createDialogMsg(getResources().getString(R.string.check_email_address));
             } else {
-                mProgressBar.setVisibility(View.VISIBLE);
-                RestServiceRequest("http://192.168.43.234:46002/api/CourierAccounts/",
+                sendRestRequest("http://192.168.43.234:46002/api/CourierAccounts/",
                         "POST",
-                        GetJsonUser(companyId, name, address, email, phoneNumber, password));
+                        getJsonUser(companyId, name, address, email, phoneNumber, password));
             }
         } else {
             createDialogMsg(getResources().getString(R.string.fill_in_all_fields));
         }
     }
 
-    protected String GetJsonUser(String companyId, String name, String address, String email,
+    protected String getJsonUser(String companyId, String name, String address, String email,
                                  String phoneNumber, String password) {
         return "{" +
                 "'CompanyId':" + companyId + "," +
@@ -111,72 +124,32 @@ public class RegistrationActivity extends AppCompatActivity {
                 "}";
     }
 
-    protected void RestServiceRequest(String url, String method, String body){
-        new RestServiceRequestTask(RegistrationActivity.this.getApplicationContext()).execute(url, method, body);
+    protected void sendRestRequest(String url, String method, String body) {
+        mProgressBar.setVisibility(View.VISIBLE);
+        RestRequestTask request =
+                new RestRequestTask(RegistrationActivity.this.getApplicationContext(),
+                        new RestRequestDelegate() {
+                            @Override
+                            public void executionFinished(int responseCode) {
+                                onRestRequestFinished(responseCode);
+                            }
+                        });
+        request.execute(url, method, body);
     }
 
-    public class RestServiceRequestTask extends AsyncTask<String, Void, Void> {
-
-        private URL url;
-
-        private HttpURLConnection connection;
-
-        private int responseCode;
-
-        private final Context context;
-
-        RestServiceRequestTask(Context context) {
-            this.context = context;
+    private void onRestRequestFinished(int responseCode) {
+        mProgressBar.setVisibility(View.GONE);
+        if (responseCode == HttpURLConnection.HTTP_CREATED) {
+            Toast.makeText(this, getResources().getString(R.string.complete),
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this,
+                    getResources().getString(R.string.check_network_state) +
+                            " (code: " + String.valueOf(responseCode) + ")",
+                    Toast.LENGTH_LONG).show();
         }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            url = null;
-            connection = null;
-            responseCode = 0;
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-                url = new URL(params[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                // Headlines
-                connection.setDoOutput(true);
-                connection.setRequestMethod(params[1]);
-                connection.setRequestProperty("Content-Type", "application/json");
-                // Body
-                try (BufferedWriter bw = new BufferedWriter(
-                        new OutputStreamWriter(connection.getOutputStream()))) {
-                    bw.write(params[2]);
-                }
-                // Execute
-                responseCode = connection.getResponseCode();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            if (connection != null) {
-                if (responseCode == HttpURLConnection.HTTP_OK ||
-                        responseCode == HttpURLConnection.HTTP_CREATED ||
-                        responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-                    Toast.makeText(context,
-                            getResources().getString(R.string.complete),
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(context,
-                            getResources().getString(R.string.check_network_state) +
-                                    " (code: " + String.valueOf(responseCode) + ")",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-            mProgressBar.setVisibility(View.GONE);
-        }
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
+
 }
