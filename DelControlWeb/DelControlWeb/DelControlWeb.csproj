@@ -173,18 +173,11 @@
     <Compile Include="Context\ApplicationContext.cs" />
     <Compile Include="Controllers\CompanyAccountsController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
-    <Compile Include="Controllers\CompanyCourierStatusesController.cs" />
-    <Compile Include="Controllers\CompanyOrderStatusesController.cs" />
     <Compile Include="Controllers\CourierAccountsController.cs" />
-    <Compile Include="Controllers\CourierStatusController.cs" />
-    <Compile Include="Controllers\CustomersController.cs" />
-    <Compile Include="Controllers\DeliveriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LastCourierLocationsController.cs" />
+    <Compile Include="Controllers\CourierInfoesController.cs" />
     <Compile Include="Controllers\OrderProductsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
-    <Compile Include="Controllers\OrderStatusController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ManagerAccountsController.cs" />
     <Compile Include="Controllers\UserAccountsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -193,31 +186,16 @@
     <Compile Include="Context\ApplicationDbInitializer.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
-    <Compile Include="Migrations\201904021645002_DataMigration.cs" />
-    <Compile Include="Migrations\201904021645002_DataMigration.Designer.cs">
-      <DependentUpon>201904021645002_DataMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904120953521_UpdateUserModelMigration.cs" />
-    <Compile Include="Migrations\201904120953521_UpdateUserModelMigration.Designer.cs">
-      <DependentUpon>201904120953521_UpdateUserModelMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904190431096_UpdateModelsMigration.cs" />
-    <Compile Include="Migrations\201904190431096_UpdateModelsMigration.Designer.cs">
-      <DependentUpon>201904190431096_UpdateModelsMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201904221148370_DataMigration.cs" />
+    <Compile Include="Migrations\201904221148370_DataMigration.Designer.cs">
+      <DependentUpon>201904221148370_DataMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\CompanyCourierStatuses.cs" />
-    <Compile Include="Models\CompanyOrderStatuses.cs" />
-    <Compile Include="Models\Courier.cs" />
-    <Compile Include="Models\CourierStatus.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Delivery.cs" />
-    <Compile Include="Models\LastCourierLocation.cs" />
+    <Compile Include="ViewModels\CourierAccounts\CourierAccountViewModel.cs" />
+    <Compile Include="Models\CourierInfo.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderProducts.cs" />
-    <Compile Include="Models\OrderStatus.cs" />
-    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -226,9 +204,7 @@
     <Compile Include="ViewModels\ManagerAccounts\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ManagerAccounts\CreateViewModel.cs" />
     <Compile Include="ViewModels\ManagerAccounts\EditViewModel.cs" />
-    <Compile Include="ViewModels\Order\EditViewModel.cs" />
-    <Compile Include="ViewModels\Order\CreateViewModel.cs" />
-    <Compile Include="ViewModels\Order\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\Order\OrderViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -271,21 +247,6 @@
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Deliveries\Create.cshtml" />
-    <Content Include="Views\Deliveries\Delete.cshtml" />
-    <Content Include="Views\Deliveries\Details.cshtml" />
-    <Content Include="Views\Deliveries\Edit.cshtml" />
-    <Content Include="Views\Deliveries\Index.cshtml" />
-    <Content Include="Views\Customers\Create.cshtml" />
-    <Content Include="Views\Customers\Delete.cshtml" />
-    <Content Include="Views\Customers\Details.cshtml" />
-    <Content Include="Views\Customers\Edit.cshtml" />
-    <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\OrderProducts\Create.cshtml" />
     <Content Include="Views\OrderProducts\Delete.cshtml" />
     <Content Include="Views\OrderProducts\Details.cshtml" />
@@ -296,26 +257,6 @@
     <Content Include="Views\Companies\Details.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
-    <Content Include="Views\CourierStatus\Create.cshtml" />
-    <Content Include="Views\CourierStatus\Delete.cshtml" />
-    <Content Include="Views\CourierStatus\Details.cshtml" />
-    <Content Include="Views\CourierStatus\Edit.cshtml" />
-    <Content Include="Views\CourierStatus\Index.cshtml" />
-    <Content Include="Views\OrderStatus\Create.cshtml" />
-    <Content Include="Views\OrderStatus\Delete.cshtml" />
-    <Content Include="Views\OrderStatus\Details.cshtml" />
-    <Content Include="Views\OrderStatus\Edit.cshtml" />
-    <Content Include="Views\OrderStatus\Index.cshtml" />
-    <Content Include="Views\CompanyCourierStatuses\Create.cshtml" />
-    <Content Include="Views\CompanyCourierStatuses\Delete.cshtml" />
-    <Content Include="Views\CompanyCourierStatuses\Details.cshtml" />
-    <Content Include="Views\CompanyCourierStatuses\Edit.cshtml" />
-    <Content Include="Views\CompanyCourierStatuses\Index.cshtml" />
-    <Content Include="Views\CompanyOrderStatuses\Create.cshtml" />
-    <Content Include="Views\CompanyOrderStatuses\Delete.cshtml" />
-    <Content Include="Views\CompanyOrderStatuses\Details.cshtml" />
-    <Content Include="Views\CompanyOrderStatuses\Edit.cshtml" />
-    <Content Include="Views\CompanyOrderStatuses\Index.cshtml" />
     <Content Include="Views\CompanyAccounts\Register.cshtml" />
     <Content Include="Views\CompanyAccounts\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -334,7 +275,6 @@
     <Content Include="Views\UserAccounts\Details.cshtml" />
     <Content Include="Views\UserAccounts\Edit.cshtml" />
     <Content Include="Views\UserAccounts\Index.cshtml" />
-    <Content Include="Views\Orders\ProductsDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -353,14 +293,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904021645002_DataMigration.resx">
-      <DependentUpon>201904021645002_DataMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904120953521_UpdateUserModelMigration.resx">
-      <DependentUpon>201904120953521_UpdateUserModelMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904190431096_UpdateModelsMigration.resx">
-      <DependentUpon>201904190431096_UpdateModelsMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904221148370_DataMigration.resx">
+      <DependentUpon>201904221148370_DataMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

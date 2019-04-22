@@ -37,9 +37,9 @@ else
             var map = new google.maps.Map(document.getElementById("google_map"), mapOptions);
             var mapMarkers = {};
             var activeInfoWindow;
-            $.getJSON('@Url.Action("", "api/LastCourierLocations")', function (data) {
+            $.getJSON('@Url.Action("", "api/CourierInfoes")', function (data) {
                     $.each(data, function (i, item) {
-                        $("#couriers_list").append("<a href='#' data-id='" + item.CourierId + "'>" + item.CourierId + "</a><hr />");
+                        $("#couriers_list").append("<a href='#' data-id='" + item.Name + "'>" + item.Name + "</a><hr />");
                         var marker = new google.maps.Marker({
                             'position': new google.maps.LatLng(item.Latitude, item.Longitude),
                             'map': map,
@@ -47,16 +47,16 @@ else
                         });
                         var infowindow = new google.maps.InfoWindow({
                             content: "<div class='infoWindow'>" +
-                                "<h6>CourierId: " + item.CourierId + "</h6><br />" +
-                                "<h8>Speed: " + item.Speed + "</h8><br />" +
-                                "<h8>Time: " + item.Time + "</h8>"
+                                "<h6>Имя: " + item.Name + "</h6><br />" +
+                                "<h8>Скорость: " + item.Speed + "</h8><br />" +
+                                "<h8>Время: " + item.Time + "</h8>"
                         });
                         google.maps.event.addListener(marker, 'click', function () {
                             activeInfoWindow && activeInfoWindow.close();
                             infowindow.open(map, marker);
                             activeInfoWindow = infowindow;
                         });
-                        mapMarkers[item.CourierId] = marker;
+                        mapMarkers[item.Name] = marker;
                     });
                     $('#couriers_list a').click(function () {
                         var link = $(this).data('id');

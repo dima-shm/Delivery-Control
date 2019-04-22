@@ -1,21 +1,25 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using DelControlWeb.Context;
 using DelControlWeb.Models;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DelControlWeb.Controllers
 {
     public class OrderProductsController : Controller
     {
-        private ApplicationContext db = new ApplicationContext();
+        private ApplicationContext db = System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationContext>();
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View(db.OrderProducts.ToList());
         }
 
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -30,6 +34,7 @@ namespace DelControlWeb.Controllers
             return View(orderProducts);
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -37,7 +42,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,OrderId,ProductId")] OrderProducts orderProducts)
+        public ActionResult Create(OrderProducts orderProducts)
         {
             if (ModelState.IsValid)
             {
@@ -48,6 +53,7 @@ namespace DelControlWeb.Controllers
             return View(orderProducts);
         }
 
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -64,7 +70,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,OrderId,ProductId")] OrderProducts orderProducts)
+        public ActionResult Edit(OrderProducts orderProducts)
         {
             if (ModelState.IsValid)
             {
@@ -75,6 +81,7 @@ namespace DelControlWeb.Controllers
             return View(orderProducts);
         }
 
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -97,15 +104,6 @@ namespace DelControlWeb.Controllers
             db.OrderProducts.Remove(orderProducts);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

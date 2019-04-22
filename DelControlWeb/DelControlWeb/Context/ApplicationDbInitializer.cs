@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace DelControlWeb.Context
 {
-    public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationContext>
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationContext>
     {
         private ApplicationUserManager _userManager;
 

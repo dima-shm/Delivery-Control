@@ -16,7 +16,7 @@ namespace DelControlWeb.Controllers
 {
     public class OrdersController : Controller
     {
-        private ApplicationContext db = new ApplicationContext();
+        private ApplicationContext db = System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationContext>();
 
         private ApplicationUserManager UserManager
         {
@@ -43,20 +43,16 @@ namespace DelControlWeb.Controllers
             }
             Order order = db.Orders.Find(id);
             List<OrderProducts> orderProducts = db.OrderProducts.Where(p => p.OrderId == id).ToList();
-            List<Product> products = new List<Product>();
-            foreach (OrderProducts orderProduct in orderProducts)
+            OrderViewModel model = new OrderViewModel
             {
-                products.Add(db.Products.First(p => p.Id == orderProduct.ProductId));
-            }
-            DetailsViewModel model = new DetailsViewModel
-            {
-                CustomerId = order.CustomerId,
-                CustomerName = db.Customers.Find(order.CustomerId).Name,
-                DeliveryId = order.DeliveryId,
-                Delivery = db.Delivery.Find(order.DeliveryId).Address,
+                CompanyId = order.CompanyId,
+                CustomerName = order.CustomerName,
+                DeliveryAddress = order.DeliveryAddress,
+                DeliveryTime = order.DeliveryTime,
+                Comment = order.Comment,
                 CourierId = order.CourierId,
-                Products = products,
-                Status = order.Status
+                Status = order.Status,
+                OrderProducts = orderProducts
             };
             if (order == null)
             {
@@ -68,15 +64,12 @@ namespace DelControlWeb.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.Customers = db.Customers;
-            ViewBag.Delivery = db.Delivery;
-            ViewBag.Products = db.Products;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateViewModel model)
+        public async Task<ActionResult> Create(OrderViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -84,19 +77,16 @@ namespace DelControlWeb.Controllers
                 Order order = new Order
                 {
                     CompanyId = currentUser.CompanyId,
-                    CustomerId = model.CustomerId,
-                    DeliveryId = model.DeliveryId
+                    CustomerName = model.CustomerName,
+                    DeliveryAddress = model.DeliveryAddress,
+                    DeliveryTime = model.DeliveryTime,
+                    Comment = model.Comment
                 };
                 db.Orders.Add(order);
                 await db.SaveChangesAsync();
-                foreach (int productId in model.ProductIds)
+                foreach (OrderProducts product in model.OrderProducts)
                 {
-                    OrderProducts orderProducts = new OrderProducts
-                    {
-                        OrderId = order.Id,
-                        ProductId = productId
-                    };
-                    db.OrderProducts.Add(orderProducts);
+                    db.OrderProducts.Add(product);
                     await db.SaveChangesAsync();
                 }
                 return RedirectToAction("Index");
@@ -113,21 +103,18 @@ namespace DelControlWeb.Controllers
             }
             Order order = db.Orders.Find(id);
             List<OrderProducts> orderProducts = db.OrderProducts.Where(p => p.OrderId == id).ToList();
-            List<Product> products = new List<Product>();
-            foreach (OrderProducts orderProduct in orderProducts)
-            {
-                products.Add(db.Products.First(p => p.Id == orderProduct.ProductId));
-            }
-            EditViewModel model = new EditViewModel
+            OrderViewModel model = new OrderViewModel
             {
                 OrderId = order.Id,
-                CustomerId = order.CustomerId,
-                DeliveryId = order.DeliveryId,
-                Products = products
+                CompanyId = order.CompanyId,
+                CustomerName = order.CustomerName,
+                DeliveryAddress = order.DeliveryAddress,
+                DeliveryTime = order.DeliveryTime,
+                Comment = order.Comment,
+                CourierId = order.CourierId,
+                Status = order.Status,
+                OrderProducts = orderProducts
             };
-            ViewBag.Customers = db.Customers;
-            ViewBag.Delivery = db.Delivery;
-            ViewBag.Products = db.Products;
             if (order == null)
             {
                 return HttpNotFound();
@@ -137,28 +124,25 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(EditViewModel model)
+        public async Task<ActionResult> Edit(OrderViewModel model)
         {
             User currentUser = UserManager.FindById(User.Identity.GetUserId());
             Order order = new Order
             {
                 Id = model.OrderId,
                 CompanyId = currentUser.CompanyId,
-                CustomerId = model.CustomerId,
-                DeliveryId = model.DeliveryId
+                CustomerName = model.CustomerName,
+                DeliveryAddress = model.DeliveryAddress,
+                DeliveryTime = model.DeliveryTime,
+                Comment = model.Comment
             };
             db.Entry(order).State = EntityState.Modified;
             await db.SaveChangesAsync();
             db.OrderProducts.RemoveRange(db.OrderProducts.Where(o => o.OrderId == order.Id));
             await db.SaveChangesAsync();
-            foreach (int productId in model.ProductIds)
+            foreach (OrderProducts product in model.OrderProducts)
             {
-                OrderProducts orderProducts = new OrderProducts
-                {
-                    OrderId = order.Id,
-                    ProductId = productId
-                };
-                db.OrderProducts.Add(orderProducts);
+                db.OrderProducts.Add(product);
                 await db.SaveChangesAsync();
             }
             return RedirectToAction("Index");
@@ -173,20 +157,16 @@ namespace DelControlWeb.Controllers
             }
             Order order = db.Orders.Find(id);
             List<OrderProducts> orderProducts = db.OrderProducts.Where(p => p.OrderId == id).ToList();
-            List<Product> products = new List<Product>();
-            foreach (OrderProducts orderProduct in orderProducts)
+            OrderViewModel model = new OrderViewModel
             {
-                products.Add(db.Products.First(p => p.Id == orderProduct.ProductId));
-            }
-            DetailsViewModel model = new DetailsViewModel
-            {
-                CustomerId = order.CustomerId,
-                CustomerName = db.Customers.Find(order.CustomerId).Name,
-                DeliveryId = order.DeliveryId,
-                Delivery = db.Delivery.Find(order.DeliveryId).Address,
+                CompanyId = order.CompanyId,
+                CustomerName = order.CustomerName,
+                DeliveryAddress = order.DeliveryAddress,
+                DeliveryTime = order.DeliveryTime,
+                Comment = order.Comment,
                 CourierId = order.CourierId,
-                Products = products,
-                Status = order.Status
+                Status = order.Status,
+                OrderProducts = orderProducts
             };
             if (order == null)
             {
@@ -209,26 +189,6 @@ namespace DelControlWeb.Controllers
             db.Orders.Remove(order);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public ActionResult ProductsDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            List<OrderProducts> orderProducts = db.OrderProducts.Where(p => p.OrderId == id).ToList();
-            List<Product> products = new List<Product>();
-            foreach (OrderProducts orderProduct in orderProducts)
-            {
-                products.Add(db.Products.First(p => p.Id == orderProduct.ProductId));
-            }
-            if (orderProducts == null)
-            {
-                return HttpNotFound();
-            }
-            return View(products);
         }
     }
 }

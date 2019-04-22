@@ -14,7 +14,7 @@ namespace DelControlWeb.Controllers
 {
     public class ManagerAccountsController : Controller
     {
-        private ApplicationContext db = new ApplicationContext();
+        private ApplicationContext db = System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationContext>();
 
         private ApplicationUserManager UserManager
         {

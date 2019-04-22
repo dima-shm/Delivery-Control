@@ -11,8 +11,8 @@
         <th>ID</th>
         <th>Заказчик</th>
         <th>Адрес доставки</th>
+        <th>Дата и время доставки</th>
         <th>Курьер</th>
-        <th>Товары в заказе</th>
         <th>Статус заказа</th>
         <th></th>
     </tr>
@@ -20,10 +20,10 @@
     {
     <tr>
         <td>@item.Id</td>
-        <td><a href="/Customers/Details/@item.CustomerId">@item.CustomerId</a></td>
-        <td><a href="/Deliveries/Details/@item.DeliveryId">@item.DeliveryId</a></td>
-        <td>@item.CourierId</td>
-        <td><a href="/Orders/ProductsDetails/@item.Id">просмотреть</a></td>
+        <td>@item.CustomerName</td>
+        <td>@item.DeliveryAddress</td>
+        <td>@item.DeliveryDate, @item.DeliveryTime</td>
+        <td><a href="/Couriers/Details/@item.Id">@item.CourierId</a></td>
         <td>@item.Status</td>
         <td>
             <a href="/Orders/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="text-decoration: none" />

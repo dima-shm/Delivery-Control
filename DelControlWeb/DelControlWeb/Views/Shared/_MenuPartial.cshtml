@@ -12,14 +12,12 @@
         }
         else if (User.IsInRole("company"))
         {
-            <li>@Html.ActionLink("Cтатусы курьеров", "Index", "CourierStatus", null, new { style = "color:white" })</li>
+            
         }
         else if (User.IsInRole("manager"))
         {
             <li>@Html.ActionLink("Заказы", "Index", "Orders", null, new { style = "color:white" })</li>
-            <li>@Html.ActionLink("Товары", "Index", "Products", null, new { style = "color:white" })</li>
-            <li>@Html.ActionLink("Заказчики", "Index", "Customers", null, new { style = "color:white" })</li>
-            <li>@Html.ActionLink("Доставка", "Index", "Deliveries", null, new { style = "color:white" })</li>
+            <li>@Html.ActionLink("Курьеры", "Index", "Couriers", null, new { style = "color:white" })</li>
         }
     }
 </ul>

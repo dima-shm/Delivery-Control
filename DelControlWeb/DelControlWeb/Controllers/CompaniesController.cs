@@ -1,21 +1,25 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using DelControlWeb.Context;
 using DelControlWeb.Models;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DelControlWeb.Controllers
 {
     public class CompaniesController : Controller
     {
-        private ApplicationContext db = new ApplicationContext();
+        private ApplicationContext db = System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationContext>();
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View(db.Companies.ToList());
         }
 
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -30,6 +34,7 @@ namespace DelControlWeb.Controllers
             return View(company);
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -37,7 +42,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,RegisterNumber,RegisterDate,TaxpayerNumber,Address")] Company company)
+        public ActionResult Create(Company company)
         {
             if (ModelState.IsValid)
             {
@@ -48,6 +53,7 @@ namespace DelControlWeb.Controllers
             return View(company);
         }
 
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -64,7 +70,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,RegisterNumber,RegisterDate,TaxpayerNumber,Address")] Company company)
+        public ActionResult Edit(Company company)
         {
             if (ModelState.IsValid)
             {
@@ -75,6 +81,7 @@ namespace DelControlWeb.Controllers
             return View(company);
         }
 
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -97,15 +104,6 @@ namespace DelControlWeb.Controllers
             db.Companies.Remove(company);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

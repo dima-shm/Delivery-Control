@@ -1,15 +1,17 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using DelControlWeb.Context;
 using DelControlWeb.Models;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DelControlWeb.Controllers
 {
     public class UserAccountsController : Controller
     {
-        private ApplicationContext db = new ApplicationContext();
+        private ApplicationContext db = System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationContext>();
 
         [HttpGet]
         public ActionResult Index()

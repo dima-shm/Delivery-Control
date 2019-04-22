@@ -3,18 +3,21 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DelControlWeb.Context;
 using DelControlWeb.Managers;
 using DelControlWeb.Models;
+using DelControlWeb.ViewModels.CourierAccounts;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DelControlWeb.Controllers
 {
     public class CourierAccountsController : ApiController
     {
-        private ApplicationContext db = new ApplicationContext();
+        private ApplicationContext db = System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationContext>();
 
         private ApplicationUserManager UserManager
         {
@@ -33,12 +36,12 @@ namespace DelControlWeb.Controllers
         }
 
         // GET: api/CourierAccounts
-        public IEnumerable<Courier> GetUsers()
+        public IEnumerable<CourierAccountViewModel> GetUsers()
         {
-            List<Courier> couriers = new List<Courier>();
+            List<CourierAccountViewModel> couriers = new List<CourierAccountViewModel>();
             foreach(User user in db.Users)
             {
-                couriers.Add(new Courier()
+                couriers.Add(new CourierAccountViewModel()
                 {
                     CompanyId = user.CompanyId,
                     Name = user.UserName,
@@ -51,7 +54,7 @@ namespace DelControlWeb.Controllers
         }
 
         // GET: api/CourierAccounts/5
-        [ResponseType(typeof(Courier))]
+        [ResponseType(typeof(CourierAccountViewModel))]
         public IHttpActionResult GetUser(string id)
         {
             User user = db.Users.Find(id);
@@ -59,7 +62,7 @@ namespace DelControlWeb.Controllers
             {
                 return NotFound();
             }
-            Courier courier = new Courier()
+            CourierAccountViewModel courier = new CourierAccountViewModel()
             {
                 CompanyId = user.CompanyId,
                 Name = user.UserName,
@@ -72,7 +75,7 @@ namespace DelControlWeb.Controllers
 
         // POST: api/CourierAccounts
         [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(Courier courier)
+        public IHttpActionResult PostUser(CourierAccountViewModel courier)
         {
             if (!ModelState.IsValid)
             {
@@ -107,7 +110,7 @@ namespace DelControlWeb.Controllers
 
         // PUT: api/CourierAccounts/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(string id, Courier courier)
+        public IHttpActionResult PutUser(string id, CourierAccountViewModel courier)
         {
             if (!ModelState.IsValid)
             {

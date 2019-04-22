@@ -12,8 +12,10 @@ namespace DelControlWeb.Models
         [ForeignKey("OrderId")]
         private Order Order { get; set; }
 
-        public int? ProductId { get; set; }
-        [ForeignKey("ProductId")]
-        private Product Product { get; set; }
+        public string ProductName { get; set; }
+
+        public string Descriotion { get; set; }
+
+        public string Price { get; set; }
     }
 }
