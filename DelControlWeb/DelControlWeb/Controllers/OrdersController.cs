@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -69,7 +70,7 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(OrderViewModel model)
+        public async Task<ActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +80,9 @@ namespace DelControlWeb.Controllers
                     CompanyId = currentUser.CompanyId,
                     CustomerName = model.CustomerName,
                     DeliveryAddress = model.DeliveryAddress,
-                    DeliveryTime = model.DeliveryTime,
+                    DeliveryDate = model.DeliveryDate,
+                    DeliveryTime = model.DeliveryDate
+                        .Add(new TimeSpan(0, model.DeliveryTime.Hour, model.DeliveryTime.Minute, 0)),
                     Comment = model.Comment
                 };
                 db.Orders.Add(order);

@@ -18,18 +18,18 @@
     </tr>
     @foreach (var item in Model)
     {
-    <tr>
-        <td>@item.Id</td>
-        <td>@item.CustomerName</td>
-        <td>@item.DeliveryAddress</td>
-        <td>@item.DeliveryDate, @item.DeliveryTime</td>
-        <td><a href="/Couriers/Details/@item.Id">@item.CourierId</a></td>
-        <td>@item.Status</td>
-        <td>
-            <a href="/Orders/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="text-decoration: none" />
-            <a href="/Orders/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="text-decoration: none" />
-            <a href="/Orders/Delete/@item.Id" class="glyphicon glyphicon-trash" style="text-decoration: none" />
-        </td>
-    </tr>
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.CustomerName</td>
+            <td>@item.DeliveryAddress</td>
+            <td>@item.DeliveryDate.ToString("d"), @item.DeliveryTime.ToString("t")</td>
+            <td><a href="/Couriers/Details/@item.Id">@item.CourierId</a></td>
+            <td>@item.Status</td>
+            <td>
+                <a href="/Orders/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="color: green; text-decoration: none" />
+                <a href="/Orders/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="color: cornflowerblue; text-decoration: none" />
+                <a href="/Orders/Delete/@item.Id" class="glyphicon glyphicon-trash" style="color: red; text-decoration: none" />
+            </td>
+        </tr>
     }
 </table>
