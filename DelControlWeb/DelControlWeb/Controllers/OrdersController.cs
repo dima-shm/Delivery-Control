@@ -46,9 +46,11 @@ namespace DelControlWeb.Controllers
             List<OrderProducts> orderProducts = db.OrderProducts.Where(p => p.OrderId == id).ToList();
             OrderViewModel model = new OrderViewModel
             {
+                OrderId = order.Id,
                 CompanyId = order.CompanyId,
                 CustomerName = order.CustomerName,
                 DeliveryAddress = order.DeliveryAddress,
+                DeliveryDate = order.DeliveryDate,
                 DeliveryTime = order.DeliveryTime,
                 Comment = order.Comment,
                 CourierId = order.CourierId,
@@ -72,6 +74,7 @@ namespace DelControlWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateViewModel model)
         {
+            ModelState.Remove("Commnet");
             if (ModelState.IsValid)
             {
                 User currentUser = UserManager.FindById(User.Identity.GetUserId());
@@ -89,6 +92,7 @@ namespace DelControlWeb.Controllers
                 await db.SaveChangesAsync();
                 foreach (OrderProducts product in model.OrderProducts)
                 {
+                    product.OrderId = order.Id;
                     db.OrderProducts.Add(product);
                     await db.SaveChangesAsync();
                 }
@@ -106,16 +110,14 @@ namespace DelControlWeb.Controllers
             }
             Order order = db.Orders.Find(id);
             List<OrderProducts> orderProducts = db.OrderProducts.Where(p => p.OrderId == id).ToList();
-            OrderViewModel model = new OrderViewModel
+            EditViewModel model = new EditViewModel
             {
                 OrderId = order.Id,
-                CompanyId = order.CompanyId,
                 CustomerName = order.CustomerName,
                 DeliveryAddress = order.DeliveryAddress,
+                DeliveryDate = order.DeliveryDate,
                 DeliveryTime = order.DeliveryTime,
                 Comment = order.Comment,
-                CourierId = order.CourierId,
-                Status = order.Status,
                 OrderProducts = orderProducts
             };
             if (order == null)
@@ -127,28 +129,35 @@ namespace DelControlWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(OrderViewModel model)
+        public async Task<ActionResult> Edit(EditViewModel model)
         {
-            User currentUser = UserManager.FindById(User.Identity.GetUserId());
-            Order order = new Order
+            ModelState.Remove("Commnet");
+            if (ModelState.IsValid)
             {
-                Id = model.OrderId,
-                CompanyId = currentUser.CompanyId,
-                CustomerName = model.CustomerName,
-                DeliveryAddress = model.DeliveryAddress,
-                DeliveryTime = model.DeliveryTime,
-                Comment = model.Comment
-            };
-            db.Entry(order).State = EntityState.Modified;
-            await db.SaveChangesAsync();
-            db.OrderProducts.RemoveRange(db.OrderProducts.Where(o => o.OrderId == order.Id));
-            await db.SaveChangesAsync();
-            foreach (OrderProducts product in model.OrderProducts)
-            {
-                db.OrderProducts.Add(product);
+                User currentUser = UserManager.FindById(User.Identity.GetUserId());
+                Order order = new Order
+                {
+                    Id = model.OrderId,
+                    CompanyId = currentUser.CompanyId,
+                    CustomerName = model.CustomerName,
+                    DeliveryAddress = model.DeliveryAddress,
+                    DeliveryDate = model.DeliveryDate,
+                    DeliveryTime = model.DeliveryDate
+                        .Add(new TimeSpan(0, model.DeliveryTime.Hour, model.DeliveryTime.Minute, 0)),
+                    Comment = model.Comment
+                };
+                db.Entry(order).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                db.OrderProducts.RemoveRange(db.OrderProducts.Where(o => o.OrderId == order.Id));
+                await db.SaveChangesAsync();
+                foreach (OrderProducts product in model.OrderProducts)
+                {
+                    db.OrderProducts.Add(product);
+                    await db.SaveChangesAsync();
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         [HttpGet]

@@ -13,7 +13,7 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="form-group">
                 @Html.Label("Имя заказчика", htmlAttributes: new { @class = "control-label col-md-5" })
                 <div class="col-md-7">
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="form-group">
                 @Html.Label("Товары в заказе", htmlAttributes: new { @class = "control-label col-md-5" })
                 <table class="table table-striped table-hover" id="table_products">
@@ -66,15 +66,14 @@
                             <th>Цена</th>
                             <td></td>
                         </tr>
-                    </thead>
-                    <tbody>
                         <tr>
                             <td><input type="text" id='product_name' name='OrderProducts[0].ProductName' class="form-control"></td>
                             <td><input type="text" id='product_description' name='OrderProducts[0].Descriotion' class="form-control"></td>
                             <td><input type="text" id='product_price' name='OrderProducts[0].Price' class="form-control"></td>
                             <td><button type="button" id="add_product_btn" class="btn btn-primary glyphicon glyphicon-plus-sign" /></td>
                         </tr>
-                    </tbody>
+                    </thead>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -91,17 +90,17 @@
     <script type="text/javascript">
         $(function () {
             var i = 0;
-            $('#add_product_btn').bind('click', function () {
+            $('#add_product_btn').click(function () {
                 var productName = $('#product_name').val();
                 var productDesc = $('#product_description').val();
                 var productPrice = $('#product_price').val();
-                i++;
-                var markup = "<tr>" +
-                    "<td id='" + productName + "' name='OrderProducts[" + i + "].ProductName'>" + productName + "</td>" +
-                    "<td id='" + productDesc + "' name='OrderProducts[" + i + "].Descriotion'>" + productDesc + "</td>" +
-                    "<td id='" + productPrice + "' name='OrderProducts[" + i + "].Price'>" + productPrice + "</td>" +
+                var markup = "<tr id='" + i + "'>" +
+                    "<td><input name='OrderProducts[" + i + "].ProductName' type='hidden' value='" + productName + "'>" + productName + "</td>" +
+                    "<td><input name='OrderProducts[" + i + "].Descriotion' type='hidden' value='" + productDesc + "'>" + productDesc + "</td>" +
+                    "<td><input name='OrderProducts[" + i + "].Price' type='hidden' value='" + productPrice + "'>" + productPrice + "</td>" +
                     "<td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>" +
                     "</tr>";
+                i++;
                 $("table tbody").append(markup);
             });
             $('#table_products').on('click', '#remove_product_btn', DeleteRow);
