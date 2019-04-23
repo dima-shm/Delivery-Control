@@ -8,11 +8,12 @@
     {
         if (User.IsInRole("admin"))
         {
-            <li>@Html.ActionLink("Управление пользователями", "Index", "UserAccounts", null, new { style = "color:white" })</li>
+            <li>@Html.ActionLink("Пользователи", "Index", "UserAccounts", null, new { style = "color:white" })</li>
+            <li>@Html.ActionLink("Компании", "Index", "CompanyAccounts", null, new { style = "color:white" })</li>
         }
         else if (User.IsInRole("company"))
         {
-            
+            <li>@Html.ActionLink("Сотрудники", "Index", "ManagerAccounts", null, new { style = "color:white" })</li>
         }
         else if (User.IsInRole("manager"))
         {

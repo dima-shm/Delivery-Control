@@ -6,7 +6,7 @@
                 <a style="color:white">@User.Identity.Name</a>
             </li>
             <li>
-                @Html.ActionLink("Выйти", "Logout", "CompanyAccounts", null, new { style = "color:white" })
+                @Html.ActionLink("Выйти", "Logout", "Accounts", null, new { style = "color:white" })
             </li>
         </ul>
     </form>
@@ -15,10 +15,10 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Регистрация", "Register", "CompanyAccounts", null, new { style = "color:white" })
+            @Html.ActionLink("Регистрация", "Register", "Accounts", null, new { style = "color:white" })
         </li>
         <li>
-            @Html.ActionLink("Вход", "Login", "CompanyAccounts", null, new { style = "color:white" })
+            @Html.ActionLink("Вход", "Login", "Accounts", null, new { style = "color:white" })
         </li>
     </ul>
 }

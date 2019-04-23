@@ -1,151 +1,53 @@
 ﻿@model DelControlWeb.Models.User
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Удаление пользователя";
 }
 
-<h2>Delete</h2>
+<p>
+    @Html.ActionLink("Назад к списку", "Index")
+</p>
+<h3>Вы уверены, что хотите удалить данного пользователя?</h3>
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.Label("Фамилия и инициалы", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.UserName</p>
+        </div>
+    </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CompanyId)
-        </dt>
+    <div class="form-group form-inline">
+        @Html.Label("ID компании", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <a href="/Companies/Details/@Model.CompanyId"><p class="form-control-static">@Model.CompanyId</p></a>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.CompanyId)
-        </dd>
+    <div class="form-group">
+        @Html.Label("Номер телефона", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Phone</p>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
+    <div class="form-group">
+        @Html.Label("Адрес", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Address</p>
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
+    <div class="form-group">
+        @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Email</p>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PasswordHash)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SecurityStamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumberConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TwoFactorEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEndDateUtc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessFailedCount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Удалить" class="btn btn-danger" />
         </div>
     }
 </div>

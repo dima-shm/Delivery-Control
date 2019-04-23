@@ -1,0 +1,62 @@
+﻿@model DelControlWeb.Models.Company
+@{
+    ViewBag.Title = "Удаление аккаунта компании";
+}
+
+<p>
+    @Html.ActionLink("Назад к списку", "Index")
+</p>
+<h3>Вы уверены, что хотите удалить данный аккаунт компании?</h3>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.Label("Юридическое название", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Name</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Номер регистрации в торговом реестре РБ", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.RegisterNumber</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Дата регистрации", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.RegisterDate.ToString("d")</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("УНП", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.TaxpayerNumber</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Юридический адрес", htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-7">
+            <p class="form-control-static">@Model.Address</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-5 col-md-3">
+            <a href="/CompanyAccounts/Edit/@Model.Id" class="btn btn-block btn-default">Редактировать</a>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-danger" />
+        </div>
+    }
+</div>

@@ -171,8 +171,8 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\ApplicationContext.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\CompanyAccountsController.cs" />
-    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CourierAccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CourierInfoesController.cs" />
@@ -192,6 +192,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\CompanyAccounts\EditViewModel.cs" />
     <Compile Include="ViewModels\CourierAccounts\CourierAccountViewModel.cs" />
     <Compile Include="Models\CourierInfo.cs" />
     <Compile Include="Models\Order.cs" />
@@ -199,8 +201,7 @@
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\CompanyAccounts\LoginViewModel.cs" />
-    <Compile Include="ViewModels\CompanyAccounts\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\CompanyAccounts\CreateViewModel.cs" />
     <Compile Include="ViewModels\ManagerAccounts\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ManagerAccounts\CreateViewModel.cs" />
     <Compile Include="ViewModels\ManagerAccounts\EditViewModel.cs" />
@@ -252,13 +253,11 @@
     <Content Include="Views\OrderProducts\Details.cshtml" />
     <Content Include="Views\OrderProducts\Edit.cshtml" />
     <Content Include="Views\OrderProducts\Index.cshtml" />
-    <Content Include="Views\Companies\Create.cshtml" />
-    <Content Include="Views\Companies\Delete.cshtml" />
-    <Content Include="Views\Companies\Details.cshtml" />
-    <Content Include="Views\Companies\Edit.cshtml" />
-    <Content Include="Views\Companies\Index.cshtml" />
-    <Content Include="Views\CompanyAccounts\Register.cshtml" />
-    <Content Include="Views\CompanyAccounts\Login.cshtml" />
+    <Content Include="Views\CompanyAccounts\Delete.cshtml" />
+    <Content Include="Views\CompanyAccounts\Details.cshtml" />
+    <Content Include="Views\CompanyAccounts\Edit.cshtml" />
+    <Content Include="Views\CompanyAccounts\Index.cshtml" />
+    <Content Include="Views\CompanyAccounts\Create.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
@@ -275,6 +274,7 @@
     <Content Include="Views\UserAccounts\Details.cshtml" />
     <Content Include="Views\UserAccounts\Edit.cshtml" />
     <Content Include="Views\UserAccounts\Index.cshtml" />
+    <Content Include="Views\Accounts\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

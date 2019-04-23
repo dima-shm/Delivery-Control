@@ -1,76 +1,69 @@
 ﻿@model DelControlWeb.ViewModels.ManagerAccounts.CreateViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Добавление нового сотрудника";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
+<p>
+    @Html.ActionLink("Назад к списку", "Index")
+</p>
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>User</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.Label("Фамилия и инициалы", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
+            @Html.Label("Фамилия и инициалы", htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("Номер телефона", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
+            @Html.Label("Номер телефона", htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
                 @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("Адрес", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
+            @Html.Label("Адрес", htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
                 @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
+            @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("Пароль", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
+            @Html.Label("Пароль", htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("Подтвердите пароль", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
+            @Html.Label("Подтвердите пароль", htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-7">
                 @Html.EditorFor(model => model.PasswordConfirm, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PasswordConfirm, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-offset-5 col-md-5">
+                <input type="submit" value="Сохранить" class="btn btn-block btn-success" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

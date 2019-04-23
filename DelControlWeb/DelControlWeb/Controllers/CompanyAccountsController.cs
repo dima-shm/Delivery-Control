@@ -5,7 +5,9 @@ using DelControlWeb.ViewModels.CompanyAccounts;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using System.Security.Claims;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -41,13 +43,36 @@ namespace DelControlWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult Register()
+        [Authorize(Roles = "admin")]
+        public ActionResult Index()
+        {
+            return View(db.Companies.ToList());
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Company company = db.Companies.Find(id);
+            if (company == null)
+            {
+                return HttpNotFound();
+            }
+            return View(company);
+        }
+
+        [HttpGet]
+        public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Create(CreateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +95,7 @@ namespace DelControlWeb.Controllers
                 IdentityResult result = await CreateAcountAsync(user, model.Password, "company");
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("Login", "Accounts");
                 }
                 else
                 {
@@ -81,40 +106,78 @@ namespace DelControlWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        [Authorize(Roles = "admin")]
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Company company = db.Companies.Find(id);
+            EditViewModel model = new EditViewModel()
+            {
+                Id = company.Id,
+                CompanyName = company.Name,
+                RegisterNumber = company.RegisterNumber,
+                RegisterDate = company.RegisterDate,
+                TaxpayerNumber = company.TaxpayerNumber,
+                CompanyAddress = company.Address
+            };
+            if (company == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model)
+        [Authorize(Roles = "admin")]
+        public ActionResult Edit(EditViewModel model)
         {
             if (ModelState.IsValid)
             {
-                User user = await UserManager.FindByEmailAsync(model.Email);
-                if (user != null)
+                Company company = new Company()
                 {
-                    user = await UserManager.FindAsync(user.UserName, model.Password);
-                    if (user != null)
-                    {
-                        ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
-                        DefaultAuthenticationTypes.ApplicationCookie);
-                        AuthenticationManager.SignOut();
-                        AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = true }, claim);
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                AddErrors(new IdentityResult("Invalid login or password."));
+                    Id = model.Id,
+                    Name = model.CompanyName,
+                    RegisterNumber = model.RegisterNumber,
+                    RegisterDate = model.RegisterDate,
+                    TaxpayerNumber = model.TaxpayerNumber,
+                    Address = model.CompanyAddress
+                };
+                db.Entry(company).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View(model);
         }
 
         [HttpGet]
-        public ActionResult Logout()
+        [Authorize(Roles = "admin")]
+        public ActionResult Delete(int? id)
         {
-            AuthenticationManager.SignOut();
-            return RedirectToAction("Login");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Company company = db.Companies.Find(id);
+            if (company == null)
+            {
+                return HttpNotFound();
+            }
+            return View(company);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Company company = db.Companies.Find(id);
+            db.Companies.Remove(company);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         private void AddErrors(IdentityResult result)

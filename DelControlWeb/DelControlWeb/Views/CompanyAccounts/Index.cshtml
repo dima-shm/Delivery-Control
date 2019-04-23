@@ -1,0 +1,36 @@
+﻿@model IEnumerable<DelControlWeb.Models.Company>
+@{
+    ViewBag.Title = "Управление аккаунтами компаний";
+}
+
+<p>
+    @Html.ActionLink("Добавить новый аккаунт компании", "Create")
+</p>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Юридическое название</th>
+        <th>Номер регистрации в торговом реестре РБ</th>
+        <th>Дата регистрации</th>
+        <th>УНП</th>
+        <th>Юридический адрес</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.RegisterNumber</td>
+            <td>@item.RegisterDate.ToString("d")</td>
+            <td>@item.TaxpayerNumber</td>
+            <td>@item.Address</td>
+            <td>
+                <a href="/CompanyAccounts/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="color: green; text-decoration: none" />
+                <a href="/CompanyAccounts/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="color: cornflowerblue; text-decoration: none" />
+                <a href="/CompanyAccounts/Delete/@item.Id" class="glyphicon glyphicon-trash" style="color: red; text-decoration: none" />
+            </td>
+        </tr>
+    }
+
+</table>

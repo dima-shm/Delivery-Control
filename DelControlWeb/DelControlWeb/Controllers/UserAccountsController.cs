@@ -34,6 +34,7 @@ namespace DelControlWeb.Controllers
             return View(user);
         }
 
+        [HttpGet]
         public ActionResult Edit(string id)
         {
             if (id == null)

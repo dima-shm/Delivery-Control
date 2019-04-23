@@ -16,16 +16,16 @@
     {
         <tr>
             <td>
-                <a href="/Companies/Details/@item.CompanyId">@item.CompanyId</a>
+                <a href="/CompanyAccounts/Details/@item.CompanyId">@item.CompanyId</a>
             </td>
             <td>@item.UserName</td>
             <td>@item.Phone</td>
             <td>@item.Address</td>
             <td>@item.Email</td>
             <td>
-                <a href="/UserAccounts/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="text-decoration: none"/>
-                <a href="/UserAccounts/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="text-decoration: none"/>
-                <a href="/UserAccounts/Delete/@item.Id" class="glyphicon glyphicon-trash" style="text-decoration: none"/>
+                <a href="/UserAccounts/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="color: green; text-decoration: none"/>
+                <a href="/UserAccounts/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="color: cornflowerblue; text-decoration: none"/>
+                <a href="/UserAccounts/Delete/@item.Id" class="glyphicon glyphicon-trash" style="color: red; text-decoration: none"/>
             </td>
         </tr>
     }
