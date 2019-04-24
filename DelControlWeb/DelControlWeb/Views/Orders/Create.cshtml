@@ -89,7 +89,7 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
-            var i = 0;
+            var i = 1;
             $('#add_product_btn').click(function () {
                 var productName = $('#product_name').val();
                 var productDesc = $('#product_description').val();
@@ -102,6 +102,9 @@
                     "</tr>";
                 i++;
                 $("table tbody").append(markup);
+                $('#product_name').val("");
+                $('#product_description').val("");
+                $('#product_price').val("");
             });
             $('#table_products').on('click', '#remove_product_btn', DeleteRow);
             function DeleteRow() {

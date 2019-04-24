@@ -76,12 +76,12 @@
                     <tbody>
                         @for (int i = 0; i < Model.OrderProducts.Count; i++)
                         {
-                            <tr>
-                                <td><input name='OrderProducts[@i].ProductName' type='text' value='@Model.OrderProducts[i].ProductName' class="form-control"></td>
-                                <td><input name='OrderProducts[@i].Descriotion' type='text' value='@Model.OrderProducts[i].Descriotion' class="form-control"></td>
-                                <td><input name='OrderProducts[@i].Price' type='text' value='@Model.OrderProducts[i].Price' class="form-control"></td>
-                                <td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>
-                            </tr>
+                        <tr>
+                            <td><input type='text' name='OrderProducts[@(i + 1)].ProductName' value='@Model.OrderProducts[i].ProductName' class="form-control"></td>
+                            <td><input type='text' name='OrderProducts[@(i + 1)].Descriotion' value='@Model.OrderProducts[i].Descriotion' class="form-control"></td>
+                            <td><input type='text' name='OrderProducts[@(i + 1)].Price' value='@Model.OrderProducts[i].Price' class="form-control"></td>
+                            <td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -104,14 +104,20 @@
                 var productName = $('#product_name').val();
                 var productDesc = $('#product_description').val();
                 var productPrice = $('#product_price').val();
-                var markup = "<tr id='" + i + "'>" +
-                    "<td><input name='OrderProducts[" + i + "].ProductName' type='text' value='" + productName + "'>" + productName + "</td>" +
-                    "<td><input name='OrderProducts[" + i + "].Descriotion' type='text' value='" + productDesc + "'>" + productDesc + "</td>" +
-                    "<td><input name='OrderProducts[" + i + "].Price' type='text' value='" + productPrice + "'>" + productPrice + "</td>" +
+                var markup = "<tr id='" + (i + 1) + "'>" +
+                    "<input name='OrderProducts[" + (i + 1) + "].ProductName' type='hidden' value='" + productName + "' />" +
+                    "<input name='OrderProducts[" + (i + 1)  + "].Descriotion' type='hidden' value='" + productDesc + "' />" +
+                    "<input name='OrderProducts[" + (i + 1)  + "].Price' type='hidden' value='" + productPrice + "' />"+
+                    "<td><input name='OrderProducts[" + (i + 1) + "].ProductName' type='text' value='" + productName + "' class='form-control'></td>" +
+                    "<td><input name='OrderProducts[" + (i + 1) + "].Descriotion' type='text' value='" + productDesc + "' class='form-control'></td>" +
+                    "<td><input name='OrderProducts[" + (i + 1) + "].Price' type='text' value='" + productPrice + "' class='form-control'></td>" +
                     "<td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>" +
                     "</tr>";
                 i++;
                 $("table tbody").append(markup);
+                $('#product_name').val("");
+                $('#product_description').val("");
+                $('#product_price').val("");
             });
             $('#table_products').on('click', '#remove_product_btn', DeleteRow);
             function DeleteRow() {
