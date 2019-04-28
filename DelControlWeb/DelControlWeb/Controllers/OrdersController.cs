@@ -90,7 +90,6 @@ namespace DelControlWeb.Controllers
                 };
                 db.Orders.Add(order);
                 await db.SaveChangesAsync();
-                model.OrderProducts.RemoveAt(0);
                 foreach (OrderProducts product in model.OrderProducts)
                 {
                     product.OrderId = order.Id;
@@ -151,7 +150,6 @@ namespace DelControlWeb.Controllers
                 await db.SaveChangesAsync();
                 db.OrderProducts.RemoveRange(db.OrderProducts.Where(o => o.OrderId == order.Id));
                 await db.SaveChangesAsync();
-                model.OrderProducts.RemoveAt(0);
                 foreach (OrderProducts product in model.OrderProducts)
                 {
                     product.OrderId = order.Id;

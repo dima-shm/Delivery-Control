@@ -67,9 +67,9 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td><input type="text" id='product_name' name='OrderProducts[0].ProductName' class="form-control"></td>
-                            <td><input type="text" id='product_description' name='OrderProducts[0].Descriotion' class="form-control"></td>
-                            <td><input type="text" id='product_price' name='OrderProducts[0].Price' class="form-control"></td>
+                            <td><input type="text" id='product_name' class="form-control"></td>
+                            <td><input type="text" id='product_description' class="form-control"></td>
+                            <td><input type="text" id='product_price' class="form-control"></td>
                             <td><button type="button" id="add_product_btn" class="btn btn-primary glyphicon glyphicon-plus-sign" /></td>
                         </tr>
                     </thead>
@@ -89,29 +89,38 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
-            var i = 1;
+            var i = 0;
             $('#add_product_btn').click(function () {
                 var productName = $('#product_name').val();
                 var productDesc = $('#product_description').val();
                 var productPrice = $('#product_price').val();
-                var markup = "<tr id='" + i + "'>" +
-                    "<td><input name='OrderProducts[" + i + "].ProductName' type='hidden' value='" + productName + "'>" + productName + "</td>" +
-                    "<td><input name='OrderProducts[" + i + "].Descriotion' type='hidden' value='" + productDesc + "'>" + productDesc + "</td>" +
-                    "<td><input name='OrderProducts[" + i + "].Price' type='hidden' value='" + productPrice + "'>" + productPrice + "</td>" +
-                    "<td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>" +
-                    "</tr>";
-                i++;
-                $("table tbody").append(markup);
-                $('#product_name').val("");
-                $('#product_description').val("");
-                $('#product_price').val("");
+                if (!isEmptyProduct()) {
+                    var markup = "<tr id='" + i + "'>" +
+                        "<td><input name='OrderProducts[" + i + "].ProductName' type='hidden' value='" + productName + "'>" + productName + "</td>" +
+                        "<td><input name='OrderProducts[" + i + "].Descriotion' type='hidden' value='" + productDesc + "'>" + productDesc + "</td>" +
+                        "<td><input name='OrderProducts[" + i + "].Price' type='hidden' value='" + productPrice + "'>" + productPrice + "</td>" +
+                        "<td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>" +
+                        "</tr>";
+                    i++;
+                    $("table tbody").append(markup);
+                    $('#product_name').val("");
+                    $('#product_description').val("");
+                    $('#product_price').val("");
+                } else {
+                    alert('Заполнете все поля с информацией о товаре.');
+                }
             });
-            $('#table_products').on('click', '#remove_product_btn', DeleteRow);
-            function DeleteRow() {
+            $('#table_products').on('click', '#remove_product_btn', deleteRow);
+            function deleteRow() {
                 var parentID = $(this).parent().parent().attr("id");
                 $(this).parent().parent().remove();
                 delete (Tables[parentID]);
                 Tables.length--;
+            }
+            function isEmptyProduct() {
+                var productName = $('#product_name').val();
+                var productPrice = $('#product_price').val();
+                return productName == '' || productPrice == '';
             }
         });
     </script>
