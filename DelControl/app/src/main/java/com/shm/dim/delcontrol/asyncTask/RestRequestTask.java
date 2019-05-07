@@ -3,7 +3,9 @@ package com.shm.dim.delcontrol.asyncTask;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -15,6 +17,8 @@ public class RestRequestTask extends AsyncTask<String, Void, Void> {
     private HttpURLConnection connection;
 
     private int responseCode;
+
+    private String responseBody;
 
     private final Context context;
 
@@ -43,6 +47,10 @@ public class RestRequestTask extends AsyncTask<String, Void, Void> {
                 bw.write(params[2]);
             }
             responseCode = connection.getResponseCode();
+            try (BufferedReader br = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream()))) {
+                responseBody = br.readLine();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,7 +60,7 @@ public class RestRequestTask extends AsyncTask<String, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
-        delegate.executionFinished(responseCode);
+        delegate.executionFinished(responseCode, responseBody);
     }
 
 }

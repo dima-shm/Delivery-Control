@@ -1,6 +1,8 @@
 package com.shm.dim.delcontrol.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +13,19 @@ public class SplashActivity extends AppCompatActivity {
 
     private static int SPLASH_TIME = 3 * 1000;
 
+    private SharedPreferences mSharedPreferences;
+
+    private static final String AССOUNT_PREFERENCES = "ACCOUNT_INFO",
+            AССOUNT_ID = "AССOUNT_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        startActivityAfterTimer(RegistrationActivity.class, SPLASH_TIME);
+        if(!isAccountExist())
+            startActivityAfterTimer(RegistrationActivity.class, SPLASH_TIME);
+        else
+            startActivityAfterTimer(MainActivity.class, SPLASH_TIME);
     }
 
     private void startActivityAfterTimer(final Class<?> cls, int time) {
@@ -27,6 +37,11 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, time);
+    }
+
+    private boolean isAccountExist() {
+        mSharedPreferences = getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
+        return mSharedPreferences.contains(AССOUNT_ID);
     }
 
 }

@@ -5,6 +5,8 @@ namespace DelControlWeb.ViewModels.CourierAccounts
 {
     public class CourierAccountViewModel
     {
+        public string Id { get; set; }
+
         public int? CompanyId { get; set; }
         [ForeignKey("CompanyId")]
         private Company Company { get; set; }

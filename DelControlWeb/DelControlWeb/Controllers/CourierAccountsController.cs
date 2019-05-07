@@ -105,6 +105,7 @@ namespace DelControlWeb.Controllers
                     throw;
                 }
             }
+            courier.Id = user.Id;
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, courier);
         }
 

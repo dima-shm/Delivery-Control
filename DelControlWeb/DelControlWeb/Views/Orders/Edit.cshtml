@@ -76,12 +76,12 @@
                     <tbody>
                         @for (int i = 0; i < Model.OrderProducts.Count; i++)
                         {
-                        <tr>
-                            <td><input type='text' name='OrderProducts[@i].ProductName' value='@Model.OrderProducts[i].ProductName' class="form-control"></td>
-                            <td><input type='text' name='OrderProducts[@i].Descriotion' value='@Model.OrderProducts[i].Descriotion' class="form-control"></td>
-                            <td><input type='text' name='OrderProducts[@i].Price' value='@Model.OrderProducts[i].Price' class="form-control"></td>
-                            <td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>
-                        </tr>
+                            <tr>
+                                <td><input type='text' name='OrderProducts[@i].ProductName' value='@Model.OrderProducts[i].ProductName' class="form-control"></td>
+                                <td><input type='text' name='OrderProducts[@i].Descriotion' value='@Model.OrderProducts[i].Descriotion' class="form-control"></td>
+                                <td><input type='text' name='OrderProducts[@i].Price' value='@Model.OrderProducts[i].Price' class="form-control"></td>
+                                <td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -105,19 +105,19 @@
                 var productDesc = $('#product_description').val();
                 var productPrice = $('#product_price').val();
                 if (!isEmptyProduct()) {
-                var markup = "<tr id='" + i + "'>" +
-                    "<input name='OrderProducts[" + i + "].ProductName' type='hidden' value='" + productName + "' />" +
-                    "<input name='OrderProducts[" + i  + "].Descriotion' type='hidden' value='" + productDesc + "' />" +
-                    "<input name='OrderProducts[" + i  + "].Price' type='hidden' value='" + productPrice + "' />"+
-                    "<td><input name='OrderProducts[" + i + "].ProductName' type='text' value='" + productName + "' class='form-control'></td>" +
-                    "<td><input name='OrderProducts[" + i + "].Descriotion' type='text' value='" + productDesc + "' class='form-control'></td>" +
-                    "<td><input name='OrderProducts[" + i + "].Price' type='text' value='" + productPrice + "' class='form-control'></td>" +
-                    "<td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>" +
-                    "</tr>";
-                i++;
-                $("table tbody").append(markup);
-                $('#product_name').val("");
-                $('#product_description').val("");
+                    var markup = "<tr id='" + i + "'>" +
+                        "<input name='OrderProducts[" + i + "].ProductName' type='hidden' value='" + productName + "' />" +
+                        "<input name='OrderProducts[" + i  + "].Descriotion' type='hidden' value='" + productDesc + "' />" +
+                        "<input name='OrderProducts[" + i  + "].Price' type='hidden' value='" + productPrice + "' />"+
+                        "<td><input name='OrderProducts[" + i + "].ProductName' type='text' value='" + productName + "' class='form-control'></td>" +
+                        "<td><input name='OrderProducts[" + i + "].Descriotion' type='text' value='" + productDesc + "' class='form-control'></td>" +
+                        "<td><input name='OrderProducts[" + i + "].Price' type='text' value='" + productPrice + "' class='form-control'></td>" +
+                        "<td><button id='remove_product_btn' type='button' class='btn btn-danger glyphicon glyphicon-remove-sign' /></td>" +
+                        "</tr>";
+                    i++;
+                    $("table tbody").append(markup);
+                    $('#product_name').val("");
+                    $('#product_description').val("");
                     $('#product_price').val("");
                 } else {
                     alert('Заполнете все поля с информацией о товаре.');

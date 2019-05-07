@@ -1,6 +1,8 @@
 package com.shm.dim.delcontrol.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,12 +14,15 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.activity.AboutApplicationActivity;
 import com.shm.dim.delcontrol.service.LocationService;
 
 public class FragmentMenu extends Fragment {
+
+    private TextView mCourierName;
 
     private Spinner mCourierStatus;
 
@@ -29,6 +34,11 @@ public class FragmentMenu extends Fragment {
 
     private LinearLayout mAboutApplicationMenuItem;
 
+    private SharedPreferences mSharedPreferences;
+
+    private static final String AССOUNT_PREFERENCES = "ACCOUNT_INFO",
+            AССOUNT_NAME = "AССOUNT_NAME";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,11 +49,13 @@ public class FragmentMenu extends Fragment {
 
     private void initComponents(View view) {
         initMenuItems(view);
+        initCourierName();
         initCourierStatus(view);
         initLocationTrackingSwitch(view);
     }
 
     private void initMenuItems(View view) {
+        mCourierName = view.findViewById(R.id.courier_name);
         mEditAccountMenuItem = view.findViewById(R.id.edit_account_menu_item);
         mLogoutOfAccountMenuItem = view.findViewById(R.id.log_out_of_account_menu_item);
         mAboutApplicationMenuItem = view.findViewById(R.id.about_application_menu_item);
@@ -87,6 +99,12 @@ public class FragmentMenu extends Fragment {
         if(intent != null) {
             startActivity(intent);
         }
+    }
+
+    private void initCourierName() {
+        mSharedPreferences = this.getActivity().getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
+        String courierName = mSharedPreferences.getString(AССOUNT_NAME, "");
+        mCourierName.setText(courierName);
     }
 
     private void initCourierStatus(View view) {
