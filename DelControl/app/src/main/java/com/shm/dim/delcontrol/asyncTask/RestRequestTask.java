@@ -42,10 +42,11 @@ public class RestRequestTask extends AsyncTask<String, Void, Void> {
             connection.setDoOutput(true);
             connection.setRequestMethod(params[1]);
             connection.setRequestProperty("Content-Type", "application/json");
-            try (BufferedWriter bw = new BufferedWriter(
-                    new OutputStreamWriter(connection.getOutputStream()))) {
-                bw.write(params[2]);
-            }
+            if(params[2] != null && !params[2].equals(""))
+                try (BufferedWriter bw = new BufferedWriter(
+                        new OutputStreamWriter(connection.getOutputStream()))) {
+                    bw.write(params[2]);
+                }
             responseCode = connection.getResponseCode();
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()))) {

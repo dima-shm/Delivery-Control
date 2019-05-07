@@ -130,6 +130,7 @@
                     android:layout_centerHorizontal="true"
                     android:textSize="15sp"
                     android:textColor="@color/colorAccentDark"
+                    android:onClick="onClickLogin"
                     android:text="@string/already_have_an_account_login" />
 
             </RelativeLayout>

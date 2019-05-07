@@ -21,6 +21,8 @@ import com.shm.dim.delcontrol.activity.AboutApplicationActivity;
 import com.shm.dim.delcontrol.activity.RegistrationActivity;
 import com.shm.dim.delcontrol.service.LocationService;
 
+import java.io.File;
+
 public class FragmentMenu extends Fragment {
 
     private TextView mCourierName;
@@ -91,9 +93,9 @@ public class FragmentMenu extends Fragment {
                 //intent = new Intent(getActivity(), NewActivity.class);
             } break;
             case R.id.log_out_of_account_menu_item : {
-                mSharedPreferences = this.getActivity()
-                        .getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
-                mSharedPreferences.edit().clear();
+                File file= new File("/data/data/com.shm.dim.delcontrol/shared_prefs/" +
+                        AССOUNT_PREFERENCES +".xml");
+                file.delete();
                 intent = new Intent(getActivity(), RegistrationActivity.class);
             } break;
             case R.id.about_application_menu_item : {

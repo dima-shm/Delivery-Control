@@ -128,6 +128,11 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickLogin(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
+
     protected String getJsonUser(String companyId, String name, String address, String email,
                                  String phoneNumber, String password) {
         return "{" +
@@ -159,15 +164,14 @@ public class RegistrationActivity extends AppCompatActivity {
             saveAccountInfo(responseBody);
             Toast.makeText(this, getResources().getString(R.string.complete),
                     Toast.LENGTH_LONG).show();
-
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else {
             Toast.makeText(this,
                     getResources().getString(R.string.check_network_state) +
                             " (code: " + String.valueOf(responseCode) + ")",
                     Toast.LENGTH_LONG).show();
         }
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
     }
 
     private void saveAccountInfo(String responseBody) {

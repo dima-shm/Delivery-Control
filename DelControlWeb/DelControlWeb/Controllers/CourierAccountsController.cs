@@ -43,6 +43,7 @@ namespace DelControlWeb.Controllers
             {
                 couriers.Add(new CourierAccountViewModel()
                 {
+                    Id = user.Id,
                     CompanyId = user.CompanyId,
                     Name = user.UserName,
                     Email = user.Email,
@@ -55,15 +56,17 @@ namespace DelControlWeb.Controllers
 
         // GET: api/CourierAccounts/5
         [ResponseType(typeof(CourierAccountViewModel))]
-        public IHttpActionResult GetUser(string id)
+        [Route("api/CourierAccounts/{email}/{password}")]
+        public IHttpActionResult GetUser(string email, string password)
         {
-            User user = db.Users.Find(id);
+            User user = db.Users.First(u => u.Email == email );
             if (user == null)
             {
                 return NotFound();
             }
             CourierAccountViewModel courier = new CourierAccountViewModel()
             {
+                Id = user.Id,
                 CompanyId = user.CompanyId,
                 Name = user.UserName,
                 Email = user.Email,
@@ -117,7 +120,7 @@ namespace DelControlWeb.Controllers
             {
                 return BadRequest(ModelState);
             }
-            User user = db.Users.Find(id);
+            User user = db.Users.First(u => u.Email == id);
             user.UserName = courier.Name;
             user.Email = courier.Email;
             user.Phone = courier.Phone;
@@ -145,7 +148,7 @@ namespace DelControlWeb.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult DeleteUser(string id)
         {
-            User user = db.Users.Find(id);
+            User user = db.Users.First(u => u.Email == id);
             if (user == null)
             {
                 return NotFound();

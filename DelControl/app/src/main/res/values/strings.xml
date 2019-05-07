@@ -36,4 +36,6 @@
     <string name="fill_in_all_fields">Заполните все поля</string>
     <string name="problem_with_network">Проблема с сетью</string>
     <string name="complete">Операция выполнена успешно</string>
+    <string name="login">Вход</string>
+    <string name="new_user_register_account">Новый пользователь? Зарегистрируйте аккаунт</string>
 </resources>
