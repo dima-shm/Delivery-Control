@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.activity.AboutApplicationActivity;
+import com.shm.dim.delcontrol.activity.RegistrationActivity;
 import com.shm.dim.delcontrol.service.LocationService;
 
 public class FragmentMenu extends Fragment {
@@ -89,8 +90,11 @@ public class FragmentMenu extends Fragment {
             case R.id.edit_account_menu_item : {
                 //intent = new Intent(getActivity(), NewActivity.class);
             } break;
-            case R.id.log_out_of_account_menu_item :{
-                //intent = new Intent(getActivity(), NewActivity.class);
+            case R.id.log_out_of_account_menu_item : {
+                mSharedPreferences = this.getActivity()
+                        .getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
+                mSharedPreferences.edit().clear();
+                intent = new Intent(getActivity(), RegistrationActivity.class);
             } break;
             case R.id.about_application_menu_item : {
                 intent = new Intent(getActivity(), AboutApplicationActivity.class);
@@ -102,7 +106,8 @@ public class FragmentMenu extends Fragment {
     }
 
     private void initCourierName() {
-        mSharedPreferences = this.getActivity().getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
+        mSharedPreferences = this.getActivity()
+                .getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
         String courierName = mSharedPreferences.getString(AССOUNT_NAME, "");
         mCourierName.setText(courierName);
     }
