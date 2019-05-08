@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -8,7 +7,9 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DelControlWeb.Context;
+using DelControlWeb.Managers;
 using DelControlWeb.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace DelControlWeb.Controllers
@@ -17,95 +18,39 @@ namespace DelControlWeb.Controllers
     {
         private ApplicationContext db = System.Web.HttpContext.Current.GetOwinContext().Get<ApplicationContext>();
 
-        // GET: api/CourierInfo
-        public IHttpActionResult GetCourierInfo()
-        {
-            List<CourierInfo> couriers = new List<CourierInfo>();
-            couriers.Add(new CourierInfo()
-            {
-                CourierId = "Иванов И.И.",
-                Latitude = 53.90F,
-                Longitude = 27.56F,
-                Speed = 12.5F,
-                Time = DateTime.Now.ToLocalTime()
-            });
-            couriers.Add(new CourierInfo()
-            {
-                CourierId = "Петров П.П.",
-                Latitude = 53.90F,
-                Longitude = 27.56F,
-                Speed = 12.5F,
-                Time = DateTime.Now.ToLocalTime()
-            });
-            couriers.Add(new CourierInfo()
-            {
-                CourierId = "Сидоров А.А.",
-                Latitude = 53.90F,
-                Longitude = 27.56F,
-                Speed = 12.5F,
-                Time = DateTime.Now.ToLocalTime()
-            });
-            couriers.Add(new CourierInfo()
-            {
-                CourierId = "Пупкин О.П.",
-                Latitude = 53.90F,
-                Longitude = 27.44F,
-                Speed = 12.5F,
-                Time = DateTime.Now.ToLocalTime()
-            });
-            couriers.Add(new CourierInfo()
-            {
-                CourierId = "Моник А.П.",
-                Latitude = 53.90F,
-                Longitude = 27.57F,
-                Speed = 12.5F,
-                Time = DateTime.Now.ToLocalTime()
-            });
-            couriers.Add(new CourierInfo()
-            {
-                CourierId = "Лунев Д.В.",
-                Latitude = 53.90F,
-                Longitude = 27.26F,
-                Speed = 12.5F,
-                Time = DateTime.Now.ToLocalTime()
-            });
-            couriers.Add(new CourierInfo()
-            {
-                CourierId = "Потапов В.В.",
-                Latitude = 53.50F,
-                Longitude = 27.56F,
-                Speed = 12.5F,
-                Time = DateTime.Now.ToLocalTime()
-            });
-            couriers.Add(new CourierInfo()
-            {
-                CourierId = "Крутько А.Д.",
-                Latitude = 53.93F,
-                Longitude = 27.56F,
-                Speed = 12.5F,
-                Time = DateTime.Now.ToLocalTime()
-            });
-            return Ok(couriers);
-            //return db.CourierInfo;
-        }
-
         // GET: api/CourierInfo/5
         [ResponseType(typeof(CourierInfo))]
         public IHttpActionResult GetCourierInfo(string id)
         {
-            CourierInfo courierInfo = db.CourierInfoes.First(c => c.CourierId == id);
-            if (courierInfo == null)
+            int companyId = int.Parse(id);
+            List<User> users = db.Users.Where(u => u.CompanyId == companyId).ToList();
+            List<CourierInfo> couriers = new List<CourierInfo>();
+            foreach (User user in users)
+                foreach (CourierInfo courierInfo in db.CourierInfoes.Where(c => c.CourierId == user.Id))
+                    couriers.Add(courierInfo);
+            List<ViewModels.CourierInfoes.CourierInfo> couriersViewModel =
+                new List<ViewModels.CourierInfoes.CourierInfo>();
+            foreach (CourierInfo courier in couriers)
             {
-                return NotFound();
+                couriersViewModel.Add(new ViewModels.CourierInfoes.CourierInfo()
+                {
+                    Id = courier.CourierId,
+                    Name = db.Users.Find(courier.CourierId).UserName,
+                    Latitude = courier.Latitude,
+                    Longitude = courier.Longitude,
+                    Speed = courier.Speed,
+                    Time = courier.Time,
+                    Status = courier.Status,
+                });
             }
-            return Ok(courierInfo);
+            return Ok(couriersViewModel);
         }
 
         // PUT: api/CourierInfo/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCourierInfo(CourierInfo courierInfo)
         {
-            if(!CourierInfoExists(courierInfo.CourierId))
+            if (!CourierInfoExists(courierInfo.CourierId))
             {
                 return PostCourierInfo(courierInfo);
             }
