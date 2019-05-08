@@ -6,9 +6,10 @@ namespace DelControlWeb.Models
 {
     public class CourierInfo
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
+        [Key]
+        public string CourierId { get; set; }
+        [ForeignKey("CourierId")]
+        private User User { get; set; }
 
         public float Latitude { get; set; }
 

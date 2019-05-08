@@ -190,6 +190,10 @@
     <Compile Include="Migrations\201904221148370_DataMigration.Designer.cs">
       <DependentUpon>201904221148370_DataMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905080933440_DataMigration1.cs" />
+    <Compile Include="Migrations\201905080933440_DataMigration1.Designer.cs">
+      <DependentUpon>201905080933440_DataMigration1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
@@ -297,6 +301,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904221148370_DataMigration.resx">
       <DependentUpon>201904221148370_DataMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905080933440_DataMigration1.resx">
+      <DependentUpon>201905080933440_DataMigration1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

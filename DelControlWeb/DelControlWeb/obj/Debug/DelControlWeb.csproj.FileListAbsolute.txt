@@ -114,3 +114,4 @@ D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.c
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csproj.CopyComplete
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.dll
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.pdb
+D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.DataMigration1.resources

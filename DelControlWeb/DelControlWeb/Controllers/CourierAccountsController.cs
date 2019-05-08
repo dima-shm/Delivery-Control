@@ -118,13 +118,18 @@ namespace DelControlWeb.Controllers
 
         // PUT: api/CourierAccounts/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(string id, CourierAccountViewModel courier)
+        [Route("api/CourierAccounts/{email}/{password}")]
+        public IHttpActionResult PutUser(string email, string password, CourierAccountViewModel courier)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            User user = db.Users.First(u => u.Email == id);
+            User user = UserManager.FindByEmail(email);
+            if (user != null)
+            {
+                user = UserManager.Find(user.UserName, password);
+            }
             user.UserName = courier.Name;
             user.Email = courier.Email;
             user.Phone = courier.Phone;
@@ -136,7 +141,7 @@ namespace DelControlWeb.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!UserExists(user.Id))
                 {
                     return NotFound();
                 }

@@ -23,8 +23,7 @@ namespace DelControlWeb.Controllers
             List<CourierInfo> couriers = new List<CourierInfo>();
             couriers.Add(new CourierInfo()
             {
-                Id = 1,
-                Name = "Иванов И.И.",
+                CourierId = "Иванов И.И.",
                 Latitude = 53.90F,
                 Longitude = 27.56F,
                 Speed = 12.5F,
@@ -32,8 +31,7 @@ namespace DelControlWeb.Controllers
             });
             couriers.Add(new CourierInfo()
             {
-                Id = 1,
-                Name = "Петров П.П.",
+                CourierId = "Петров П.П.",
                 Latitude = 53.90F,
                 Longitude = 27.56F,
                 Speed = 12.5F,
@@ -41,8 +39,7 @@ namespace DelControlWeb.Controllers
             });
             couriers.Add(new CourierInfo()
             {
-                Id = 1,
-                Name = "Сидоров А.А.",
+                CourierId = "Сидоров А.А.",
                 Latitude = 53.90F,
                 Longitude = 27.56F,
                 Speed = 12.5F,
@@ -50,8 +47,7 @@ namespace DelControlWeb.Controllers
             });
             couriers.Add(new CourierInfo()
             {
-                Id = 1,
-                Name = "Пупкин О.П.",
+                CourierId = "Пупкин О.П.",
                 Latitude = 53.90F,
                 Longitude = 27.44F,
                 Speed = 12.5F,
@@ -59,8 +55,7 @@ namespace DelControlWeb.Controllers
             });
             couriers.Add(new CourierInfo()
             {
-                Id = 1,
-                Name = "Моник А.П.",
+                CourierId = "Моник А.П.",
                 Latitude = 53.90F,
                 Longitude = 27.57F,
                 Speed = 12.5F,
@@ -68,8 +63,7 @@ namespace DelControlWeb.Controllers
             });
             couriers.Add(new CourierInfo()
             {
-                Id = 1,
-                Name = "Лунев Д.В.",
+                CourierId = "Лунев Д.В.",
                 Latitude = 53.90F,
                 Longitude = 27.26F,
                 Speed = 12.5F,
@@ -77,8 +71,7 @@ namespace DelControlWeb.Controllers
             });
             couriers.Add(new CourierInfo()
             {
-                Id = 1,
-                Name = "Потапов В.В.",
+                CourierId = "Потапов В.В.",
                 Latitude = 53.50F,
                 Longitude = 27.56F,
                 Speed = 12.5F,
@@ -86,8 +79,7 @@ namespace DelControlWeb.Controllers
             });
             couriers.Add(new CourierInfo()
             {
-                Id = 1,
-                Name = "Крутько А.Д.",
+                CourierId = "Крутько А.Д.",
                 Latitude = 53.93F,
                 Longitude = 27.56F,
                 Speed = 12.5F,
@@ -99,9 +91,9 @@ namespace DelControlWeb.Controllers
 
         // GET: api/LastCourierLocations/5
         [ResponseType(typeof(CourierInfo))]
-        public IHttpActionResult GetCourierInfo(int id)
+        public IHttpActionResult GetCourierInfo(string id)
         {
-            CourierInfo lastCourierLocation = db.CourierInfoes.Find(id);
+            CourierInfo lastCourierLocation = db.CourierInfoes.First(c => c.CourierId == id);
             if (lastCourierLocation == null)
             {
                 return NotFound();
@@ -111,15 +103,15 @@ namespace DelControlWeb.Controllers
 
         // PUT: api/LastCourierLocations/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCourierInfo(int id, CourierInfo lastCourierLocation)
+        public IHttpActionResult PutCourierInfo(CourierInfo lastCourierLocation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if (id != lastCourierLocation.Id)
+            if(!CourierInfoExists(lastCourierLocation.CourierId))
             {
-                return BadRequest();
+                PostCourierInfo(lastCourierLocation);
             }
             db.Entry(lastCourierLocation).State = EntityState.Modified;
             try
@@ -128,7 +120,7 @@ namespace DelControlWeb.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CourierInfoExists(id))
+                if (!CourierInfoExists(lastCourierLocation.CourierId))
                 {
                     return NotFound();
                 }
@@ -150,7 +142,7 @@ namespace DelControlWeb.Controllers
             }
             db.CourierInfoes.Add(lastCourierLocation);
             db.SaveChanges();
-            return CreatedAtRoute("DefaultApi", new { id = lastCourierLocation.Id }, lastCourierLocation);
+            return CreatedAtRoute("DefaultApi", new { id = lastCourierLocation.CourierId }, lastCourierLocation);
         }
 
         // DELETE: api/LastCourierLocations/5
@@ -167,9 +159,9 @@ namespace DelControlWeb.Controllers
             return Ok(lastCourierLocation);
         }
 
-        private bool CourierInfoExists(int id)
+        private bool CourierInfoExists(string id)
         {
-            return db.CourierInfoes.Count(e => e.Id == id) > 0;
+            return db.CourierInfoes.Count(e => e.CourierId == id) > 0;
         }
     }
 }

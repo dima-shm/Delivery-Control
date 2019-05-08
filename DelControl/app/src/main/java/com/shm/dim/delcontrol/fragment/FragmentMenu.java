@@ -15,13 +15,18 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.activity.AboutApplicationActivity;
+import com.shm.dim.delcontrol.activity.MainActivity;
 import com.shm.dim.delcontrol.activity.RegistrationActivity;
+import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
+import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
 import com.shm.dim.delcontrol.service.LocationService;
 
 import java.io.File;
+import java.net.HttpURLConnection;
 
 public class FragmentMenu extends Fragment {
 
@@ -147,6 +152,40 @@ public class FragmentMenu extends Fragment {
 
     private String getLastItem(String[] array) {
         return array[array.length - 1];
+    }
+
+    private void sendCourierStatus(String statusName) {
+        sendRestRequest("http://192.168.43.234:46002/api/CourierAccounts/",
+                "POST",
+                getJsonUser(companyId, name, address, email, phoneNumber, password));
+    }
+
+    protected void sendRestRequest(String url, String method, String body) {
+        mProgressBar.setVisibility(View.VISIBLE);
+        RestRequestTask request =
+                new RestRequestTask(new RestRequestDelegate() {
+                    @Override
+                    public void executionFinished(int responseCode, String responseBody) {
+                        onRestRequestFinished(responseCode, responseBody);
+                    }
+                });
+        request.execute(url, method, body);
+    }
+
+    private void onRestRequestFinished(int responseCode, String responseBody) {
+        mProgressBar.setVisibility(View.GONE);
+        if (responseCode == HttpURLConnection.HTTP_CREATED) {
+            saveAccountInfo(responseBody);
+            Toast.makeText(this, getResources().getString(R.string.complete),
+                    Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        } else {
+            Toast.makeText(this,
+                    getResources().getString(R.string.check_network_state) +
+                            " (code: " + String.valueOf(responseCode) + ")",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     private void setLocationTrackingStatus(boolean value) {
