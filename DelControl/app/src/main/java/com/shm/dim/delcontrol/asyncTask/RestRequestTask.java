@@ -1,6 +1,5 @@
 package com.shm.dim.delcontrol.asyncTask;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -20,12 +19,9 @@ public class RestRequestTask extends AsyncTask<String, Void, Void> {
 
     private String responseBody;
 
-    private final Context context;
-
     private RestRequestDelegate delegate;
 
-    public RestRequestTask(Context context, RestRequestDelegate delegate) {
-        this.context = context;
+    public RestRequestTask(RestRequestDelegate delegate) {
         this.delegate = delegate;
     }
 
@@ -39,14 +35,15 @@ public class RestRequestTask extends AsyncTask<String, Void, Void> {
         try {
             url = new URL(params[0]);
             connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
             connection.setRequestMethod(params[1]);
             connection.setRequestProperty("Content-Type", "application/json");
-            if(params[2] != null && !params[2].equals(""))
+            if(!params[1].equals("GET") && (params[2] != null || !params[2].equals(""))) {
+                connection.setDoOutput(true);
                 try (BufferedWriter bw = new BufferedWriter(
                         new OutputStreamWriter(connection.getOutputStream()))) {
                     bw.write(params[2]);
                 }
+            }
             responseCode = connection.getResponseCode();
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()))) {

@@ -148,13 +148,12 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void sendRestRequest(String url, String method, String body) {
         mProgressBar.setVisibility(View.VISIBLE);
         RestRequestTask request =
-                new RestRequestTask(RegistrationActivity.this.getApplicationContext(),
-                        new RestRequestDelegate() {
-                            @Override
-                            public void executionFinished(int responseCode, String responseBody) {
-                                onRestRequestFinished(responseCode, responseBody);
-                            }
-                        });
+                new RestRequestTask(new RestRequestDelegate() {
+                    @Override
+                    public void executionFinished(int responseCode, String responseBody) {
+                        onRestRequestFinished(responseCode, responseBody);
+                    }
+                });
         request.execute(url, method, body);
     }
 

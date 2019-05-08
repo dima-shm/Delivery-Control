@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmail, mPassword;
 
     private String accountId, companyId, name, address, email,
-            phoneNumber, password, passwordConfirm;
+            phoneNumber, password;
 
     private SharedPreferences mSharedPreferences;
 
@@ -104,13 +104,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void sendRestRequest(String url, String method, String body) {
         mProgressBar.setVisibility(View.VISIBLE);
         RestRequestTask request =
-                new RestRequestTask(LoginActivity.this.getApplicationContext(),
-                        new RestRequestDelegate() {
-                            @Override
-                            public void executionFinished(int responseCode, String responseBody) {
-                                onRestRequestFinished(responseCode, responseBody);
-                            }
-                        });
+                new RestRequestTask(new RestRequestDelegate() {
+                    @Override
+                    public void executionFinished(int responseCode, String responseBody) {
+                        onRestRequestFinished(responseCode, responseBody);
+                    }
+                });
         request.execute(url, method, body);
     }
 

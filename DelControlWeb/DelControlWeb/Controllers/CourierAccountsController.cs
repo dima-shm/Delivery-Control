@@ -54,12 +54,16 @@ namespace DelControlWeb.Controllers
             return couriers;
         }
 
-        // GET: api/CourierAccounts/5
+        // GET: api/CourierAccounts/email/password
         [ResponseType(typeof(CourierAccountViewModel))]
         [Route("api/CourierAccounts/{email}/{password}")]
         public IHttpActionResult GetUser(string email, string password)
         {
-            User user = db.Users.First(u => u.Email == email );
+            User user = UserManager.FindByEmail(email);
+            if (user != null)
+            {
+                user = UserManager.Find(user.UserName, password);
+            }
             if (user == null)
             {
                 return NotFound();
