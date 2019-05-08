@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
@@ -18,12 +19,16 @@ import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.adapter.ViewPagerAdapter;
+import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
+import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
 import com.shm.dim.delcontrol.fragment.FragmentChat;
 import com.shm.dim.delcontrol.fragment.FragmentMap;
 import com.shm.dim.delcontrol.fragment.FragmentMenu;
 import com.shm.dim.delcontrol.fragment.FragmentOrders;
 import com.shm.dim.delcontrol.receiver.NetworkChangeReceiver;
 import com.shm.dim.delcontrol.service.LocationService;
+
+import java.net.HttpURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
     private NetworkChangeReceiver mNetworkReceiver = new NetworkChangeReceiver();
 
     private BroadcastReceiver mLocationReceiver;
+
+    private SharedPreferences mSharedPreferences;
+
+    private static final String AССOUNT_PREFERENCES = "ACCOUNT_INFO",
+            AССOUNT_ID = "AССOUNT_ID",
+            AССOUNT_NAME = "AССOUNT_NAME";
+
+    private String mCourierId, mLatitude, mLongitude, mSpeed, mTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,16 +173,83 @@ public class MainActivity extends AppCompatActivity {
         return new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                String latitude = intent.getExtras().get("LATITUDE").toString();
-                String longitude = intent.getExtras().get("LONGITUDE").toString();
-                String speed = intent.getExtras().get("SPEED").toString();
+                mLatitude = intent.getExtras().get("LATITUDE").toString();
+                mLongitude = intent.getExtras().get("LONGITUDE").toString();
+                mSpeed = intent.getExtras().get("SPEED").toString();
+                mTime = intent.getExtras().get("TIME").toString();
+                sendCourierInfo();
                 Toast.makeText(MainActivity.this,
-                        "LATITUDE: " + latitude + "\n" +
-                                "LONGITUDE: " + longitude + "\n" +
-                                "SPEED: " + speed
+                        "LATITUDE: " + mLatitude + "\n" +
+                                "LONGITUDE: " + mLongitude + "\n" +
+                                "SPEED: " + mSpeed + "\n" +
+                                "TIME: " + mTime
                         , Toast.LENGTH_LONG).show();
             }
         };
+    }
+
+    private void sendCourierInfo() {
+        String body = getJsonUserInfo();
+        if(body != null) {
+            sendRestRequest("http://192.168.43.234:46002/api/CourierInfoes/",
+                    "PUT",
+                    body);
+        }
+    }
+
+    protected String getJsonUserInfo() {
+        initUserInfValues();
+        if(mLatitude == null || mLongitude == null)
+            return null;
+        return "{" +
+                "'CourierId':'" + mCourierId + "'," +
+                "'Latitude':'" + mLatitude + "'," +
+                "'Longitude':'" + mLongitude + "'," +
+                "'Speed':'" + mSpeed + "'," +
+                "'Time':'" + mTime + "'" +
+                "}";
+    }
+
+    protected void initUserInfValues() {
+        mSharedPreferences = getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
+        mCourierId = mSharedPreferences.getString(AССOUNT_ID, "");
+        String[] locationInfo = getLocationInfo();
+        mLatitude = locationInfo[0];
+        mLongitude = locationInfo[1];
+        mSpeed = locationInfo[2];
+        mTime = locationInfo[3];
+    }
+
+    protected void sendRestRequest(String url, String method, String body) {
+        RestRequestTask request =
+                new RestRequestTask(new RestRequestDelegate() {
+                    @Override
+                    public void executionFinished(int responseCode, String responseBody) {
+                        onRestRequestFinished(responseCode, responseBody);
+                    }
+                });
+        request.execute(url, method, body);
+    }
+
+    private void onRestRequestFinished(int responseCode, String responseBody) {
+        if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            Toast.makeText(this, getResources().getString(R.string.complete),
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this,
+                    getResources().getString(R.string.check_network_state) +
+                            " (code: " + String.valueOf(responseCode) + ")",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public String[] getLocationInfo() {
+        String[] locationInfo = new String[4];
+        locationInfo[0] = mLatitude;
+        locationInfo[1] = mLongitude;
+        locationInfo[2] = mSpeed;
+        locationInfo[3] = mTime;
+        return locationInfo;
     }
 
     @Override

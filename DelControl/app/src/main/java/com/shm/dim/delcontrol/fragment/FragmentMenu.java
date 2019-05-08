@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.activity.AboutApplicationActivity;
-import com.shm.dim.delcontrol.activity.MainActivity;
 import com.shm.dim.delcontrol.activity.RegistrationActivity;
 import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
 import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
@@ -45,7 +44,10 @@ public class FragmentMenu extends Fragment {
     private SharedPreferences mSharedPreferences;
 
     private static final String AССOUNT_PREFERENCES = "ACCOUNT_INFO",
+            AССOUNT_ID = "AССOUNT_ID",
             AССOUNT_NAME = "AССOUNT_NAME";
+
+    private String mCourierId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,6 +141,7 @@ public class FragmentMenu extends Fragment {
             public void onItemSelected(AdapterView<?> arg0, View view, int position, long id) {
                 String[] courierStatus = getResources().getStringArray(R.array.courier_status);
                 String statusName = courierStatus[position];
+                sendCourierStatus(statusName);
                 boolean isLastItem = (statusName != getLastItem(courierStatus));
                 setLocationTrackingStatus(isLastItem);
                 mLocationTracking.setChecked(isLastItem);
@@ -155,13 +158,24 @@ public class FragmentMenu extends Fragment {
     }
 
     private void sendCourierStatus(String statusName) {
-        sendRestRequest("http://192.168.43.234:46002/api/CourierAccounts/",
-                "POST",
-                getJsonUser(companyId, name, address, email, phoneNumber, password));
+        sendRestRequest("http://192.168.43.234:46002/api/CourierInfoes/",
+                "PUT",
+                getJsonUserInfo(statusName));
+    }
+
+    protected String getJsonUserInfo(String statusName) {
+        initUserInfValues();
+        return "{" +
+                "'CourierId':'" + mCourierId + "'," +
+                "'Status':'" + statusName + "'" +
+                "}";
+    }
+
+    protected void initUserInfValues() {
+        mCourierId = mSharedPreferences.getString(AССOUNT_ID, "");
     }
 
     protected void sendRestRequest(String url, String method, String body) {
-        mProgressBar.setVisibility(View.VISIBLE);
         RestRequestTask request =
                 new RestRequestTask(new RestRequestDelegate() {
                     @Override
@@ -173,15 +187,12 @@ public class FragmentMenu extends Fragment {
     }
 
     private void onRestRequestFinished(int responseCode, String responseBody) {
-        mProgressBar.setVisibility(View.GONE);
-        if (responseCode == HttpURLConnection.HTTP_CREATED) {
-            saveAccountInfo(responseBody);
-            Toast.makeText(this, getResources().getString(R.string.complete),
+        if (responseCode == HttpURLConnection.HTTP_NO_CONTENT ||
+                responseCode == HttpURLConnection.HTTP_CREATED) {
+            Toast.makeText(getContext(), getResources().getString(R.string.complete),
                     Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
         } else {
-            Toast.makeText(this,
+            Toast.makeText(getContext(),
                     getResources().getString(R.string.check_network_state) +
                             " (code: " + String.valueOf(responseCode) + ")",
                     Toast.LENGTH_LONG).show();

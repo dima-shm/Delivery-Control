@@ -66,6 +66,7 @@ public class LocationService extends Service {
         mLocationUpdateIntent.putExtra("LATITUDE", location.getLatitude());
         mLocationUpdateIntent.putExtra("LONGITUDE", location.getLongitude());
         mLocationUpdateIntent.putExtra("SPEED", location.getSpeed());
+        mLocationUpdateIntent.putExtra("TIME", location.getTime());
         sendBroadcast(mLocationUpdateIntent);
     }
 
