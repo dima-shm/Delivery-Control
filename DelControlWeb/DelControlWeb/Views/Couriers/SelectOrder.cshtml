@@ -1,0 +1,28 @@
+﻿@model DelControlWeb.ViewModels.Couriers.SelectOrder
+@{
+    ViewBag.Title = "Выберите заказ";
+}
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Заказчик</th>
+        <th>Адрес доставки</th>
+        <th>Дата и время доставки</th>
+        <th>Статус заказа</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Orders)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.CustomerName</td>
+            <td>@item.DeliveryAddress</td>
+            <td>@item.DeliveryDate.ToString("d"), @item.DeliveryTime.ToString("t")</td>
+            <td>@item.Status</td>
+            <td>
+                <a type="submit" href="/Couriers/AssignOrder?courierId=@Model.CourierId&orderId=@item.Id" style="color: green;">Назначить</a>
+            </td>
+        </tr>
+    }
+</table>

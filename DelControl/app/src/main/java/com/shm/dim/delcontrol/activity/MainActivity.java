@@ -178,12 +178,6 @@ public class MainActivity extends AppCompatActivity {
                 mSpeed = intent.getExtras().get("SPEED").toString();
                 mTime = intent.getExtras().get("TIME").toString();
                 sendCourierInfo();
-                Toast.makeText(MainActivity.this,
-                        "LATITUDE: " + mLatitude + "\n" +
-                                "LONGITUDE: " + mLongitude + "\n" +
-                                "SPEED: " + mSpeed + "\n" +
-                                "TIME: " + mTime
-                        , Toast.LENGTH_LONG).show();
             }
         };
     }

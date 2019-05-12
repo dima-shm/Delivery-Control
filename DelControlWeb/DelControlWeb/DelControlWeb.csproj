@@ -174,12 +174,14 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\CompanyAccountsController.cs" />
     <Compile Include="Controllers\CourierAccountsController.cs" />
+    <Compile Include="Controllers\CourierOrdersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CourierInfoesController.cs" />
     <Compile Include="Controllers\OrderProductsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ManagerAccountsController.cs" />
     <Compile Include="Controllers\UserAccountsController.cs" />
+    <Compile Include="Controllers\CouriersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,6 +209,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CompanyAccounts\CreateViewModel.cs" />
     <Compile Include="ViewModels\CourierInfoes\CourierInfo.cs" />
+    <Compile Include="ViewModels\CourierOrders\CourierOrder.cs" />
+    <Compile Include="ViewModels\Couriers\SelectOrder.cs" />
     <Compile Include="ViewModels\ManagerAccounts\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ManagerAccounts\CreateViewModel.cs" />
     <Compile Include="ViewModels\ManagerAccounts\EditViewModel.cs" />
@@ -282,6 +286,8 @@
     <Content Include="Views\UserAccounts\Edit.cshtml" />
     <Content Include="Views\UserAccounts\Index.cshtml" />
     <Content Include="Views\Accounts\Login.cshtml" />
+    <Content Include="Views\Couriers\Index.cshtml" />
+    <Content Include="Views\Couriers\SelectOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

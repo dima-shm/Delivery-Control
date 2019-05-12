@@ -23,7 +23,7 @@
             <td>@item.CustomerName</td>
             <td>@item.DeliveryAddress</td>
             <td>@item.DeliveryDate.ToString("d"), @item.DeliveryTime.ToString("t")</td>
-            <td><a href="/Couriers/Details/@item.Id">@item.CourierId</a></td>
+            <td><a href="/UserAccounts/Details/@item.CourierId"> @item.CourierId </a></td>
             <td>@item.Status</td>
             <td>
                 <a href="/Orders/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="color: green; text-decoration: none" />
