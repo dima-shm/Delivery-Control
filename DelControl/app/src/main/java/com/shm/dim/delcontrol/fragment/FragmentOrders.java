@@ -15,7 +15,9 @@ import com.shm.dim.delcontrol.adapter.OrdersAdapter;
 import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
 import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
 import com.shm.dim.delcontrol.model.Order;
+import com.shm.dim.delcontrol.model.OrderProduct;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,7 +55,6 @@ public class FragmentOrders extends Fragment {
         sendRestRequest("http://192.168.43.234:46002/api/CourierOrders/" + courierId,
                 "GET",
                 "");
-
     }
 
     private void initOrdersAdapter() {
@@ -63,7 +64,9 @@ public class FragmentOrders extends Fragment {
                     new OrdersAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Order order, int position) {
-
+                            Toast.makeText(getContext(),
+                                    "position: " + position + " order.getCompanyId():" + order.getCompanyId(),
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
             mOrdersList.setAdapter(adapter);
@@ -87,7 +90,7 @@ public class FragmentOrders extends Fragment {
 
     private void onRestRequestFinished(int responseCode, String responseBody) {
         if (responseCode == HttpURLConnection.HTTP_OK) {
-            saveAccountInfo(responseBody);
+            getOrders(responseBody);
             Toast.makeText(getContext(), getResources().getString(R.string.complete),
                     Toast.LENGTH_LONG).show();
         } else {
@@ -98,17 +101,33 @@ public class FragmentOrders extends Fragment {
         }
     }
 
-    private void saveAccountInfo(String responseBody) {
-        mSharedPreferences =
-                getContext().getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
+    private void getOrders(String responseBody) {
+        mOrders = new ArrayList<>();
         try {
-            JSONObject jObj = new JSONObject(responseBody);
-            accountId = jObj.getString("Id");
-            companyId = jObj.getString("CompanyId");
-            name = jObj.getString("Name");
-            address = jObj.getString("Address");
-            phoneNumber = jObj.getString("Phone");
+            JSONArray ordersArray = new JSONArray(responseBody);
+            for (int i = 0; i < ordersArray.length(); i++) {
+                JSONObject order = ordersArray.getJSONObject(i);
+                int companyId = order.getInt("CompanyId");
+                String customerName = order.getString("CustomerName");
+                String deliveryAddress = order.getString("DeliveryAddress");
+                String deliveryDate = order.getString("DeliveryDate");
+                String deliveryTime = order.getString("DeliveryTime");
+                String comment = order.getString("Comment");
+                String status = order.getString("Status");
+                JSONArray orderProducts = order.getJSONArray("OrderProducts");
+                ArrayList<OrderProduct> products = new ArrayList<>();
+                for (int j = 0; j < orderProducts.length(); j++) {
+                    JSONObject product = orderProducts.getJSONObject(j);
+                    int id = product.getInt("Id");
+                    int orderId = product.getInt("OrderId");
+                    String productName = product.getString("ProductName");
+                    String price = product.getString("Price");
+                    String descriotion = product.getString("Descriotion");
+                    products.add(new OrderProduct(id, orderId, productName, descriotion, price));
+                }
+                mOrders.add(new Order(companyId, customerName, deliveryAddress,
+                        deliveryDate, deliveryTime, comment, status, products));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

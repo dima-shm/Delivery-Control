@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder> {
 
+    private Context context;
     private LayoutInflater inflater;
     private ArrayList<Order> orders;
     private final OnItemClickListener listener;
@@ -22,6 +23,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
 
     public OrdersAdapter(Context context, ArrayList<Order> orders, OnItemClickListener listener) {
+        this.context = context;
         this.orders = orders;
         this.inflater = LayoutInflater.from(context);
         this.listener = listener;
@@ -38,20 +40,17 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Order order = orders.get(position);
-        holder.mOrderCode.setText(order.getOrderCode());
-        holder.mProductName.setText(order.getProductName());
-        holder.mQuantity.setText(order.getQuantity());
-        holder.mCost.setText(order.getCost());
-        holder.mName.setText(order.getName());
-        holder.mAddress.setText(order.getAddress());
-        holder.mDate.setText(order.getDate());
-        holder.mTime.setText(order.getTime());
+        //holder.mOrderCode.setText(order.getCompanyId());
+        holder.mName.setText(order.getCustomerName());
+        holder.mAddress.setText(order.getDeliveryAddress());
+        holder.mDate.setText(order.getDeliveryDate());
+        holder.mTime.setText(order.getDeliveryTime());
 
         if(selectItems[position]) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#b3deff"));
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
         }
         else {
-            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#14ffffff"));
         }
 
         holder.bind(orders.get(position), listener);

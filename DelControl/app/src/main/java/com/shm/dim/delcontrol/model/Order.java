@@ -1,65 +1,68 @@
 package com.shm.dim.delcontrol.model;
 
+import java.util.ArrayList;
+
 public class Order {
 
-    private String OrderCode;
-    private String ProductName;
-    private String Quantity;
-    private String Cost;
-    private String Name;
-    private String Address;
-    private String Date;
-    private String Time;
-    private String Status;
+    private int mCompanyId;
 
+    private String mCustomerName;
 
-    public Order(String orderCode, String productName, String quantity, String cost, String name,
-                 String address, String date, String time, String status) {
-        OrderCode = orderCode;
-        ProductName = productName;
-        Quantity = quantity;
-        Cost = cost;
-        Name = name;
-        Address = address;
-        Date = date;
-        Time = time;
-        Status = status;
+    private String mDeliveryAddress;
+
+    private String mDeliveryDate;
+
+    private String mDeliveryTime;
+
+    private String mComment;
+
+    private String mStatus;
+
+    private ArrayList<OrderProduct> mOrderProducts;
+
+    public Order(int companyId, String customerName, String deliveryAddress,
+                 String deliveryDate, String deliveryTime, String comment,
+                 String status, ArrayList<OrderProduct> orderProducts) {
+        mCompanyId = companyId;
+        mCustomerName = customerName;
+        mDeliveryAddress = deliveryAddress;
+        mDeliveryDate = deliveryDate;
+        mDeliveryTime = deliveryTime;
+        mComment = comment;
+        mStatus = status;
+        mOrderProducts = orderProducts;
     }
 
-
-    public String getOrderCode() {
-        return OrderCode;
+    public int getCompanyId() {
+        return mCompanyId;
     }
 
-    public String getProductName() {
-        return ProductName;
+    public String getCustomerName() {
+        return mCustomerName;
     }
 
-    public String getQuantity() {
-        return Quantity;
+    public String getDeliveryAddress() {
+        return mDeliveryAddress;
     }
 
-    public String getCost() {
-        return Cost;
+    public String getDeliveryDate() {
+        return mDeliveryDate;
     }
 
-    public String getName() {
-        return Name;
+    public String getDeliveryTime() {
+        return mDeliveryTime;
     }
 
-    public String getAddress() {
-        return Address;
-    }
-
-    public String getDate() {
-        return Date;
-    }
-
-    public String getTime() {
-        return Time;
+    public String getComment() {
+        return mComment;
     }
 
     public String getStatus() {
-        return Status;
+        return mStatus;
     }
+
+    public ArrayList<OrderProduct> getOrderProducts() {
+        return mOrderProducts;
+    }
+
 }
