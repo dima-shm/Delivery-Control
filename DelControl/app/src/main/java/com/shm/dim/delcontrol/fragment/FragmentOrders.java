@@ -8,6 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shm.dim.delcontrol.R;
@@ -15,8 +19,8 @@ import com.shm.dim.delcontrol.adapter.OrdersAdapter;
 import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
 import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
 import com.shm.dim.delcontrol.model.Order;
-import com.shm.dim.delcontrol.model.OrderProducts;
 import com.shm.dim.delcontrol.model.OrderList;
+import com.shm.dim.delcontrol.model.OrderProducts;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +32,16 @@ import java.util.ArrayList;
 public class FragmentOrders extends Fragment {
 
     private RecyclerView mOrdersList;
+
+    private ProgressBar mProgressBar;
+
+    private TextView mOrderListIsEmpty;
+
+    private Spinner mOrderStatus;
+
+    private Button mSendButton;
+
+    private int mSelectedOrderId;
 
     private SharedPreferences mSharedPreferences;
 
@@ -43,14 +57,30 @@ public class FragmentOrders extends Fragment {
     }
 
     private void initComponents(View view) {
+        mProgressBar = view.findViewById(R.id.progress);
+        mOrderListIsEmpty = view.findViewById(R.id.order_list_is_empty);
         mOrdersList = view.findViewById(R.id.orders_list);
         initOrderList();
+        initOrderStatusSpinner(view);
+        initSendButton(view);
+    }
+
+    private void initOrderStatusSpinner(View view) {
+        mOrderStatus = view.findViewById(R.id.order_status);
+        mOrderStatus.setEnabled(false);
+    }
+
+    private void initSendButton(View view) {
+        mSendButton = view.findViewById(R.id.send);
+        mSendButton.setEnabled(false);
+        mSendButton.setOnClickListener(onClickSend());
     }
 
     private void initOrderList() {
         mSharedPreferences = this.getActivity()
                 .getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
         String courierId = mSharedPreferences.getString(AССOUNT_ID, "");
+        mProgressBar.setVisibility(View.VISIBLE);
         sendRestRequest("http://192.168.43.234:46002/api/CourierOrders/" + courierId,
                 "GET",
                 "");
@@ -58,22 +88,46 @@ public class FragmentOrders extends Fragment {
 
     private void initOrdersAdapter() {
         if(OrderList.getOrderCount() != 0) {
+            mOrderListIsEmpty.setVisibility(View.GONE);
             OrdersAdapter adapter = new OrdersAdapter(getContext(),
                     OrderList.getOrders(),
                     new OrdersAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Order order, int position) {
-                            Toast.makeText(getContext(),
-                                    "position: " + position + " order.getCompanyId():" + order.getCompanyId(),
-                                    Toast.LENGTH_LONG).show();
+                            mOrderStatus.setEnabled(true);
+                            mSendButton.setEnabled(true);
+                            setOrderStatusInSpinner(order);
+                            mSelectedOrderId = order.getId();
                         }
                     });
             mOrdersList.setAdapter(adapter);
         } else {
-            Toast.makeText(getContext(),
-                    "Список Ваших заказов пуст\n Нажмите кнопку обновить для проверки наличия Ваших заказов",
-                    Toast.LENGTH_LONG).show();
+            mOrderListIsEmpty.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setOrderStatusInSpinner(Order order) {
+        String[] orderStatus = getResources().getStringArray(R.array.order_status);
+        for (int i = 0; i < orderStatus.length; i++) {
+            if (order.getStatus().equals(orderStatus[i])) {
+                mOrderStatus.setSelection(i);
+            }
+        }
+    }
+
+    public View.OnClickListener onClickSend() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mProgressBar.setVisibility(View.VISIBLE);
+                String[] orderStatus = getResources().getStringArray(R.array.order_status);
+                sendRestRequest("http://192.168.43.234:46002/api/CourierOrders/" +
+                                mSelectedOrderId + "/" +
+                                orderStatus[mOrderStatus.getSelectedItemPosition()],
+                        "PUT",
+                        "");
+            }
+        };
     }
 
     protected void sendRestRequest(String url, String method, String body) {
@@ -88,10 +142,13 @@ public class FragmentOrders extends Fragment {
     }
 
     private void onRestRequestFinished(int responseCode, String responseBody) {
+        mProgressBar.setVisibility(View.GONE);
         if (responseCode == HttpURLConnection.HTTP_OK) {
             getOrders(responseBody);
             Toast.makeText(getContext(), getResources().getString(R.string.order_list_updated),
                     Toast.LENGTH_LONG).show();
+        } else if(responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+            initOrderList();
         } else {
             Toast.makeText(getContext(),
                     getResources().getString(R.string.check_network_state) +

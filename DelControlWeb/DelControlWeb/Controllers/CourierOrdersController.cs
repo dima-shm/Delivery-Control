@@ -22,7 +22,8 @@ namespace DelControlWeb.Controllers
         public IHttpActionResult GetOrder(string id)
         {
             List<CourierOrder> courierOrders = new List<CourierOrder>();
-            List<Order> orders = db.Orders.Where(o => o.CourierId == id).ToList();
+            List<Order> orders = db.Orders.Where(o => o.CourierId == id &&
+                (!o.Status.Equals("Оплачен") || o.Status.Equals("Отменен"))).ToList();
             foreach(Order order in orders)
             {
                 courierOrders.Add(new CourierOrder
@@ -42,75 +43,15 @@ namespace DelControlWeb.Controllers
             return Ok(courierOrders);
         }
 
-        // PUT: api/CourierOrders/5
+        // PUT: api/CourierOrders/id/status
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutOrder(int id, Order order)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != order.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(order).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/CourierOrders
-        [ResponseType(typeof(Order))]
-        public IHttpActionResult PostOrder(Order order)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Orders.Add(order);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
-        }
-
-        // DELETE: api/CourierOrders/5
-        [ResponseType(typeof(Order))]
-        public IHttpActionResult DeleteOrder(int id)
+        [Route("api/CourierOrders/{id}/{status}")]
+        public IHttpActionResult PutOrder(int id, string status)
         {
             Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            db.Orders.Remove(order);
+            order.Status = status;
             db.SaveChanges();
-
-            return Ok(order);
-        }
-
-        private bool OrderExists(int id)
-        {
-            return db.Orders.Count(e => e.Id == id) > 0;
+            return StatusCode(HttpStatusCode.NoContent);
         }
     }
 }

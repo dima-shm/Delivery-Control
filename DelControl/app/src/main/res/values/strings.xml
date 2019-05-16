@@ -11,6 +11,13 @@
         <item>Занят: на обеде</item>
         <item>Завершил работу</item>
     </string-array>
+    <string-array name="order_status">
+        <item>Новый</item>
+        <item>В доставке</item>
+        <item>Получен клиентом</item>
+        <item>Оплачен</item>
+        <item>Отменен</item>
+    </string-array>
     <string name="location_tracking">Отслеживание местоположения</string>
     <string name="edit_account">Редактировать аккаунт</string>
     <string name="log_out_of_account">Выход из аккаунта</string>
@@ -47,4 +54,5 @@
     <string name="comment">Комментарий:</string>
     <string name="send">Отправить</string>
     <string name="status_of_selected_order">Статус выбранного заказа</string>
+    <string name="your_order_list_is_empty">Список Ваших заказов пуст</string>
 </resources>

@@ -116,7 +116,7 @@ namespace DelControlWeb.Controllers
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, courier);
         }
 
-        // PUT: api/CourierAccounts/5
+        // PUT: api/CourierAccounts/email/password
         [ResponseType(typeof(void))]
         [Route("api/CourierAccounts/{email}/{password}")]
         public IHttpActionResult PutUser(string email, string password, CourierAccountViewModel courier)

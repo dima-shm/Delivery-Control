@@ -12,6 +12,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminateTint="@color/colorAccent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/order_list_is_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/your_order_list_is_empty"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/third_row"
         android:layout_width="match_parent"
@@ -26,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorPrimaryDark"
             android:text="@string/status_of_selected_order"/>
 
         <Spinner
@@ -34,7 +61,8 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/spinner_selector"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:entries="@array/order_status"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -53,8 +81,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/send"
                     android:background="@drawable/button_selector"
-                    android:layout_marginBottom="5dp"
-                    android:onClick="onClickSend"/>
+                    android:layout_marginBottom="5dp"/>
 
             </LinearLayout>
 
