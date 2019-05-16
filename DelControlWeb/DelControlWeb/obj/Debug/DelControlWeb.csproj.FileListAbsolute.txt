@@ -107,11 +107,10 @@ D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\ru\System.Web.Razor.r
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\ru\System.Web.WebPages.resources.dll
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\ru\System.Web.WebPages.Deployment.resources.dll
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\bin\ru\System.Web.WebPages.Razor.resources.dll
-D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.DataMigration.resources
-D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csproj.GenerateResource.cache
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csproj.CoreCompileInputs.cache
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csproj.CopyComplete
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.dll
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.pdb
-D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.DataMigration1.resources
 D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csprojAssemblyReference.cache
+D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.Migrations.DataMigration.resources
+D:\GitHub\Delivery-Control\DelControlWeb\DelControlWeb\obj\Debug\DelControlWeb.csproj.GenerateResource.cache

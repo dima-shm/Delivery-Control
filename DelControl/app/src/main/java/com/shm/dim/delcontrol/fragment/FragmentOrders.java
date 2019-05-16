@@ -16,7 +16,7 @@ import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
 import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
 import com.shm.dim.delcontrol.model.Order;
 import com.shm.dim.delcontrol.model.OrderProduct;
-import com.shm.dim.delcontrol.model.OrdersList;
+import com.shm.dim.delcontrol.model.OrderList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,9 +57,9 @@ public class FragmentOrders extends Fragment {
     }
 
     private void initOrdersAdapter() {
-        if(OrdersList.getOrderCount() != 0) {
+        if(OrderList.getOrderCount() != 0) {
             OrdersAdapter adapter = new OrdersAdapter(getContext(),
-                    OrdersList.getOrders(),
+                    OrderList.getOrders(),
                     new OrdersAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Order order, int position) {
@@ -90,7 +90,7 @@ public class FragmentOrders extends Fragment {
     private void onRestRequestFinished(int responseCode, String responseBody) {
         if (responseCode == HttpURLConnection.HTTP_OK) {
             getOrders(responseBody);
-            Toast.makeText(getContext(), getResources().getString(R.string.complete),
+            Toast.makeText(getContext(), getResources().getString(R.string.order_list_updated),
                     Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getContext(),
@@ -102,6 +102,7 @@ public class FragmentOrders extends Fragment {
 
     private void getOrders(String responseBody) {
         try {
+            ArrayList<Order> orders = new ArrayList<>();
             JSONArray ordersArray = new JSONArray(responseBody);
             for (int i = 0; i < ordersArray.length(); i++) {
                 JSONObject order = ordersArray.getJSONObject(i);
@@ -121,12 +122,13 @@ public class FragmentOrders extends Fragment {
                     int orderId = product.getInt("OrderId");
                     String productName = product.getString("ProductName");
                     String price = product.getString("Price");
-                    String descriotion = product.getString("Descriotion");
-                    products.add(new OrderProduct(productId, orderId, productName, descriotion, price));
+                    String description = product.getString("Description");
+                    products.add(new OrderProduct(productId, orderId, productName, description, price));
                 }
-                OrdersList.addOrder(new Order(id, companyId, customerName, deliveryAddress,
+                orders.add(new Order(id, companyId, customerName, deliveryAddress,
                         deliveryDate, deliveryTime, comment, status, products));
             }
+            OrderList.setOrders(orders);
         } catch (JSONException e) {
             e.printStackTrace();
         }

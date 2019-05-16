@@ -36,6 +36,7 @@
     <string name="fill_in_all_fields">Заполните все поля</string>
     <string name="problem_with_network">Проблема с сетью</string>
     <string name="complete">Операция выполнена успешно</string>
+    <string name="order_list_updated">Список заказов обновлен</string>
     <string name="login">Вход</string>
     <string name="new_user_register_account">Новый пользователь? Зарегистрируйте аккаунт</string>
     <string name="order_number">№ заказа</string>
@@ -44,4 +45,6 @@
     <string name="delivery_date">Дата:</string>
     <string name="delivery_time">Время:</string>
     <string name="comment">Комментарий:</string>
+    <string name="send">Отправить</string>
+    <string name="status_of_selected_order">Статус выбранного заказа</string>
 </resources>

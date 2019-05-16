@@ -188,13 +188,9 @@
     <Compile Include="Context\ApplicationDbInitializer.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\ApplicationRoleManager.cs" />
-    <Compile Include="Migrations\201904221148370_DataMigration.cs" />
-    <Compile Include="Migrations\201904221148370_DataMigration.Designer.cs">
-      <DependentUpon>201904221148370_DataMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905080933440_DataMigration1.cs" />
-    <Compile Include="Migrations\201905080933440_DataMigration1.Designer.cs">
-      <DependentUpon>201905080933440_DataMigration1.cs</DependentUpon>
+    <Compile Include="Migrations\201905160802126_DataMigration.cs" />
+    <Compile Include="Migrations\201905160802126_DataMigration.Designer.cs">
+      <DependentUpon>201905160802126_DataMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
@@ -306,11 +302,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201904221148370_DataMigration.resx">
-      <DependentUpon>201904221148370_DataMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905080933440_DataMigration1.resx">
-      <DependentUpon>201905080933440_DataMigration1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905160802126_DataMigration.resx">
+      <DependentUpon>201905160802126_DataMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

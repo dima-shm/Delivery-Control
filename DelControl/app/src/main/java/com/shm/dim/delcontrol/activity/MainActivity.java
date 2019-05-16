@@ -219,17 +219,14 @@ public class MainActivity extends AppCompatActivity {
                 new RestRequestTask(new RestRequestDelegate() {
                     @Override
                     public void executionFinished(int responseCode, String responseBody) {
-                        onRestRequestFinished(responseCode, responseBody);
+                        onRestRequestFinished(responseCode);
                     }
                 });
         request.execute(url, method, body);
     }
 
-    private void onRestRequestFinished(int responseCode, String responseBody) {
-        if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-            Toast.makeText(this, getResources().getString(R.string.complete),
-                    Toast.LENGTH_LONG).show();
-        } else {
+    private void onRestRequestFinished(int responseCode) {
+        if (responseCode != HttpURLConnection.HTTP_NO_CONTENT) {
             Toast.makeText(this,
                     getResources().getString(R.string.check_network_state) +
                             " (code: " + String.valueOf(responseCode) + ")",
