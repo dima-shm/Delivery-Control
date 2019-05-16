@@ -53,8 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/send"
                     android:background="@drawable/button_selector"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="2dp"
+                    android:layout_marginBottom="5dp"
                     android:onClick="onClickSend"/>
 
             </LinearLayout>

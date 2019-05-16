@@ -39,7 +39,7 @@
     <string name="order_list_updated">Список заказов обновлен</string>
     <string name="login">Вход</string>
     <string name="new_user_register_account">Новый пользователь? Зарегистрируйте аккаунт</string>
-    <string name="order_number">№ заказа</string>
+    <string name="order_number">№ заказа:</string>
     <string name="customer_name">Заказчик:</string>
     <string name="customer_address">Адрес:</string>
     <string name="delivery_date">Дата:</string>

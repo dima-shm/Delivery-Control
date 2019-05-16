@@ -24,6 +24,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.adapter.CustomInfoWindowAdapter;
+import com.shm.dim.delcontrol.model.Order;
+import com.shm.dim.delcontrol.model.OrderList;
 import com.shm.dim.delcontrol.receiver.NetworkChangeReceiver;
 
 import java.io.IOException;
@@ -136,10 +138,13 @@ public class FragmentMap
 
     private void setMarkersOnMap() {
         if(isInternetAvailable()) {
-            LatLng location = getLatLngByAddress("Минск");
-            if (location != null) {
-                addMarker(location, R.color.colorAccentDark,
-                        "Order ID", "City, street, house number, apartment");
+            for (Order order : OrderList.getOrders()) {
+                LatLng location = getLatLngByAddress(order.getDeliveryAddress());
+                if (location != null) {
+                    addMarker(location, R.color.colorAccentDark,
+                            Integer.toString(order.getId()),
+                            order.getDeliveryAddress());
+                }
             }
         }
     }
