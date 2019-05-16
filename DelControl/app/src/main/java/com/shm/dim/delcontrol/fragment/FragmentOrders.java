@@ -1,6 +1,8 @@
 package com.shm.dim.delcontrol.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,6 +47,8 @@ public class FragmentOrders
     private Spinner mOrderStatus;
 
     private Button mSendButton;
+
+    private AlertDialog mProductsDialog;
 
     private int mSelectedOrderId;
 
@@ -102,6 +106,7 @@ public class FragmentOrders
                     new OrdersAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Order order, int position) {
+                            showOrderProduct(order);
                             mOrderStatus.setEnabled(true);
                             mSendButton.setEnabled(true);
                             setOrderStatusInSpinner(order);
@@ -113,6 +118,45 @@ public class FragmentOrders
         } else {
             mOrderListIsEmpty.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void showOrderProduct(Order order) {
+        ArrayList<OrderProducts> products = order.getOrderProducts();
+        String message = "";
+        float totalCoast = 0F;
+        for (OrderProducts product : products ) {
+            message += product.getProductName() + " (" + product.getPrice() + ")\n";
+            totalCoast += product.getPrice();
+        }
+        message += "\n" + getContext().getResources().getString(R.string.total_cost) + totalCoast;
+        if(!order.getOrderProducts().isEmpty()) {
+            showProductsDialog(getContext(), message);
+        }
+    }
+
+    private void showProductsDialog(final Context context, String message) {
+        if(mProductsDialog != null)
+            mProductsDialog.dismiss();
+        createProductsDialog(context, message);
+        mProductsDialog.show();
+    }
+
+    private void createProductsDialog(final Context context, String message) {
+        mProductsDialog
+                = getProductsDialog(context,
+                context.getResources().getString(R.string.products_in_order),
+                message);
+    }
+
+    private AlertDialog getProductsDialog(final Context context,
+                                       final String title, final String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override public void onClick(DialogInterface dialog, int which) { }
+                });
+        return builder.create();
     }
 
     private void setOrderStatusInSpinner(Order order) {
@@ -190,7 +234,7 @@ public class FragmentOrders
                     int productId = product.getInt("Id");
                     int orderId = product.getInt("OrderId");
                     String productName = product.getString("ProductName");
-                    String price = product.getString("Price");
+                    double price = product.getDouble("Price");
                     String description = product.getString("Description");
                     products.add(new OrderProducts(productId, orderId, productName, description, price));
                 }

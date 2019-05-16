@@ -10,9 +10,9 @@ public class OrderProducts {
 
     private String mDescription;
 
-    private String mPrice;
+    private double mPrice;
 
-    public OrderProducts(int id, int orderId, String productName, String description, String price) {
+    public OrderProducts(int id, int orderId, String productName, String description, double price) {
         mId = id;
         mOrderId = orderId;
         mProductName = productName;
@@ -36,7 +36,7 @@ public class OrderProducts {
         return mDescription;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return mPrice;
     }
 

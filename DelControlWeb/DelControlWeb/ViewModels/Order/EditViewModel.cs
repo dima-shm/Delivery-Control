@@ -9,8 +9,12 @@ namespace DelControlWeb.ViewModels.Order
     {
         public int OrderId { get; set; }
 
+        public string CourierId { get; set; }
+
+        [Required]
         public string CustomerName { get; set; }
 
+        [Required]
         public string DeliveryAddress { get; set; }
 
         [DataType(DataType.Date)]
@@ -21,6 +25,8 @@ namespace DelControlWeb.ViewModels.Order
         public DateTime DeliveryTime { get; set; }
 
         public string Comment { get; set; }
+
+        public string Status { get; set; }
 
         public List<OrderProducts> OrderProducts { get; set; }
     }

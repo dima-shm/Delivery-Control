@@ -7,8 +7,10 @@ namespace DelControlWeb.ViewModels.Order
 {
     public class CreateViewModel
     {
+        [Required]
         public string CustomerName { get; set; }
 
+        [Required]
         public string DeliveryAddress { get; set; }
 
         [DataType(DataType.Date)]

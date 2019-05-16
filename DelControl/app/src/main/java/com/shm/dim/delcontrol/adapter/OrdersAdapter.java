@@ -15,33 +15,34 @@ import java.util.ArrayList;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder> {
 
-    private Context context;
+    private Context mContext;
 
-    private LayoutInflater inflater;
+    private LayoutInflater mInflater;
 
-    private ArrayList<Order> orders;
+    private ArrayList<Order> mOrders;
 
-    private final OnItemClickListener listener;
+    private final OnItemClickListener mListener;
 
     private boolean[] selectItems;
 
-    public OrdersAdapter(Context context, ArrayList<Order> orders, OnItemClickListener listener) {
-        this.context = context;
-        this.orders = orders;
-        this.inflater = LayoutInflater.from(context);
-        this.listener = listener;
+    public OrdersAdapter(Context context, ArrayList<Order> orders,
+                         OnItemClickListener listener) {
+        mContext = context;
+        mInflater = LayoutInflater.from(mContext);
+        mOrders = orders;
+        mListener = listener;
         selectItems = new boolean[getItemCount()];
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.order_item, parent, false);
+        View view = mInflater.inflate(R.layout.order_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Order order = orders.get(position);
+        Order order = mOrders.get(position);
         holder.mOrderId.setText(Integer.toString(order.getId()));
         holder.mCustomerName.setText(order.getCustomerName());
         holder.mDeliveryAddress.setText(order.getDeliveryAddress());
@@ -49,7 +50,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         holder.mDeliveryTime.setText(order.getDeliveryTime());
         holder.mComment.setText(order.getComment());
         setColorItems(holder, position);
-        holder.bind(orders.get(position), listener);
+        holder.bind(mOrders.get(position));
     }
 
     private void setColorItems(final ViewHolder holder, final int position) {
@@ -61,12 +62,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     }
 
     private void setSelectedItemColor(final ViewHolder holder, int colorId) {
-        holder.mOrderItem.setBackgroundColor(context.getResources().getColor(colorId));
+        holder.mOrderItem.setBackgroundColor(mContext.getResources().getColor(colorId));
     }
 
     @Override
     public int getItemCount() {
-        return orders.size();
+        return mOrders.size();
     }
 
     public interface OnItemClickListener {
@@ -91,7 +92,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
             mComment = view.findViewById(R.id.comment);
         }
 
-        private void bind(final Order order, final OnItemClickListener listener) {
+        private void bind(final Order order) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,7 +101,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
                         selectItems[i] = false;
                     }
                     selectItems[position] = true;
-                    OrdersAdapter.this.listener.onItemClick(order, position);
+                    OrdersAdapter.this.mListener.onItemClick(order, position);
                     notifyDataSetChanged();
                 }
             });

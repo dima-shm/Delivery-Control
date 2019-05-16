@@ -53,6 +53,8 @@
     <string name="delivery_time">Время:</string>
     <string name="comment">Комментарий:</string>
     <string name="send">Отправить</string>
+    <string name="products_in_order">Товары в заказе:</string>
+    <string name="total_cost">Общая стоимость: </string>
     <string name="status_of_selected_order">Статус выбранного заказа</string>
     <string name="your_order_list_is_empty">Список Ваших заказов пуст</string>
 </resources>

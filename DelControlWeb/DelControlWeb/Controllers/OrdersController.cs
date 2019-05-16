@@ -75,7 +75,7 @@ namespace DelControlWeb.Controllers
         public async Task<ActionResult> Create(CreateViewModel model)
         {
             ModelState.Remove("Commnet");
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.OrderProducts != null)
             {
                 User currentUser = UserManager.FindById(User.Identity.GetUserId());
                 Order order = new Order
@@ -114,11 +114,13 @@ namespace DelControlWeb.Controllers
             EditViewModel model = new EditViewModel
             {
                 OrderId = order.Id,
+                CourierId = order.CourierId,
                 CustomerName = order.CustomerName,
                 DeliveryAddress = order.DeliveryAddress,
                 DeliveryDate = order.DeliveryDate,
                 DeliveryTime = order.DeliveryTime,
                 Comment = order.Comment,
+                Status = order.Status,
                 OrderProducts = orderProducts
             };
             if (order == null)
@@ -133,19 +135,21 @@ namespace DelControlWeb.Controllers
         public async Task<ActionResult> Edit(EditViewModel model)
         {
             ModelState.Remove("Commnet");
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.OrderProducts != null)
             {
                 User currentUser = UserManager.FindById(User.Identity.GetUserId());
                 Order order = new Order
                 {
                     Id = model.OrderId,
+                    CourierId = model.CourierId,
                     CompanyId = currentUser.CompanyId,
                     CustomerName = model.CustomerName,
                     DeliveryAddress = model.DeliveryAddress,
                     DeliveryDate = model.DeliveryDate,
                     DeliveryTime = model.DeliveryDate
                         .Add(new TimeSpan(0, model.DeliveryTime.Hour, model.DeliveryTime.Minute, 0)),
-                    Comment = model.Comment
+                    Comment = model.Comment,
+                    Status = model.Status
                 };
                 db.Entry(order).State = EntityState.Modified;
                 await db.SaveChangesAsync();
