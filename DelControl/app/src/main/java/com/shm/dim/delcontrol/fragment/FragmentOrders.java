@@ -67,12 +67,10 @@ public class FragmentOrders extends Fragment {
 
     private void initOrderStatusSpinner(View view) {
         mOrderStatus = view.findViewById(R.id.order_status);
-        mOrderStatus.setEnabled(false);
     }
 
     private void initSendButton(View view) {
         mSendButton = view.findViewById(R.id.send);
-        mSendButton.setEnabled(false);
         mSendButton.setOnClickListener(onClickSend());
     }
 
@@ -155,6 +153,8 @@ public class FragmentOrders extends Fragment {
                             " (code: " + String.valueOf(responseCode) + ")",
                     Toast.LENGTH_LONG).show();
         }
+        mOrderStatus.setEnabled(false);
+        mSendButton.setEnabled(false);
     }
 
     private void getOrders(String responseBody) {
