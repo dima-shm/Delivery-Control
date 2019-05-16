@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,11 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
-public class FragmentOrders extends Fragment {
+public class FragmentOrders
+        extends Fragment
+        implements SwipeRefreshLayout.OnRefreshListener {
+
+    private SwipeRefreshLayout mSwipeRefresh;
 
     private RecyclerView mOrdersList;
 
@@ -59,10 +64,16 @@ public class FragmentOrders extends Fragment {
     private void initComponents(View view) {
         mProgressBar = view.findViewById(R.id.progress);
         mOrderListIsEmpty = view.findViewById(R.id.order_list_is_empty);
+        initSwipeRefresh(view);
         mOrdersList = view.findViewById(R.id.orders_list);
         initOrderList();
         initOrderStatusSpinner(view);
         initSendButton(view);
+    }
+
+    private void initSwipeRefresh(View view) {
+        mSwipeRefresh = view.findViewById(R.id.swipe_refresh);
+        mSwipeRefresh.setOnRefreshListener(this);
     }
 
     private void initOrderStatusSpinner(View view) {
@@ -78,7 +89,6 @@ public class FragmentOrders extends Fragment {
         mSharedPreferences = this.getActivity()
                 .getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
         String courierId = mSharedPreferences.getString(AССOUNT_ID, "");
-        mProgressBar.setVisibility(View.VISIBLE);
         sendRestRequest("http://192.168.43.234:46002/api/CourierOrders/" + courierId,
                 "GET",
                 "");
@@ -99,6 +109,7 @@ public class FragmentOrders extends Fragment {
                         }
                     });
             mOrdersList.setAdapter(adapter);
+            mSwipeRefresh.setRefreshing(false);
         } else {
             mOrderListIsEmpty.setVisibility(View.VISIBLE);
         }
@@ -153,6 +164,7 @@ public class FragmentOrders extends Fragment {
                             " (code: " + String.valueOf(responseCode) + ")",
                     Toast.LENGTH_LONG).show();
         }
+        mSwipeRefresh.setRefreshing(false);
         mOrderStatus.setEnabled(false);
         mSendButton.setEnabled(false);
     }
@@ -192,4 +204,8 @@ public class FragmentOrders extends Fragment {
         initOrdersAdapter();
     }
 
+    @Override
+    public void onRefresh() {
+        initOrderList();
+    }
 }

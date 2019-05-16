@@ -23,7 +23,7 @@ namespace DelControlWeb.Controllers
         {
             List<CourierOrder> courierOrders = new List<CourierOrder>();
             List<Order> orders = db.Orders.Where(o => o.CourierId == id &&
-                (!o.Status.Equals("Оплачен") || o.Status.Equals("Отменен"))).ToList();
+                !o.Status.Equals("Оплачен") && !o.Status.Equals("Отменен")).ToList();
             foreach(Order order in orders)
             {
                 courierOrders.Add(new CourierOrder
