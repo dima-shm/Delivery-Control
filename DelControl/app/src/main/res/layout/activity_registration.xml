@@ -36,18 +36,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                style="@style/EditText"
                 android:hint="@string/company_id"/>
 
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/EditText"
                 android:hint="@string/name"/>
 
             <EditText
                 android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/EditText"
                 android:hint="@string/address"/>
 
             <EditText
@@ -55,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+                style="@style/EditText"
                 android:hint="@string/email_address"/>
 
             <LinearLayout
@@ -67,6 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:focusable="false"
+                    style="@style/EditText"
                     android:text="@string/phone_prefix"/>
 
                 <EditText
@@ -76,6 +81,7 @@
                     android:inputType="number"
                     android:maxLength="2"
                     android:textAlignment="center"
+                    style="@style/EditText"
                     android:hint="@string/code"/>
 
                 <EditText
@@ -84,6 +90,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:maxLength="7"
+                    style="@style/EditText"
                     android:hint="@string/phone_number"/>
 
             </LinearLayout>
@@ -93,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                style="@style/EditText"
                 android:hint="@string/password"/>
 
             <EditText
@@ -100,6 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                style="@style/EditText"
                 android:hint="@string/confirm_password"/>
 
             <RelativeLayout

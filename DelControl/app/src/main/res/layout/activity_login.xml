@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+                style="@style/EditText"
                 android:hint="@string/email_address"/>
 
             <EditText
@@ -43,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                style="@style/EditText"
                 android:hint="@string/password"/>
 
             <RelativeLayout
