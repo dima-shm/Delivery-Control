@@ -16,6 +16,7 @@ import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
 import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
 import com.shm.dim.delcontrol.model.Order;
 import com.shm.dim.delcontrol.model.OrderProduct;
+import com.shm.dim.delcontrol.model.OrdersList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,8 +33,6 @@ public class FragmentOrders extends Fragment {
 
     private static final String AССOUNT_PREFERENCES = "ACCOUNT_INFO",
             AССOUNT_ID = "AССOUNT_ID";
-
-    private ArrayList<Order> mOrders;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,9 +57,9 @@ public class FragmentOrders extends Fragment {
     }
 
     private void initOrdersAdapter() {
-        if(mOrders.size() != 0) {
+        if(OrdersList.getOrderCount() != 0) {
             OrdersAdapter adapter = new OrdersAdapter(getContext(),
-                    mOrders,
+                    OrdersList.getOrders(),
                     new OrdersAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Order order, int position) {
@@ -102,7 +101,6 @@ public class FragmentOrders extends Fragment {
     }
 
     private void getOrders(String responseBody) {
-        mOrders = new ArrayList<>();
         try {
             JSONArray ordersArray = new JSONArray(responseBody);
             for (int i = 0; i < ordersArray.length(); i++) {
@@ -125,7 +123,7 @@ public class FragmentOrders extends Fragment {
                     String descriotion = product.getString("Descriotion");
                     products.add(new OrderProduct(id, orderId, productName, descriotion, price));
                 }
-                mOrders.add(new Order(companyId, customerName, deliveryAddress,
+                OrdersList.addOrder(new Order(companyId, customerName, deliveryAddress,
                         deliveryDate, deliveryTime, comment, status, products));
             }
         } catch (JSONException e) {
