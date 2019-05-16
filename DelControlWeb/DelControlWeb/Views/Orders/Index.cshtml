@@ -18,16 +18,23 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
+        <tr onclick="window.location.href='/Orders/Details/@item.Id'">
             <td>@item.Id</td>
             <td>@item.CustomerName</td>
             <td>@item.DeliveryAddress</td>
             <td>@item.DeliveryDate.ToString("d"), @item.DeliveryTime.ToString("t")</td>
-            <td><a href="/UserAccounts/Details/@item.CourierId"> @item.CourierId </a></td>
-            <td>@item.Status</td>
             <td>
-                <a href="/Orders/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="color: green; text-decoration: none" />
-                <a href="/Orders/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="color: cornflowerblue; text-decoration: none" />
+                @if (item.CourierId != null)
+                {
+                    <p style="color: green">Назначен</p>
+                }
+                else
+                {
+                    <p style="color: red">Не назначен (<a href="/Couriers">назначить</a>)</p>
+                }
+            </td>
+            <td><p style="color: #12B2D4">@item.Status</p></td>
+            <td>
                 <a href="/Orders/Delete/@item.Id" class="glyphicon glyphicon-trash" style="color: red; text-decoration: none" />
             </td>
         </tr>

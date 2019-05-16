@@ -14,7 +14,7 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
+        <tr onclick="window.location.href='/UserAccounts/Details/@item.Id'">
             <td>
                 <a href="/CompanyAccounts/Details/@item.CompanyId">@item.CompanyId</a>
             </td>
@@ -23,9 +23,7 @@
             <td>@item.Address</td>
             <td>@item.Email</td>
             <td>
-                <a href="/UserAccounts/Edit/@item.Id" class="glyphicon glyphicon-pencil" style="color: green; text-decoration: none"/>
-                <a href="/UserAccounts/Details/@item.Id" class="glyphicon glyphicon-eye-open" style="color: cornflowerblue; text-decoration: none"/>
-                <a href="/UserAccounts/Delete/@item.Id" class="glyphicon glyphicon-trash" style="color: red; text-decoration: none"/>
+                <a href="/UserAccounts/Delete/@item.Id" class="glyphicon glyphicon-trash" style="color: red; text-decoration: none" />
             </td>
         </tr>
     }

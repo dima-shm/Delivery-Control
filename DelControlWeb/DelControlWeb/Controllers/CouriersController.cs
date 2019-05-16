@@ -32,7 +32,11 @@ namespace DelControlWeb.Controllers
             User currentUser = UserManager.FindById(User.Identity.GetUserId());
             var role = db.Roles.First(r => r.Name == roleName);
             var couriers = db.Users.Where(u => u.Roles.Any(r => r.RoleId == role.Id) && 
-                u.CompanyId == currentUser.CompanyId);
+                u.CompanyId == currentUser.CompanyId).ToList();
+            foreach(User user in couriers)
+            {
+                user.Status = db.CourierInfoes.First(c => c.CourierId == user.Id).Status;
+            }
             return View(couriers);
         }
 

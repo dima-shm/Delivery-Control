@@ -86,7 +86,8 @@ namespace DelControlWeb.Controllers
                     DeliveryDate = model.DeliveryDate,
                     DeliveryTime = model.DeliveryDate
                         .Add(new TimeSpan(0, model.DeliveryTime.Hour, model.DeliveryTime.Minute, 0)),
-                    Comment = model.Comment
+                    Comment = model.Comment,
+                    Status = "Новый"
                 };
                 db.Orders.Add(order);
                 await db.SaveChangesAsync();

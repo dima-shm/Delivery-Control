@@ -41,18 +41,29 @@ else
             $.getJSON('@Url.Action("", "api/CourierInfoes/" + Model.CompanyId)', function (data) {
                     $.each(data, function (i, item) {
                         $("#couriers_list").append("<a href='#' data-id='" + item.Name + "'>" + item.Name + "</a><br />" +
-                            "<span style='color: green'>" + item.Status + "</span><hr />");
+                            "<span style='color: green'>" + item.Status + "</span><br />" +
+                            "<a href='/Couriers/SelectOrder?companyId=" + @Model.CompanyId + "&courierId=" + item.Id + "' style='color: #12B2D4;'>Назначить заказ</a><hr />");
                         var marker = new google.maps.Marker({
                             'position': new google.maps.LatLng(item.Latitude, item.Longitude),
                             'map': map,
                             'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
                         });
+                        var dateTimeOptions = {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            weekday: 'long',
+                            timezone: 'UTC',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            second: 'numeric'
+                        };
                         var infowindow = new google.maps.InfoWindow({
                             content: "<div class='infoWindow'>" +
-                                "<h6>Имя: " + item.Name + "</h6><br />" +
-                                "<h8>Статус: " + item.Status + "</h8><br />" +
+                                "<h6>" + item.Name + "</h6><br />" +
+                                "<h8 style='color: green'>Статус: " + item.Status + "</h8><br />" +
                                 "<h8>Скорость: " + item.Speed + "</h8><br />" +
-                                "<h8>Время: " + item.Time + "</h8>"
+                                "<h8>Время: " + new Date(item.Time).toLocaleString("ru", dateTimeOptions) + "</h8>"
                         });
                         google.maps.event.addListener(marker, 'click', function () {
                             activeInfoWindow && activeInfoWindow.close();
