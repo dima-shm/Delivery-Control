@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shm.dim.delcontrol.R;
@@ -53,14 +54,14 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
     private void setColorItems(final ViewHolder holder, final int position) {
         if(selectItems[position]) {
-            setSelectedItemColor(holder, R.color.colorAccent);
+            setSelectedItemColor(holder, R.color.colorPrimaryLight);
         } else {
-            setSelectedItemColor(holder, R.color.colorAlpha);
+            setSelectedItemColor(holder, R.color.colorWhite);
         }
     }
 
     private void setSelectedItemColor(final ViewHolder holder, int colorId) {
-        holder.itemView.setBackgroundColor(context.getResources().getColor(colorId));
+        holder.mOrderItem.setBackgroundColor(context.getResources().getColor(colorId));
     }
 
     @Override
@@ -74,11 +75,14 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        private RelativeLayout mOrderItem;
+
         private final TextView mOrderId, mCustomerName, mDeliveryAddress,
                 mDeliveryDate, mDeliveryTime, mComment;
 
         private ViewHolder(View view) {
             super(view);
+            mOrderItem = view.findViewById(R.id.order_item);
             mOrderId = view.findViewById(R.id.order_id);
             mCustomerName = view.findViewById(R.id.customer_name);
             mDeliveryAddress = view.findViewById(R.id.delivery_address);

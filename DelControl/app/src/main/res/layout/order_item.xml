@@ -11,6 +11,7 @@
         card_view:cardCornerRadius="10dp">
 
         <RelativeLayout
+            android:id="@+id/order_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp">
