@@ -21,7 +21,6 @@ import com.shm.dim.delcontrol.R;
 import com.shm.dim.delcontrol.adapter.ViewPagerAdapter;
 import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
 import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
-import com.shm.dim.delcontrol.fragment.FragmentChat;
 import com.shm.dim.delcontrol.fragment.FragmentMap;
 import com.shm.dim.delcontrol.fragment.FragmentMenu;
 import com.shm.dim.delcontrol.fragment.FragmentOrders;
@@ -86,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     private void addFragmentsToAdapter(ViewPagerAdapter adapter ) {
         adapter.addFragment(new FragmentMap());
         adapter.addFragment(new FragmentOrders());
-        adapter.addFragment(new FragmentChat());
         adapter.addFragment(new FragmentMenu());
     }
 

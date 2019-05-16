@@ -1,6 +1,6 @@
 package com.shm.dim.delcontrol.model;
 
-public class OrderProduct {
+public class OrderProducts {
 
     private int mId;
 
@@ -8,15 +8,15 @@ public class OrderProduct {
 
     private String mProductName;
 
-    private String mDescriotion;
+    private String mDescription;
 
     private String mPrice;
 
-    public OrderProduct(int id, int orderId, String productName, String descriotion, String price) {
+    public OrderProducts(int id, int orderId, String productName, String description, String price) {
         mId = id;
         mOrderId = orderId;
         mProductName = productName;
-        mDescriotion = descriotion;
+        mDescription = description;
         mPrice = price;
     }
 
@@ -32,8 +32,8 @@ public class OrderProduct {
         return mProductName;
     }
 
-    public String getDescriotion() {
-        return mDescriotion;
+    public String getDescription() {
+        return mDescription;
     }
 
     public String getPrice() {

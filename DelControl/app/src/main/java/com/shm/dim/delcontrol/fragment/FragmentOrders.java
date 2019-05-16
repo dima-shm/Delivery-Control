@@ -15,7 +15,7 @@ import com.shm.dim.delcontrol.adapter.OrdersAdapter;
 import com.shm.dim.delcontrol.asyncTask.RestRequestDelegate;
 import com.shm.dim.delcontrol.asyncTask.RestRequestTask;
 import com.shm.dim.delcontrol.model.Order;
-import com.shm.dim.delcontrol.model.OrderProduct;
+import com.shm.dim.delcontrol.model.OrderProducts;
 import com.shm.dim.delcontrol.model.OrderList;
 
 import org.json.JSONArray;
@@ -115,7 +115,7 @@ public class FragmentOrders extends Fragment {
                 String comment = order.getString("Comment");
                 String status = order.getString("Status");
                 JSONArray orderProducts = order.getJSONArray("OrderProducts");
-                ArrayList<OrderProduct> products = new ArrayList<>();
+                ArrayList<OrderProducts> products = new ArrayList<>();
                 for (int j = 0; j < orderProducts.length(); j++) {
                     JSONObject product = orderProducts.getJSONObject(j);
                     int productId = product.getInt("Id");
@@ -123,7 +123,7 @@ public class FragmentOrders extends Fragment {
                     String productName = product.getString("ProductName");
                     String price = product.getString("Price");
                     String description = product.getString("Description");
-                    products.add(new OrderProduct(productId, orderId, productName, description, price));
+                    products.add(new OrderProducts(productId, orderId, productName, description, price));
                 }
                 orders.add(new Order(id, companyId, customerName, deliveryAddress,
                         deliveryDate, deliveryTime, comment, status, products));

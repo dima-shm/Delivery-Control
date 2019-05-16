@@ -20,11 +20,11 @@ public class Order {
 
     private String mStatus;
 
-    private ArrayList<OrderProduct> mOrderProducts;
+    private ArrayList<OrderProducts> mOrderProducts;
 
     public Order(int id, int companyId, String customerName, String deliveryAddress,
                  String deliveryDate, String deliveryTime, String comment,
-                 String status, ArrayList<OrderProduct> orderProducts) {
+                 String status, ArrayList<OrderProducts> orderProducts) {
         mId = id;
         mCompanyId = companyId;
         mCustomerName = customerName;
@@ -68,7 +68,7 @@ public class Order {
         return mStatus;
     }
 
-    public ArrayList<OrderProduct> getOrderProducts() {
+    public ArrayList<OrderProducts> getOrderProducts() {
         return mOrderProducts;
     }
 
