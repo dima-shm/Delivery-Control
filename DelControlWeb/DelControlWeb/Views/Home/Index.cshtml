@@ -38,7 +38,8 @@ else
             var map = new google.maps.Map(document.getElementById("google_map"), mapOptions);
             var mapMarkers = {};
             var activeInfoWindow;
-            $.getJSON('@Url.Action("", "api/CourierInfoes/" + Model.CompanyId)', function (data) {
+            if (@Model != null) {
+                $.getJSON('@Url.Action("", "api/CourierInfoes/" + Model.CompanyId)', function (data) {
                     $.each(data, function (i, item) {
                         $("#couriers_list").append("<a href='#' data-id='" + item.Name + "'>" + item.Name + "</a><br />" +
                             "<span style='color: green'>" + item.Status + "</span><hr />");
@@ -69,6 +70,7 @@ else
                         }
                     });
                 });
+            }
         }
     </script>
 }

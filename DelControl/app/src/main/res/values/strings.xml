@@ -38,4 +38,10 @@
     <string name="complete">Операция выполнена успешно</string>
     <string name="login">Вход</string>
     <string name="new_user_register_account">Новый пользователь? Зарегистрируйте аккаунт</string>
+    <string name="order_number">№ заказа</string>
+    <string name="customer_name">Заказчик:</string>
+    <string name="customer_address">Адрес:</string>
+    <string name="delivery_date">Дата:</string>
+    <string name="delivery_time">Время:</string>
+    <string name="comment">Комментарий:</string>
 </resources>

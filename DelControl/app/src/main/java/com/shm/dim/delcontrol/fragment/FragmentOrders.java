@@ -105,6 +105,7 @@ public class FragmentOrders extends Fragment {
             JSONArray ordersArray = new JSONArray(responseBody);
             for (int i = 0; i < ordersArray.length(); i++) {
                 JSONObject order = ordersArray.getJSONObject(i);
+                int id = order.getInt("Id");
                 int companyId = order.getInt("CompanyId");
                 String customerName = order.getString("CustomerName");
                 String deliveryAddress = order.getString("DeliveryAddress");
@@ -116,14 +117,14 @@ public class FragmentOrders extends Fragment {
                 ArrayList<OrderProduct> products = new ArrayList<>();
                 for (int j = 0; j < orderProducts.length(); j++) {
                     JSONObject product = orderProducts.getJSONObject(j);
-                    int id = product.getInt("Id");
+                    int productId = product.getInt("Id");
                     int orderId = product.getInt("OrderId");
                     String productName = product.getString("ProductName");
                     String price = product.getString("Price");
                     String descriotion = product.getString("Descriotion");
-                    products.add(new OrderProduct(id, orderId, productName, descriotion, price));
+                    products.add(new OrderProduct(productId, orderId, productName, descriotion, price));
                 }
-                OrdersList.addOrder(new Order(companyId, customerName, deliveryAddress,
+                OrdersList.addOrder(new Order(id, companyId, customerName, deliveryAddress,
                         deliveryDate, deliveryTime, comment, status, products));
             }
         } catch (JSONException e) {

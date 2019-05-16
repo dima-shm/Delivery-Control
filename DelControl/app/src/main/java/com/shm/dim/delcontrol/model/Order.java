@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Order {
 
+    private int mId;
+
     private int mCompanyId;
 
     private String mCustomerName;
@@ -20,9 +22,10 @@ public class Order {
 
     private ArrayList<OrderProduct> mOrderProducts;
 
-    public Order(int companyId, String customerName, String deliveryAddress,
+    public Order(int id, int companyId, String customerName, String deliveryAddress,
                  String deliveryDate, String deliveryTime, String comment,
                  String status, ArrayList<OrderProduct> orderProducts) {
+        mId = id;
         mCompanyId = companyId;
         mCustomerName = customerName;
         mDeliveryAddress = deliveryAddress;
@@ -31,6 +34,10 @@ public class Order {
         mComment = comment;
         mStatus = status;
         mOrderProducts = orderProducts;
+    }
+
+    public int getId() {
+        return mId;
     }
 
     public int getCompanyId() {
