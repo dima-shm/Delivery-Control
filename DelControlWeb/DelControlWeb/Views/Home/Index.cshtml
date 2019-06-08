@@ -38,11 +38,11 @@ else
             var map = new google.maps.Map(document.getElementById("google_map"), mapOptions);
             var mapMarkers = {};
             var activeInfoWindow;
-            $.getJSON('@Url.Action("", "api/CourierInfoes/" + Model.CompanyId)', function (data) {
+                $.getJSON('@Url.Action("", "api/CourierInfoes/" + (Model == null ? 0 : Model.CompanyId))', function (data) {
                     $.each(data, function (i, item) {
                         $("#couriers_list").append("<a href='#' data-id='" + item.Name + "'>" + item.Name + "</a><br />" +
                             "<span style='color: green'>" + item.Status + "</span><br />" +
-                            "<a href='/Couriers/SelectOrder?companyId=" + @Model.CompanyId + "&courierId=" + item.Id + "' style='color: #12B2D4;'>Назначить заказ</a><hr />");
+                            "<a href='/Couriers/SelectOrder?companyId=" + @(Model == null ? 0 : Model.CompanyId) + "&courierId=" + item.Id + "' style='color: #12B2D4;'>Назначить заказ</a><hr />");
                         var marker = new google.maps.Marker({
                             'position': new google.maps.LatLng(item.Latitude, item.Longitude),
                             'map': map,
