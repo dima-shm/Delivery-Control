@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     private void sendCourierInfo() {
         String body = getJsonUserInfo();
         if(body != null) {
-            sendRestRequest("http://192.168.43.234:46002/api/CourierInfoes/",
+            sendRestRequest("http://delcontrol.somee.com/api/CourierInfoes/",
                     "PUT",
                     body);
         }

@@ -119,7 +119,7 @@ public class RegistrationActivity extends AppCompatActivity {
             } else if (!isEmailFormatCorrect(email)) {
                 createDialogMsg(getResources().getString(R.string.check_email_address));
             } else {
-                sendRestRequest("http://192.168.43.234:46002/api/CourierAccounts/",
+                sendRestRequest("http://delcontrol.somee.com/api/CourierAccounts/",
                         "POST",
                         getJsonUser(companyId, name, address, email, phoneNumber, password));
             }

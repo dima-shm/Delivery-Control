@@ -93,7 +93,7 @@ public class FragmentOrders
         mSharedPreferences = this.getActivity()
                 .getSharedPreferences(AССOUNT_PREFERENCES, Context.MODE_PRIVATE);
         String courierId = mSharedPreferences.getString(AССOUNT_ID, "");
-        sendRestRequest("http://192.168.43.234:46002/api/CourierOrders/" + courierId,
+        sendRestRequest("http://delcontrol.somee.com/api/CourierOrders/" + courierId,
                 "GET",
                 "");
     }
@@ -174,7 +174,7 @@ public class FragmentOrders
             public void onClick(View view) {
                 mProgressBar.setVisibility(View.VISIBLE);
                 String[] orderStatus = getResources().getStringArray(R.array.order_status);
-                sendRestRequest("http://192.168.43.234:46002/api/CourierOrders/" +
+                sendRestRequest("http://delcontrol.somee.com/api/CourierOrders/" +
                                 mSelectedOrderId + "/" +
                                 orderStatus[mOrderStatus.getSelectedItemPosition()],
                         "PUT",

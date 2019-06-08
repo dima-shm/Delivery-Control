@@ -158,7 +158,7 @@ public class FragmentMenu extends Fragment {
     }
 
     private void sendCourierStatus(String statusName) {
-        sendRestRequest("http://192.168.43.234:46002/api/CourierInfoes/",
+        sendRestRequest("http://delcontrol.somee.com/api/CourierInfoes/",
                 "PUT",
                 getJsonUserInfo(statusName));
     }
